@@ -1,1 +1,1 @@
-document.querySelectorAll('a[href="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();alert('ここはASP提携後に広告リンクへ差し替えてください。');});});
+document.documentElement.classList.add('js-enabled');
