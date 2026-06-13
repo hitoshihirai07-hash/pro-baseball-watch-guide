@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://pro-baseball-watch-guide.pages.dev/</loc><lastmod>2026-06-12</lastmod></url>
-  <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/</loc><lastmod>2026-06-12</lastmod></url>
+  <url><loc>https://pro-baseball-watch-guide.pages.dev/</loc><lastmod>2026-06-13</lastmod></url>
+  <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/</loc><lastmod>2026-06-13</lastmod></url>
   <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/admin-profile.html</loc><lastmod>2026-06-09</lastmod></url>
-  <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/teams.html</loc><lastmod>2026-06-12</lastmod></url>
+  <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/teams.html</loc><lastmod>2026-06-13</lastmod></url>
   <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/yomiuri-giants-guide.html</loc><lastmod>2026-06-09</lastmod></url>
   <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/hanshin-tigers-guide.html</loc><lastmod>2026-06-09</lastmod></url>
   <url><loc>https://pro-baseball-watch-guide.pages.dev/articles/yokohama-dena-baystars-guide.html</loc><lastmod>2026-06-10</lastmod></url>
@@ -36,6 +36,14 @@
   </url>
   <url>
     <loc>https://pro-baseball-watch-guide.pages.dev/articles/kyocera-dome-osaka-guide.html</loc>
+    <lastmod>2026-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://pro-baseball-watch-guide.pages.dev/articles/seibu-lions-guide.html</loc>
+    <lastmod>2026-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://pro-baseball-watch-guide.pages.dev/articles/belluna-dome-guide.html</loc>
     <lastmod>2026-06-13</lastmod>
   </url>
 </urlset>
