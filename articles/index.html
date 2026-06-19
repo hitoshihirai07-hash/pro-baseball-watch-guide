@@ -58,6 +58,35 @@
   </div>
 </section>
 
+<section class="container section article-search-section" aria-labelledby="article-index-search-title">
+  <div class="article-search-box" data-article-search>
+    <div class="article-search-head">
+      <div>
+        <p class="eyebrow">Search</p>
+        <h2 id="article-index-search-title">記事検索</h2>
+        <p>球団名、球場名、観戦目的、SNS投稿テンプレなどから関連記事を絞り込めます。</p>
+      </div>
+    </div>
+    <label class="search-label" for="article-index-search-input">記事検索</label>
+    <div class="article-search-input-row">
+      <input id="article-index-search-input" class="article-search-input" type="search" placeholder="例：日本ハム、エスコン、暑さ対策、Bluesky" autocomplete="off" data-article-search-input>
+      <button class="article-search-clear" type="button" data-article-search-clear>クリア</button>
+    </div>
+    <div class="search-suggestion-list" aria-label="検索例">
+      <button type="button" data-search-suggestion="日本ハム">日本ハム</button>
+      <button type="button" data-search-suggestion="エスコン">エスコン</button>
+      <button type="button" data-search-suggestion="横浜スタジアム">横浜スタジアム</button>
+      <button type="button" data-search-suggestion="雨">雨</button>
+      <button type="button" data-search-suggestion="暑さ対策">暑さ対策</button>
+      <button type="button" data-search-suggestion="SNS">SNS</button>
+      <button type="button" data-search-suggestion="ブログ">ブログ</button>
+      <button type="button" data-search-suggestion="プレゼント">プレゼント</button>
+    </div>
+    <div class="article-search-status" data-article-search-status>キーワードを入れると記事候補が表示されます。</div>
+    <div class="article-search-results" data-article-search-results></div>
+  </div>
+</section>
+
 <section id="article-guide" class="container section">
   <div class="section-title"><p class="eyebrow">Start</p><h2>迷ったらこの順番で読む</h2></div>
   <div class="card-grid four">

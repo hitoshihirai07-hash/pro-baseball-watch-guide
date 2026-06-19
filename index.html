@@ -66,6 +66,35 @@
   </div>
 </section>
 
+<section class="container section article-search-section" aria-labelledby="top-article-search-title">
+  <div class="article-search-box" data-article-search>
+    <div class="article-search-head">
+      <div>
+        <p class="eyebrow">Search</p>
+        <h2 id="top-article-search-title">記事を探す</h2>
+        <p>球団名・球場名・配信・持ち物・SNS投稿など、気になる言葉で記事を探せます。</p>
+      </div>
+    </div>
+    <label class="search-label" for="top-article-search-input">記事検索</label>
+    <div class="article-search-input-row">
+      <input id="top-article-search-input" class="article-search-input" type="search" placeholder="例：巨人、東京ドーム、配信、試合後、雨" autocomplete="off" data-article-search-input>
+      <button class="article-search-clear" type="button" data-article-search-clear>クリア</button>
+    </div>
+    <div class="search-suggestion-list" aria-label="検索例">
+      <button type="button" data-search-suggestion="巨人">巨人</button>
+      <button type="button" data-search-suggestion="東京ドーム">東京ドーム</button>
+      <button type="button" data-search-suggestion="甲子園">甲子園</button>
+      <button type="button" data-search-suggestion="配信">配信</button>
+      <button type="button" data-search-suggestion="持ち物">持ち物</button>
+      <button type="button" data-search-suggestion="SNS投稿">SNS投稿</button>
+      <button type="button" data-search-suggestion="試合後">試合後</button>
+      <button type="button" data-search-suggestion="遠征">遠征</button>
+    </div>
+    <div class="article-search-status" data-article-search-status>キーワードを入れると記事候補が表示されます。</div>
+    <div class="article-search-results" data-article-search-results></div>
+  </div>
+</section>
+
 <section id="start-flow" class="container section">
   <div class="section-title"><p class="eyebrow">Start</p><h2>初めての人向けの読み進め方</h2></div>
   <div class="card-grid three">
