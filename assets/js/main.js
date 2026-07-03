@@ -125,34 +125,43 @@ document.addEventListener('DOMContentLoaded', function () {
       var items = Array.prototype.slice.call(section.querySelectorAll('[data-watch-note-item]'));
       var status = section.querySelector('[data-watch-note-status]');
       var empty = section.querySelector('[data-watch-note-empty]');
-      if (!filters || !items.length) return;
+      if (!filters || !items.length || filters.getAttribute('data-watch-note-ready') === 'true') return;
+
+      filters.setAttribute('data-watch-note-ready', 'true');
+      var buttons = Array.prototype.slice.call(filters.querySelectorAll('[data-watch-note-filter-value]'));
 
       function applyFilter(value, label) {
         var shown = 0;
         items.forEach(function (item) {
-          var tags = (item.getAttribute('data-watch-note-tags') || '').split(/\s+/);
+          var tags = (item.getAttribute('data-watch-note-tags') || '').split(/\s+/).filter(Boolean);
           var matches = value === 'all' || tags.indexOf(value) !== -1;
           item.hidden = !matches;
+          item.setAttribute('aria-hidden', matches ? 'false' : 'true');
           if (matches) shown += 1;
         });
-        filters.querySelectorAll('[data-watch-note-filter-value]').forEach(function (button) {
+
+        buttons.forEach(function (button) {
           var active = button.getAttribute('data-watch-note-filter-value') === value;
           button.classList.toggle('is-active', active);
           button.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
+
         if (empty) empty.hidden = shown !== 0;
         if (status) {
-          status.textContent = shown
-            ? (value === 'all' ? 'すべての観戦メモを表示しています。' : label + 'の観戦メモを表示しています。')
-            : label + 'の観戦メモは、まだありません。';
+          status.textContent = value === 'all'
+            ? 'すべての観戦メモを' + shown + '件表示しています。'
+            : label + 'の観戦メモを' + shown + '件表示しています。';
         }
       }
 
-      filters.querySelectorAll('[data-watch-note-filter-value]').forEach(function (button) {
-        button.addEventListener('click', function () {
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
           applyFilter(button.getAttribute('data-watch-note-filter-value') || 'all', button.textContent.trim());
         });
       });
+
+      applyFilter('all', 'すべて');
     });
   }
 
