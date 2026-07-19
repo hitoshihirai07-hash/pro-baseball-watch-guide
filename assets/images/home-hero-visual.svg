@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 430" role="img" aria-labelledby="title desc">
+<title id="title">野球観戦メモとデータのイラスト</title>
+<desc id="desc">野球ボール、メモ帳、棒グラフと折れ線グラフを組み合わせた青色のイラスト</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fbff"/><stop offset="1" stop-color="#e7f2ff"/></linearGradient>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b315f"/><stop offset="1" stop-color="#174f8b"/></linearGradient>
+</defs>
+<rect width="680" height="430" rx="34" fill="url(#bg)"/>
+<path d="M0 326L205 430H0Z" fill="#082e5c"/>
+<path d="M0 298L245 430H212L0 319Z" fill="#6da2da" opacity=".7"/>
+<g opacity=".35" fill="#6da2da"><circle cx="30" cy="28" r="5"/><circle cx="54" cy="28" r="5"/><circle cx="78" cy="28" r="5"/><circle cx="102" cy="28" r="5"/><circle cx="126" cy="28" r="5"/><circle cx="150" cy="28" r="5"/><circle cx="174" cy="28" r="5"/><circle cx="30" cy="52" r="5"/><circle cx="54" cy="52" r="5"/><circle cx="78" cy="52" r="5"/><circle cx="102" cy="52" r="5"/><circle cx="126" cy="52" r="5"/><circle cx="150" cy="52" r="5"/><circle cx="174" cy="52" r="5"/><circle cx="30" cy="76" r="5"/><circle cx="54" cy="76" r="5"/><circle cx="78" cy="76" r="5"/><circle cx="102" cy="76" r="5"/><circle cx="126" cy="76" r="5"/><circle cx="150" cy="76" r="5"/><circle cx="174" cy="76" r="5"/><circle cx="30" cy="100" r="5"/><circle cx="54" cy="100" r="5"/><circle cx="78" cy="100" r="5"/><circle cx="102" cy="100" r="5"/><circle cx="126" cy="100" r="5"/><circle cx="150" cy="100" r="5"/><circle cx="174" cy="100" r="5"/></g>
+<g>
+  <circle cx="180" cy="220" r="112" fill="#fff" stroke="#0b315f" stroke-width="8"/>
+  <rect x="111" y="232" width="18" height="54" rx="4" fill="#79a9de"/>
+  <rect x="138" y="207" width="18" height="79" rx="4" fill="#4c86c5"/>
+  <rect x="165" y="177" width="18" height="109" rx="4" fill="#0b315f"/>
+  <path d="M116 197l34-28 31 13 33-44" fill="none" stroke="#0b315f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#0b315f"><circle cx="116" cy="197" r="6"/><circle cx="150" cy="169" r="6"/><circle cx="181" cy="182" r="6"/><circle cx="214" cy="138" r="6"/></g>
+  <g transform="translate(188 190) rotate(-38)"><rect x="0" y="0" width="116" height="22" rx="11" fill="url(#navy)"/><circle cx="7" cy="11" r="11" fill="#0b315f"/></g>
+  <rect x="184" y="246" width="70" height="78" rx="9" fill="#fff" stroke="#0b315f" stroke-width="6"/>
+  <path d="M201 267l7 7 12-15M201 289l7 7 12-15" fill="none" stroke="#0b315f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M228 270h14M228 292h14" stroke="#6da2da" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="205" cy="137" r="43" fill="#fff" stroke="#0b315f" stroke-width="5"/>
+  <path d="M188 102c16 14 18 50 0 69M222 102c-16 14-18 50 0 69" fill="none" stroke="#d34b39" stroke-width="4" stroke-dasharray="5 5"/>
+</g>
+<g transform="translate(390 55)">
+  <rect width="220" height="250" rx="22" fill="#fff" stroke="#c8ddf4" stroke-width="3"/>
+  <rect x="72" y="-12" width="78" height="25" rx="8" fill="#0b315f"/>
+  <rect x="28" y="42" width="164" height="13" rx="6" fill="#0b315f" opacity=".92"/>
+  <rect x="28" y="73" width="120" height="9" rx="4" fill="#9bbce0"/>
+  <rect x="28" y="96" width="150" height="9" rx="4" fill="#d4e4f5"/>
+  <g transform="translate(28 130)">
+    <rect x="0" y="54" width="18" height="34" rx="4" fill="#9bbce0"/><rect x="28" y="38" width="18" height="50" rx="4" fill="#6da2da"/><rect x="56" y="21" width="18" height="67" rx="4" fill="#3979ba"/><rect x="84" y="4" width="18" height="84" rx="4" fill="#0b315f"/>
+    <path d="M0 46l32-14 30 8 38-34 44 10" fill="none" stroke="#0b315f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#0b315f"><circle cx="0" cy="46" r="5"/><circle cx="32" cy="32" r="5"/><circle cx="62" cy="40" r="5"/><circle cx="100" cy="6" r="5"/><circle cx="144" cy="16" r="5"/></g>
+  </g>
+</g>
+<g transform="translate(514 294)">
+  <circle cx="0" cy="0" r="64" fill="#fff" stroke="#dbe7f5" stroke-width="3"/>
+  <path d="M-28-54c25 22 30 82 0 108M28-54C3-32-2 28 28 54" fill="none" stroke="#d34b39" stroke-width="5" stroke-dasharray="7 6"/>
+</g>
+<path d="M325 357h118" stroke="#6da2da" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+<circle cx="319" cy="357" r="6" fill="#6da2da"/><circle cx="449" cy="357" r="6" fill="#6da2da"/>
+</svg>
