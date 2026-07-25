@@ -1,0 +1,157 @@
+stadium_id,球場名,category_id,カテゴリ名,判定,一言要約,詳細・条件,情報源種別,公式ページ名,公式URL,確認日,検証状態
+baystars_yokohama,横浜スタジアム,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,持ち込み可能な飲料は体調管理用の水筒・ペットボトルに限られます。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,bag_check,手荷物検査,可,入場時に手荷物検査あり,入場ゲートで手荷物検査を実施します。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,can,缶,不可,缶入り飲料は持ち込み不可,一般の飲食物持ち込み禁止の対象です。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,carry_case,キャリーケース,条件付き,座席スペースに収まらないキャリーケースは不可,通路や周囲の観戦を妨げない範囲に限られます。大型品は来場前に駅等のロッカーへ預けてください。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,更新確認待ち
+baystars_yokohama,横浜スタジアム,cashless,キャッシュレス,可,横浜スタジアムは原則キャッシュレス,2026年2月28日から店舗・各種窓口で原則現金を利用できません。利用可能な決済方法を事前に確認してください。,球団公式,横浜スタジアム キャッシュレス化のお知らせ,https://www.baystars.co.jp/news/2026/02/0204_03.php,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,food,飲食物,条件付き,一般の飲食物は持ち込み不可,衛生面から持ち込み禁止です。健康上の理由や乳幼児の食事等は例外として係員へ申告できます。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,glass_bottle,ビン,不可,ビン入り飲料は持ち込み不可,一般の飲食物持ち込み禁止の対象です。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,large_baggage,大型荷物,条件付き,自席スペースに収まる荷物のみ可,座席からはみ出す荷物や通路を妨げる物は持ち込みを断られる場合があります。球場内に一般用手荷物預かり所はありません。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,更新確認待ち
+baystars_yokohama,横浜スタジアム,pet_bottle,ペットボトル,条件付き,1L以下・1本程度なら持ち込み可,体調管理用として、1L以下のペットボトルを1本程度持ち込めます。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,reentry,再入場,条件付き,開門から7回裏終了まで再入場可,所定の再入場手続きを行います。7回裏終了後は再入場できません。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+baystars_yokohama,横浜スタジアム,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,更新確認待ち
+baystars_yokohama,横浜スタジアム,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,更新確認待ち
+baystars_yokohama,横浜スタジアム,water_bottle,水筒,条件付き,1L以下の水筒は持ち込み可,体調管理用として、1L以下の水筒を持ち込めます。,球団公式,スタジアム入門,https://www.baystars.co.jp/ticket/beginners/,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,球場外からの飲食物持ち込みを断っているため、アルコール飲料も対象です。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,bag_check,手荷物検査,可,入場時に手荷物検査あり,安全確保のため手荷物検査を実施します。協力しない場合は入場を断られることがあります。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,can,缶,不可,缶は持ち込み不可,缶は持ち込み禁止物です。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,carry_case,キャリーケース,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,更新確認待ち
+buffaloes_kyocera,京セラドーム大阪,cashless,キャッシュレス,条件付き,現金と各種キャッシュレス決済に対応,球団直営店等では現金、クレジットカード、QR決済、電子マネー等に対応しています。店舗・窓口により利用可能な方法が異なります。,球団公式,京セラドーム大阪 グッズ販売案内,https://www.buffaloes.co.jp/news/detail/202600777519.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,food,飲食物,不可,球場外からの飲食物は持ち込み不可,京セラドーム大阪では、プロ野球開催時の球場内への飲食物持ち込みを断っています。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,glass_bottle,ビン,不可,ビンは持ち込み不可,ビンは持ち込み禁止物です。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,large_baggage,大型荷物,不可,クーラーボックスは持ち込み不可,クーラーボックスは明確な持ち込み禁止物です。その他の大型荷物も通路や座席を妨げないようにしてください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,pet_bottle,ペットボトル,条件付き,"1,000ml以下のペットボトルは持ち込み可","1,000mlを超えるペットボトルは不可です。熱中症対策のため、1,000ml以下は凍らせたものも持ち込み可能と明記されています。",球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,一次情報確認済
+buffaloes_kyocera,京セラドーム大阪,reentry,再入場,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,更新確認待ち
+buffaloes_kyocera,京セラドーム大阪,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,更新確認待ち
+buffaloes_kyocera,京セラドーム大阪,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,更新確認待ち
+buffaloes_kyocera,京セラドーム大阪,water_bottle,水筒,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦ルールとお願い,https://www.buffaloes.co.jp/stadium/rule.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,alcohol,アルコール,条件付き,ビン・缶・ペットボトル容器は不可,アルコール自体の一律禁止は確認できませんが、ビン・缶・ペットボトルは持ち込めません。その他の容器については当日の公式案内を確認してください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,bag_check,手荷物検査,可,入場時に手荷物検査あり,入場時に手荷物検査を実施します。係員の指示に従ってください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,can,缶,不可,缶は持ち込み不可,缶は持ち込み禁止物です。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,carry_case,キャリーケース,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,cashless,キャッシュレス,条件付き,現金と各種キャッシュレス決済に対応,場内飲食店舗・売り子等でクレジットカード、電子マネー、QR決済に対応しています。完全キャッシュレスではありません。,球団公式,場内飲食店舗・売り子 キャッシュレス決済追加,https://www.carp.co.jp/news/20260306_02,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,food,飲食物,可,一般の飲食物は持ち込み可,公式の持ち込み禁止物に一般食品は含まれていません。飲料容器にはビン・缶・ペットボトルの制限があります。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,glass_bottle,ビン,不可,ビンは持ち込み不可,ビンは持ち込み禁止物です。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,large_baggage,大型荷物,条件付き,通行・観戦の妨げになる大型荷物は不可,自席や通路を妨げる大型荷物は避けてください。公式ルールに個別サイズの明記は確認できません。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,pet_bottle,ペットボトル,不可,ペットボトルは持ち込み不可,ペットボトルは持ち込み禁止物です。当日の係員案内に従ってください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,reentry,再入場,条件付き,所定の手続きを行った場合のみ再入場可,場外に用事がある場合は、退場時に係員へ申し出て再入場手続きを受ける必要があります。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,一次情報確認済
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+carp_mazda,MAZDA Zoom-Zoom スタジアム広島,water_bottle,水筒,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,マツダ スタジアム観戦ルール,https://www.carp.co.jp/mazdastadium/kansen.html,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,ペットボトル・水筒等の持ち込み例外は、アルコール以外の飲料に限られます。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,bag_check,手荷物検査,条件付き,必要に応じて入場時の確認あり,公式の観戦案内・試合観戦契約約款に基づき、係員から持込物の確認を求められた場合は従ってください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,can,缶,不可,缶は持ち込み不可,缶は持ち込み禁止物です。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,carry_case,キャリーケース,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,cashless,キャッシュレス,条件付き,現金とクレジットカード等に対応,正面チケット売場では現金・クレジットカードに対応しています。場内店舗は店舗ごとに利用可能な決済方法を確認してください。,球団公式,チケット購入ガイド,https://dragons.jp/ticket/guide/?ticket=today,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,food,飲食物,不可,球場外からの飲食物は持ち込み不可,場内への飲食物持ち込みは禁止です。熱中症対策用飲料に限り例外があります。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,glass_bottle,ビン,不可,ビンは持ち込み不可,ビンは持ち込み禁止物です。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,large_baggage,大型荷物,不可,クーラーボックス等は持ち込み不可,アイスボックス類（クーラーボックス等）は持ち込み禁止です。その他の大型荷物は通行・観戦の妨げにならないようにしてください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,pet_bottle,ペットボトル,条件付き,750ml以内・1人1本・ノンアルコールなら可,凍らせていない飲料に限ります。プライム1は持ち込み対象外です。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+dragons_vantelin,バンテリンドーム ナゴヤ,reentry,再入場,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,更新確認待ち
+dragons_vantelin,バンテリンドーム ナゴヤ,water_bottle,水筒,条件付き,体調管理用の水筒・タンブラーは可,過度に大きい容量、複数人で共有するもの、アルコール飲料やアルコール希釈目的のものは不可です。,球団公式,試合観戦にあたって,https://www.dragons.jp/ticket/regulation/,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,飲食物が原則持ち込み不可で、水筒以外の飲料例外は明記されていません。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,bag_check,手荷物検査,可,入場時と再入場時に手荷物検査あり,全エントランス等でチケット認証と手荷物検査を実施します。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,can,缶,不可,缶は持ち込み不可,缶類は持ち込み禁止物です。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,carry_case,キャリーケース,不可,キャリーバッグ・スーツケースは不可,自席に置けないキャリーバッグ・スーツケースは持ち込めず、球場での預かりもありません。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,cashless,キャッシュレス,可,球場内は完全キャッシュレス,チケット・グッズ・飲食売店などで原則現金を利用できません。,球団公式,完全キャッシュレスガイド,https://www.rakuteneagles.jp/special/cashless/,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,food,飲食物,条件付き,一般の飲食物は持ち込み不可,球場が販売・配布を許可した飲食物、健康上の理由、乳幼児の食事等は例外です。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,glass_bottle,ビン,不可,ビンは持ち込み不可,ビン類は持ち込み禁止物です。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,large_baggage,大型荷物,不可,自席に置けない大型荷物は不可,避難の妨げとなる、自席に置けない大型の物品は持ち込み禁止です。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,pet_bottle,ペットボトル,不可,ペットボトル飲料は持ち込み不可,飲食物は原則持ち込み不可で、体調管理用の例外として明記されているのは水筒です。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,reentry,再入場,条件付き,退場時の認証を行った場合のみ再入場可,再入場には観戦チケットが必要です。認証せずに退場した場合は再入場できません。再入場時にも手荷物検査があります。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,stroller,ベビーカー,条件付き,客席への持ち込み不可・置き場を利用,ベビーカーは客席へ持ち込めません。スタジアム各所の所定のベビーカー置き場を利用します。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,umbrella,傘,条件付き,座席で傘を差して観戦することは不可,雨傘・日傘を座席で差す行為、開いた傘を足元や身の回りに置く行為は禁止です。持参自体の禁止ではありません。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+eagles_miyagi,楽天モバイル 最強パーク宮城,water_bottle,水筒,可,体調管理用の水筒は持ち込み可,自身の体調管理のため、水筒の持ち込みが認められています。,球団公式,スタジアムルール,https://www.rakuteneagles.jp/stadium/rule,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,飲食物全般が持ち込み禁止で、マイボトル等の例外にアルコールは含まれていません。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,bag_check,手荷物検査,可,入場時に持ち込み検査あり,入場時は警備員・係員の指示に従い、持ち込み検査に協力する必要があります。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,can,缶,不可,缶は持ち込み不可,缶は持ち込み禁止物です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,carry_case,キャリーケース,条件付き,大型のスーツケースは持ち込み不可,自席の範囲に収まらない、またはロッカーに収まらないスーツケースは不可です。小型でも通行・観戦の妨げにならないことが条件です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,cashless,キャッシュレス,可,球場内は完全キャッシュレス,現金を使えないため、利用可能なクレジットカード・電子マネー・QR決済等を事前に準備してください。,球団公式,2026 エスコンフィールド観戦ガイド,https://www.fighters.co.jp/expansion/2026/beginner/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,food,飲食物,条件付き,一般の飲食物は持ち込み不可,Fビレッジ内で購入し許可されたもの、お子様用の適度なお菓子、アレルギー対応食、のど飴等は例外です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,glass_bottle,ビン,不可,ビンは持ち込み不可,ビンは持ち込み禁止物です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,large_baggage,大型荷物,不可,自席に収まらない大型荷物は不可,通行や観戦の妨げになる大型荷物、ロッカーに収まらないスーツケース等は持ち込み禁止です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,pet_bottle,ペットボトル,不可,ペットボトルは持ち込み不可,ビン・缶・ペットボトルは持ち込み禁止物です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,reentry,再入場,可,入場券を提示すれば再入場可,再入場時は、入場時に使用したQRコードまたはチケット半券が必要です。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+fighters_escon,エスコンフィールドHOKKAIDO,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,更新確認待ち
+fighters_escon,エスコンフィールドHOKKAIDO,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,更新確認待ち
+fighters_escon,エスコンフィールドHOKKAIDO,water_bottle,水筒,可,マイボトルは持ち込み可,公式の持ち込み可能品に「マイボトル」が記載されています。中身や容量に関する追加条件は当日の案内も確認してください。,球団公式,持ち込み・応援のルール,https://www.fighters.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,alcohol,アルコール,不可,アルコール類は持ち込み不可,容器にかかわらずアルコール類の持ち込みは禁止です。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,bag_check,手荷物検査,可,入場時に手荷物検査あり,手荷物検査に協力しない場合は入場を断られます。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,can,缶,不可,缶は持ち込み不可,移し替えサービスもありません。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,carry_case,キャリーケース,条件付き,自席範囲を超えるキャリーケースは不可,自席の範囲内に収まり、通行を妨げないことが条件です。大型品は球場外のロッカー等を利用してください。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,cashless,キャッシュレス,可,東京ドーム内は完全キャッシュレス,現金は利用できません。利用可能なキャッシュレス決済を事前に準備してください。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,food,飲食物,可,一般の飲食物は持ち込み可,公式の持ち込み禁止物に一般食品は含まれていません。容器やアルコールには別の制限があります。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,glass_bottle,ビン,不可,ビンは持ち込み不可,移し替えサービスもありません。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,large_baggage,大型荷物,不可,自席範囲を超える大型荷物は不可,自席の範囲を超えるサイズの手荷物は持ち込み禁止です。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,pet_bottle,ペットボトル,条件付き,"1,000ml以下・凍結していないものは持ち込み可","凍らせたペットボトル、1,000mlを超えるペットボトルは持ち込めません。",球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,reentry,再入場,条件付き,再入場手続きを行えば再入場可,場外喫煙所を利用する際などは、所定の再入場手続きが必要です。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,stroller,ベビーカー,条件付き,客席では使用不可・入場ゲートで預かり,ベビーカーは客席エリアへ持ち込めません。入場ゲートで預かります。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+giants_tokyo,東京ドーム,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,更新確認待ち
+giants_tokyo,東京ドーム,water_bottle,水筒,可,水筒は持ち込み可,水筒は持ち込み禁止物に含まれていません。アルコールの持ち込みは禁止です。,球場公式,来場時のお願い,https://www.tokyo-dome.co.jp/dome/caution/?vm=r,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,容器にかかわらずアルコール飲料の持ち込みは認められていません。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,bag_check,手荷物検査,可,入場時に手荷物検査あり,カバン等の口を開け、係員へ提示します。敷地内購入品はシールやレシートを確認される場合があります。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,can,缶,不可,缶は持ち込み不可,場外での移し替え対応もありません。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,carry_case,キャリーケース,不可,キャリーケースは持ち込み不可,通行の妨げになる物として明記されています。場外の有料コインロッカーを利用してください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,cashless,キャッシュレス,条件付き,キャッシュレス対応・窓口は完全キャッシュレス,2026年からチケット窓口は完全キャッシュレスです。ドーム内は完全キャッシュレス実施日もあるため、現金だけでの来場は避けてください。,球団公式,2026年 チケット窓口の完全キャッシュレス化,https://www.softbankhawks.co.jp/news/detail/202600916383.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,food,飲食物,条件付き,ドーム敷地外の飲食物は持ち込み不可,ドーム外周店舗、鷹マルシェ、BOSS E・ZO FUKUOKA、HAWKS STORE等の敷地内で購入し、確認シール等がある飲食物は持ち込めます。アレルギー対応食・離乳食等は係員へ申告してください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,glass_bottle,ビン,不可,ビンは持ち込み不可,場外での移し替え対応もありません。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,large_baggage,大型荷物,不可,通行の妨げになる大型荷物は不可,キャリーケース、アイスボックス等は持ち込み禁止です。場外の有料コインロッカーを利用してください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,pet_bottle,ペットボトル,条件付き,1L以内・1人1本まで持ち込み可,熱中症対策・体調管理を目的として、ペットボトル・紙パックは1L以内、1人1本まで認められます。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,reentry,再入場,条件付き,所定の一時退場・再入場手続きが必要,再入場時の注意事項が定められています。実際の退場時にゲート係員へ確認し、再入場に必要な手続きを行ってください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+hawks_paypay,みずほPayPayドーム福岡,stroller,ベビーカー,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,更新確認待ち
+hawks_paypay,みずほPayPayドーム福岡,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,更新確認待ち
+hawks_paypay,みずほPayPayドーム福岡,water_bottle,水筒,条件付き,2L以内の水筒・タンブラーは持ち込み可,水筒・タンブラーは2L以内に限り持ち込み可能です。,球団公式,2026年野球観戦ルール,https://www.softbankhawks.co.jp/news/detail/202600948202.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,主催者が場内で販売したアルコール飲料は除きます。,球団公式,観戦・応援に関するFAQ,https://www.seibulions.jp/expansion/faq/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,bag_check,手荷物検査,条件付き,必要に応じて手荷物検査あり,試合観戦契約約款に基づき、入場時に手荷物検査を求められる場合があります。係員の指示に従ってください。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,can,缶,不可,缶は持ち込み不可,移し替え所や紙コップの用意もありません。,球団公式,観戦・応援に関するFAQ,https://www.seibulions.jp/expansion/faq/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,carry_case,キャリーケース,条件付き,大きなキャリーケースはロッカー利用を推奨,場内での一律禁止を明記した現行案内は確認できませんが、通行を妨げる荷物は避け、狭山スキー場ロッカー等を利用してください。,球団公式,観戦・応援に関するFAQ,https://www.seibulions.jp/expansion/faq/rule.html,2026/07/25,更新確認待ち
+lions_belluna,ベルーナドーム,cashless,キャッシュレス,条件付き,現金とキャッシュレスの両方に対応,チケットセンターではクレジットカード、電子マネー、バーコード決済、現金に対応しています。店舗ごとに利用可能な方法が異なるため現地表示を確認してください。,球団公式,ベルーナドームチケットセンター,https://www.seibulions.jp/ticket/howto/window/center.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,food,飲食物,条件付き,飲食物は持ち込み可・容器等に制限あり,ビン・缶・クーラーボックスを除く飲食物は持ち込み可能です。アルコール飲料は場外から持ち込めません。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,glass_bottle,ビン,不可,ビンは持ち込み不可,移し替え所や紙コップの用意もありません。,球団公式,観戦・応援に関するFAQ,https://www.seibulions.jp/expansion/faq/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,large_baggage,大型荷物,条件付き,通行や観戦の妨げになる荷物は不可,クーラーボックスは禁止です。その他の大きな荷物は座席・通路を妨げない範囲に限り、必要に応じて隣接ロッカーを利用してください。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,pet_bottle,ペットボトル,可,ペットボトルは持ち込み可,公式ルールではビン・缶・クーラーボックスが禁止対象で、ペットボトルは一律禁止されていません。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,reentry,再入場,条件付き,再入場証と観戦チケットで再入場可,一時退場時に再入場口で受け取る再入場証と観戦チケットが必要です。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,stroller,ベビーカー,条件付き,場内のベビーカー預かり所を利用,客席ではなく、場内のベビーカー預かり所に預けます。,球団公式,観戦・応援に関するFAQ,https://www.seibulions.jp/expansion/faq/rule.html,2026/07/25,一次情報確認済
+lions_belluna,ベルーナドーム,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,更新確認待ち
+lions_belluna,ベルーナドーム,water_bottle,水筒,可,水筒は持ち込み可,公式ルールではビン・缶・クーラーボックスが禁止対象で、水筒は一律禁止されていません。,球団公式,観戦・応援ルール,https://www.seibulions.jp/stadium/rule.html,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,alcohol,アルコール,不可,場外からのアルコール持ち込みは不可,持ち込み可能なペットボトル等はアルコールを除く飲料に限られます。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,bag_check,手荷物検査,可,入場ゲートで手荷物検査あり,検査時または場内で禁止物が見つかった場合、回収・処分されることがあります。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,can,缶,不可,缶は持ち込み不可,持ち込み禁止物として扱われます。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,carry_case,キャリーケース,不可,スーツケースは持ち込み不可,球場外周の貸出ロッカー等を利用してください。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,cashless,キャッシュレス,条件付き,現金と複数のキャッシュレス決済に対応,QR決済・クレジットカード・電子マネー等を利用できますが、完全キャッシュレスではありません。店舗により対応方法が異なります。,球団公式,2026年スタジアム決済サービス案内,https://www.marines.co.jp/news/detail/202600785763.html,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,food,飲食物,条件付き,一般の飲食物は持ち込み不可,球場外周で購入した飲食物、乳幼児用、子ども用の適度なお菓子、健康上必要なもの等は例外です。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,glass_bottle,ビン,不可,ビンは持ち込み不可,持ち込み禁止物として扱われます。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,large_baggage,大型荷物,不可,クーラーボックスなど大型荷物は不可,アイスボックス、クーラーボックス、スーツケース等は持ち込めません。外周ロッカー等を利用してください。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,pet_bottle,ペットボトル,条件付き,750ml以下・ノンアルコールなら持ち込み可,アルコールを除く750ml以下のペットボトルは持ち込めます。入場ゲートでクルーへ声をかけてください。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,reentry,再入場,条件付き,所定の再入場手続きで再入場可,チケットと専用スタンプ等による再入場手続きが必要です。場内飲食物を持って再入場する際は指定シールを貼る場合があります。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,stroller,ベビーカー,条件付き,外周のベビーカー置き場を利用,フィールドテラス・スイートを除き、必要に応じて球場外周のベビーカー置き場を利用します。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+marines_zozo,ZOZOマリンスタジアム,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,更新確認待ち
+marines_zozo,ZOZOマリンスタジアム,water_bottle,水筒,可,水筒は持ち込み可,水筒は持ち込み可能な飲食物として明記されています。入場ゲートで確認を受ける場合があります。,球団公式,スタジアムルール,https://www.marines.co.jp/stadium/rule/,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,alcohol,アルコール,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,更新確認待ち
+swallows_jingu,明治神宮野球場,bag_check,手荷物検査,可,入場時に手荷物検査あり,入場時に手荷物検査を実施します。係員の指示に従ってください。,球場公式,プロ野球開催時のFAQ,https://www.jingu-stadium.com/qa/qa_pro.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,can,缶,不可,缶は持ち込み不可,移し替えサービス・紙コップの用意はありません。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,carry_case,キャリーケース,不可,スーツケースは持ち込み不可,入口での預かりはありません。来場前にロッカー等へ保管してください。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,cashless,キャッシュレス,条件付き,現金と各種キャッシュレス決済に対応,クレジットカード、電子マネー、QR決済等が利用できます。店舗や売り場により利用可能な方法が異なります。,球場公式,使用可能な決済方法について,https://www.jingu-stadium.com/news/2025/20250313_6236.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,food,飲食物,可,一般の飲食物は持ち込み可,一般食品の一律禁止はありません。ただしビン・缶・アイスボックス類は持ち込めません。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,glass_bottle,ビン,不可,ビンは持ち込み不可,移し替えサービス・紙コップの用意はありません。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,large_baggage,大型荷物,不可,自席に置けない大型荷物は不可,バット、ゴルフクラブ、ラケット、スーツケース、楽器等、通行に支障をきたす物は持ち込めません。入口での預かりもありません。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,pet_bottle,ペットボトル,可,ペットボトルは持ち込み可,公式ルールで持ち込み可能と明記されています。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,reentry,再入場,条件付き,チケットと専用スタンプで再入場可,退場時にUVスタンプ等の所定手続きを受け、再入場時にチケットを提示します。,球場公式,プロ野球開催時のFAQ,https://www.jingu-stadium.com/qa/qa_pro.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,stroller,ベビーカー,条件付き,客席への持ち込み不可・各入口で預かり,ベビーカーは客席エリアでは使用できません。各入口で預かります。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+swallows_jingu,明治神宮野球場,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,更新確認待ち
+swallows_jingu,明治神宮野球場,water_bottle,水筒,可,水筒は持ち込み可,公式ルールで持ち込み可能と明記されています。,球場公式,プロ野球観戦ルール,https://www.jingu-stadium.com/ticket/rule/rules.html,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,alcohol,アルコール,条件付き,缶・ビン入りは不可、その他の容器は要当日確認,アルコール自体の一律禁止は明記されていませんが、缶・ビン類は持ち込めません。イベントや主催者の追加ルールを確認してください。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,更新確認待ち
+tigers_koshien,阪神甲子園球場,bag_check,手荷物検査,可,プロ野球開催時は全員に手荷物検査あり,缶・ビン類や危険物等の持ち込み防止のため、入場時に手荷物検査を実施します。,球場公式,プロ野球開催試合における手荷物検査,https://koshien.hanshin.co.jp/ticket/manner/manner_2.html,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,can,缶,不可,缶は持ち込み不可,移し替えサービス・移し替え用コップの提供はありません。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,carry_case,キャリーケース,条件付き,自席スペースに収まる大きさのみ可,預かり所・ロッカーはありません。大型のキャリーケースは持参せず、駅等のロッカー利用を推奨します。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,cashless,キャッシュレス,条件付き,現金と各種キャッシュレス決済に対応,一部ワゴン等を除き、クレジットカード、電子マネー、QR決済を利用できます。現金も利用可能です。,球場公式,よくあるご質問（飲食・物販）,https://koshien.hanshin.co.jp/qa/answer04.html,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,food,飲食物,可,一般の飲食物は持ち込み可,公式の持ち込み禁止物は缶・ビン類、危険物等で、一般食品の一律禁止はありません。容器やイベント固有ルールを確認してください。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,glass_bottle,ビン,不可,ビンは持ち込み不可,移し替えサービス・移し替え用コップの提供はありません。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,large_baggage,大型荷物,条件付き,自席スペースに収まる荷物のみ可,ロッカー・手荷物預かり所はありません。周囲や通路に支障を出さず、自席内に収める必要があります。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,pet_bottle,ペットボトル,可,ペットボトルは持ち込み可,缶・ビン類は不可ですが、ペットボトルは持ち込み可能です。プロ野球時は当日の主催者案内も確認してください。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,reentry,再入場,不可,一旦外出・再入場は不可,入場後に球場外へ出ると再入場できません。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,stroller,ベビーカー,条件付き,自席スペースに収め、通路を妨げないこと,球場内に預かり所はありません。周囲や通路に支障が出ないよう自席スペース内で管理します。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
+tigers_koshien,阪神甲子園球場,umbrella,傘,要公式確認,公式サイトで明確な記載を確認できません,2026年7月25日時点で、確認した公式の観戦ルール・FAQ内に当該項目の明確な記載を確認できません。来場前に球団・球場公式の最新案内をご確認ください。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,更新確認待ち
+tigers_koshien,阪神甲子園球場,water_bottle,水筒,可,水筒は持ち込み可,缶・ビン類は不可ですが、水筒は持ち込み可能です。プロ野球時は当日の主催者案内も確認してください。,球場公式,よくあるご質問,https://koshien.hanshin.co.jp/qa/answer01.html?guid=ON,2026/07/25,一次情報確認済
