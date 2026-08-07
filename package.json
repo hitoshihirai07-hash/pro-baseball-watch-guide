@@ -1,0 +1,9 @@
+{
+  "name": "pro-baseball-watch-guide",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "update-site": "node tools/update-site.mjs",
+    "build": "node tools/update-site.mjs"
+  }
+}
