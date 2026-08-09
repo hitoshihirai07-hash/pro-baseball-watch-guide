@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_PATH = path.join(ROOT, 'data', 'articles.json');
-const SITE_URL = 'https://pro-baseball-watch-guide.pages.dev';
+const SITE_URL = 'https://pro-baseball-watch-guide.com';
 
 function read(file) {
   return fs.readFileSync(path.join(ROOT, file), 'utf8');
