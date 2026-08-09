@@ -1,8 +1,54 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.pages.dev",
-  "updated": "2026-08-07",
+  "updated": "2026-08-09",
   "articles": [
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-swallows-2026-08-07-09",
+      "source": "watch-notes/giants-swallows-2026-08-07-09.html",
+      "slug": "giants-swallows-2026-08-07-09",
+      "title": "【カード振り返り】浦田の安定感と竹丸の好投が印象に残った｜8/7～8/9 巨人対ヤクルト",
+      "listTitle": "【カード振り返り】浦田の安定感と竹丸の好投が印象に残った｜8/7～8/9 巨人対ヤクルト",
+      "description": "2026年8月7日から9日の巨人対ヤクルト3連戦を、1番・浦田俊輔の安定感、竹丸和幸の好投、岡田悠希や石塚裕惺ら若手野手、小林誠司の捕手起用から振り返る観戦メモです。",
+      "listDescription": "1番・浦田俊輔の安定感、竹丸和幸の好投、昇格即スタメンで勝ち越し打を放った岡田悠希、石塚裕惺ら若手野手を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-09",
+      "updated": "2026-08-09",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "ヤクルト",
+        "スワローズ",
+        "3連戦",
+        "東京ドーム",
+        "浦田俊輔",
+        "浦田",
+        "1番打者",
+        "竹丸和幸",
+        "竹丸",
+        "岡田悠希",
+        "岡田",
+        "石塚裕惺",
+        "石塚",
+        "小林誠司",
+        "小林"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "search": true,
+      "sitemap": true
+    },
     {
       "type": "article",
       "path": "/articles/giants-data-guide",
