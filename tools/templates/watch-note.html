@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>{{TITLE}} | プロ野球観戦メモ</title>
+<meta content="{{DESCRIPTION}}" name="description"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="article" property="og:type"/>
+<meta content="{{TITLE}}" property="og:title"/>
+<meta content="{{DESCRIPTION}}" property="og:description"/>
+<meta content="https://pro-baseball-watch-guide.com/assets/images/watch-notes-ogp.png" property="og:image"/>
+<meta content="2172" property="og:image:width"/>
+<meta content="724" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="{{TITLE}}" name="twitter:title"/>
+<meta content="{{DESCRIPTION}}" name="twitter:description"/>
+<meta content="https://pro-baseball-watch-guide.com/assets/images/watch-notes-ogp.png" name="twitter:image"/>
+<link href="{{CANONICAL}}" rel="canonical"/>
+<link href="https://pro-baseball-watch-guide.com/feed.xml" rel="alternate" title="プロ野球観戦メモ 観戦メモRSS" type="application/rss+xml"/>
+<meta content="{{CANONICAL}}" property="og:url"/>
+<script type="application/ld+json">
+{{STRUCTURED_DATA}}
+</script>
+<link href="../assets/images/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../assets/css/style.css?v=20260811-watch-note-flow" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header">
+<div class="container header-inner">
+<a aria-label="プロ野球観戦メモ トップへ" class="brand" href="../">
+<span class="brand-mark">⚾</span>
+<span><strong>プロ野球観戦メモ</strong><small>試合・選手・チームを見て、データでも楽しむ個人ブログ</small></span>
+</a>
+<nav aria-label="主要ナビゲーション" class="site-nav">
+<a class="nav-link" href="../">トップ</a>
+<a class="nav-link" href="../giants/">巨人の今</a>
+<a class="nav-link active" href="./">観戦メモ</a>
+<a class="nav-link" href="../articles/">記事一覧</a>
+<a class="nav-link" href="../about">このサイトについて</a>
+</nav>
+</div>
+</header>
+<main>
+<article class="container article">
+<nav class="breadcrumb"><a href="../">トップ</a> / <a href="./">観戦メモ</a> / {{GAME_LABEL}}</nav>
+<header class="article-header">
+<span class="badge">{{ARTICLE_BADGE}}</span>
+<h1>{{TITLE}}</h1>
+<p class="article-meta">公開日：{{PUBLISHED_JA}}</p>
+<p class="lead">{{LEAD}}</p>
+</header>
+{{BODY_HTML}}
+<section class="watch-note-overview watch-note-next" data-generated="watch-note-publisher" id="next-card-points">
+<div class="watch-note-box-heading"><span>NEXT</span><h2>次カードで見たい3つ</h2></div>
+<ul class="watch-note-point-list">
+{{NEXT_POINTS}}
+</ul>
+</section>
+<section class="player-lens-box" id="player-lens-data">
+<span class="box-kicker">DATA</span>
+<h2>Player Lensでデータを見る</h2>
+<p>観戦メモで気になった選手やチームの状態は、Player Lensの球団別ページや直近成績から見返せます。</p>
+<div class="link-buttons">
+<a class="button primary" href="https://player-lens-pages.pages.dev/" rel="noopener" target="_blank">Player Lensを見る</a>
+<a class="button ghost" href="https://player-lens-pages.pages.dev/recent-form.html" rel="noopener" target="_blank">直近6試合を見る</a>
+</div>
+<p class="x-follow-note">※ Player Lensは別サイトで開きます。</p>
+</section>
+<section aria-label="広告" class="article-ad">
+<p class="ad-label">広告</p>
+<div class="admax-unit">
+<script>
+(function () {
+  var admaxSrc = window.matchMedia("(max-width: 767px)").matches
+    ? "https://adm.shinobi.jp/s/0e85ab0d2cab83e27f12482979152477"
+    : "https://adm.shinobi.jp/s/a6e8e14cba910de1f044e25e24e2f00f";
+  document.write('<script src="' + admaxSrc + '"><\/script>');
+}());
+</script>
+<noscript><p class="microcopy">広告を表示するにはJavaScriptを有効にしてください。</p></noscript>
+</div>
+</section>
+<section class="x-follow-box" id="x-follow">
+<span class="box-kicker">X</span>
+<h2>Xでも短い感想を投稿しています</h2>
+<p>記事になる前の短い感想や、試合中・試合後に気になった場面はXでも発信しています。</p>
+<div class="link-buttons">
+<a class="button primary" href="https://x.com/soranpb" rel="noopener" target="_blank">@soranpb の投稿を見る</a>
+<a class="button ghost" href="./">観戦メモ一覧へ</a>
+</div>
+</section>
+<section class="related-box">
+<h2>関連するページ</h2>
+<div class="link-buttons">
+{{GIANTS_LINKS}}
+<a class="button ghost" href="../articles/baseball-streaming-services">中継・配信を確認する</a>
+</div>
+</section>
+<section class="related-box">
+<h2>観戦メモ一覧</h2>
+<p>ほかの試合・期間の観戦メモは、専用ページでまとめています。</p>
+<div class="link-buttons">
+<a class="button ghost" href="./">観戦メモ一覧へ</a>
+<a class="button ghost" href="../feed.xml">RSSで更新を受け取る</a>
+</div>
+</section>
+</article>
+</main>
+<footer class="site-footer">
+<div class="container footer-grid">
+<div><strong>プロ野球観戦メモ</strong><p>プロ野球の試合・選手・チームを見て、データでも楽しむ個人ブログです。</p></div>
+<div><a href="../privacy">プライバシーポリシー</a><a href="../disclaimer">免責事項</a><a href="../contact">お問い合わせ</a></div>
+</div>
+</footer>
+<script src="../assets/js/main.js?v=20260811-watch-note-flow"></script>
+</body>
+</html>

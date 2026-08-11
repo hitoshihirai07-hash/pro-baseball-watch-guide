@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdf7f0">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="プロ野球観戦メモの管理者用記事作成画面。">
+  <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>管理者用 観戦メモ作成｜プロ野球観戦メモ</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">ADMIN ONLY</p>
+        <h1>観戦メモ作成</h1>
+        <p class="header-copy">メモ作成から公開用ファイルの準備までを、この画面で行います。</p>
+      </div>
+      <div class="header-actions" aria-label="記録の操作">
+        <button id="newRecordButton" class="button button-primary header-new-record" type="button"><span aria-hidden="true">＋</span> 新しい記録</button>
+        <button id="openRecordsButton" class="button button-secondary" type="button"><span aria-hidden="true">▤</span> 保存した記録</button>
+        <a class="button button-secondary" href="../../watch-notes/">公開中の記事</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="notice" aria-label="保存について">
+      <span class="notice-icon" aria-hidden="true">●</span>
+      <p>入力内容はこの端末内に自動保存されます。公開前の原稿がサーバーへ送信されることはありません。<span id="saveStatus" class="save-status" aria-live="polite">自動保存</span></p>
+    </section>
+
+    <form id="recordForm" novalidate>
+      <section class="card section-card" aria-labelledby="basic-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">01</p>
+            <h2 id="basic-title">試合の基本</h2>
+          </div>
+          <span class="required-note">* は必須</span>
+        </div>
+
+        <div class="field-grid two-columns">
+          <label class="field-label">
+            <span>日付 <b aria-hidden="true">*</b></span>
+            <input id="gameDate" name="gameDate" type="date" required>
+          </label>
+          <label class="field-label">
+            <span>対象の試合・期間 <b aria-hidden="true">*</b></span>
+            <input id="gameTitle" name="gameTitle" type="text" placeholder="例：7/3 巨人対阪神、阪神3連戦" required>
+          </label>
+        </div>
+
+        <div class="field-grid two-columns">
+          <label class="field-label">
+            <span>球場</span>
+            <input id="stadium" name="stadium" type="text" placeholder="例：東京ドーム">
+          </label>
+          <label class="field-label">
+            <span>記事の種類</span>
+            <select id="articleType" name="articleType">
+              <option>1試合の観戦メモ</option>
+              <option>3連戦・カードの振り返り</option>
+              <option>選手について感じたこと</option>
+              <option>チーム・起用・戦い方について感じたこと</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field-label">
+          <span>観戦方法</span>
+          <span class="field-help">複数選択できます</span>
+          <span class="check-row" role="group" aria-label="観戦方法">
+            <label><input type="checkbox" name="watchMethod" value="現地">現地</label>
+            <label><input type="checkbox" name="watchMethod" value="テレビ">テレビ</label>
+            <label><input type="checkbox" name="watchMethod" value="配信">配信</label>
+            <label><input type="checkbox" name="watchMethod" value="ハイライト">ハイライト</label>
+          </span>
+        </label>
+      </section>
+
+      <section class="card section-card" aria-labelledby="next-points-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">NEXT</p>
+            <h2 id="next-points-title">次カードで見たい3つ</h2>
+            <p class="section-description">今後の観戦メモでは記事末に掲載し、最新記事の3項目を「巨人の今」にも自動表示します。</p>
+          </div>
+        </div>
+        <div class="field-grid">
+          <label class="field-label"><span>1．打順・起用などで注目する点</span><input id="nextPoint1" name="nextPoint1" type="text" placeholder="例：2番打者と若手野手の起用"></label>
+          <label class="field-label"><span>2．状態を確認したい選手</span><input id="nextPoint2" name="nextPoint2" type="text" placeholder="例：浦田の出塁と石塚の打席内容"></label>
+          <label class="field-label"><span>3．登板状況を見たい投手</span><input id="nextPoint3" name="nextPoint3" type="text" placeholder="例：勝ちパターンの連投状況"></label>
+        </div>
+      </section>
+
+      <section class="card section-card" aria-labelledby="article-material-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">02</p>
+            <h2 id="article-material-title">記事に残したいこと</h2>
+            <p class="section-description">必要な欄だけで大丈夫です。ここに書いた内容と自由メモを、記事化セットへ反映します。</p>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <label class="field-label">
+            <span>記事の結論・一番伝えたいこと</span>
+            <textarea id="mainPoint" name="mainPoint" rows="3" placeholder="例：リリーフ陣の粘りが勝利につながった。打線はあと一本が出なかったが、内容自体は悪くなかった。"></textarea>
+          </label>
+        </div>
+
+        <div class="article-material-grid">
+          <label class="field-label">
+            <span>気になった選手</span>
+            <span class="field-help">複数いる場合は「、」区切り</span>
+            <input id="players" name="players" type="text" placeholder="例：岸田行倫、増田大輝">
+          </label>
+          <label class="field-label">
+            <span>Player Lensで確認したいデータ</span>
+            <input id="playerLensChecks" name="playerLensChecks" type="text" placeholder="例：直近成績、対戦相手別成績">
+          </label>
+          <label class="field-label">
+            <span>良かった点</span>
+            <textarea id="goodPoints" name="goodPoints" rows="3" placeholder="例：救援陣が無失点でつないだ。"></textarea>
+          </label>
+          <label class="field-label">
+            <span>気になった点</span>
+            <textarea id="concerns" name="concerns" rows="3" placeholder="例：得点圏であと一本が出なかった。"></textarea>
+          </label>
+          <label class="field-label">
+            <span>起用・継投・打順について</span>
+            <textarea id="usageNotes" name="usageNotes" rows="3" placeholder="例：終盤の代打起用は流れを変える狙いに見えた。"></textarea>
+          </label>
+          <label class="field-label">
+            <span>チーム全体について</span>
+            <textarea id="teamNotes" name="teamNotes" rows="3" placeholder="例：守備と救援は安定しており、打線のつながりが今後の焦点。"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <section class="card section-card" aria-labelledby="memo-title">
+        <div class="section-heading memo-heading">
+          <div>
+            <p class="section-kicker">03</p>
+            <h2 id="memo-title">自由メモ</h2>
+            <p class="section-description">見たこと・感じたことを一行ずつ。整理しきれない内容も、そのまま残せます。</p>
+          </div>
+          <span id="memoCount" class="memo-count" aria-live="polite">0件</span>
+        </div>
+
+        <div class="quick-memo-box">
+          <label class="sr-only" for="newMemo">新しいメモ</label>
+          <textarea id="newMemo" rows="3" placeholder="例：7回の守備で流れを切れたのが大きかった。"></textarea>
+          <div class="memo-add-row">
+            <p>改行はそのまま使えます。まとまった内容なら一件のメモとして追加。</p>
+            <button id="addMemoButton" class="button button-primary" type="button">メモを追加</button>
+          </div>
+        </div>
+
+        <ul id="memoList" class="memo-list" aria-live="polite"></ul>
+        <p id="memoEmpty" class="empty-message">まだメモはありません。試合中は気になった場面を短く残すだけで大丈夫です。</p>
+      </section>
+
+      <section class="card section-card" aria-labelledby="output-setting-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">04</p>
+            <h2 id="output-setting-title">出力の設定</h2>
+          </div>
+        </div>
+
+        <div class="field-grid three-columns">
+          <label class="field-label">
+            <span>入れたくない内容・避けたい表現</span>
+            <select id="avoidContent" name="avoidContent">
+              <option>ネガティブな表現</option>
+              <option>断定的な批判</option>
+              <option>人格批判</option>
+              <option>特になし</option>
+            </select>
+          </label>
+          <label class="field-label">
+            <span>記事の雰囲気</span>
+            <select id="articleTone" name="articleTone">
+              <option>落ち着いた感想</option>
+              <option>前向きな感想</option>
+              <option>観戦メモらしい率直な感想</option>
+              <option>読みやすく整理した感想</option>
+            </select>
+          </label>
+          <label class="field-label">
+            <span>記事の長さ</span>
+            <select id="articleLength" name="articleLength">
+              <option>しっかり</option>
+              <option>標準</option>
+              <option>短め</option>
+            </select>
+          </label>
+        </div>
+      </section>
+    </form>
+
+    <section class="card action-card" aria-labelledby="output-title">
+      <div>
+        <p class="section-kicker">READY</p>
+        <h2 id="output-title">記事化セットを作る</h2>
+        <p>タイトル案・カテゴリー・タグ・Markdown原稿の骨組み・記事用プロンプトをまとめて作成します。</p>
+      </div>
+      <div class="action-buttons">
+        <button id="generatePromptButton" class="button button-primary button-large" type="button">記事化セットを作成</button>
+        <button id="copySheetRowButton" class="button button-secondary" type="button">記録を表でコピー</button>
+      </div>
+    </section>
+
+    <section class="card section-card publish-card" aria-labelledby="publish-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">PUBLISH</p>
+          <h2 id="publish-title">完成原稿を公開用ファイルにする</h2>
+          <p class="section-description">記事原稿の確認・承認後に使います。ここで作ったJSONをGitHubの <code>content/watch-notes/</code> へ1ファイルだけアップロードすると、記事・一覧・巨人の今・RSS・サイトマップが自動更新されます。</p>
+        </div>
+      </div>
+
+      <div class="field-grid two-columns">
+        <label class="field-label"><span>公開日 <b aria-hidden="true">*</b></span><input id="publishDate" type="date"></label>
+        <label class="field-label"><span>URL末尾（英数字とハイフン） <b aria-hidden="true">*</b></span><input id="publishSlug" type="text" inputmode="url" placeholder="例：giants-tigers-2026-08-11-13"></label>
+      </div>
+      <div class="field-grid publish-fields">
+        <label class="field-label"><span>決定タイトル <b aria-hidden="true">*</b></span><input id="publishTitle" type="text" placeholder="タイトル案から決めたものを入力"></label>
+        <label class="field-label"><span>検索・SNS用の説明 <b aria-hidden="true">*</b></span><textarea id="publishDescription" rows="3" placeholder="記事全体を自然な1～2文で説明"></textarea></label>
+        <label class="field-label"><span>一覧用の短い説明 <b aria-hidden="true">*</b></span><textarea id="publishListDescription" rows="2" placeholder="観戦メモ一覧に表示する短い説明"></textarea></label>
+        <label class="field-label"><span>完成したMarkdown本文 <b aria-hidden="true">*</b></span><textarea id="publishMarkdown" class="publish-markdown" rows="18" spellcheck="false" placeholder="承認した原稿の本文を貼り付けます。先頭のタイトルやfront matterは不要です。"></textarea></label>
+      </div>
+      <div class="publish-check">
+        <label><input id="publishApproved" type="checkbox"> タイトル・本文・事実関係・次カードの3点を確認し、この内容で公開する</label>
+      </div>
+      <div class="action-buttons publish-actions">
+        <button id="fillPublishFieldsButton" class="button button-secondary" type="button">入力内容を引き継ぐ</button>
+        <button id="downloadPublishFileButton" class="button button-primary button-large" type="button">公開用JSONをダウンロード</button>
+      </div>
+      <p class="publish-note">JSONをアップロードした後はGitHub Actionsが自動処理します。公開記事に管理画面へのリンクや管理用データは表示されません。</p>
+    </section>
+
+    <section class="utility-row" aria-label="観戦メモの基本方針">
+      <details class="utility-details">
+        <summary>観戦メモの基本方針</summary>
+        <div class="utility-content">
+          <p>巨人戦を中心に、強く印象に残った試合・選手・チームについて残します。記事の種類は「1試合の観戦メモ」「3連戦・カードの振り返り」「選手について感じたこと」「チーム・起用・戦い方について感じたこと」の4つです。</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="utility-row" aria-label="データ管理">
+      <details class="utility-details">
+        <summary>データの書き出し・読み込み</summary>
+        <div class="utility-content">
+          <p>機種変更や念のためのバックアップ用です。記録は通常、この端末内に保存されます。</p>
+          <div class="utility-buttons">
+            <button id="exportDataButton" class="text-button" type="button">全記録を書き出す</button>
+            <label class="text-button file-button">記録を読み込む<input id="importDataInput" type="file" accept="application/json"></label>
+            <button id="clearCurrentButton" class="text-button danger-button" type="button">今の入力を消す</button>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <dialog id="outputDialog" class="output-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header">
+      <div>
+        <p class="section-kicker">OUTPUT</p>
+        <h2 id="dialog-title">記事化セット</h2>
+      </div>
+      <button id="closeDialogButton" class="icon-button" type="button" aria-label="閉じる">×</button>
+    </div>
+    <p class="dialog-copy">タイトル案・カテゴリー・タグ・Markdown原稿の骨組みを確認し、記事用プロンプトをそのままコピーできます。</p>
+
+    <div class="article-kit-wrap">
+      <section class="article-kit-section">
+        <h3>カテゴリー・候補タグ</h3>
+        <div id="articleMetaOutput" class="article-meta-output"></div>
+      </section>
+
+      <section class="article-kit-section">
+        <h3>タイトル案</h3>
+        <ol id="titleSuggestionsOutput" class="title-suggestions"></ol>
+      </section>
+
+      <section class="article-kit-section">
+        <h3>Markdown原稿の骨組み</h3>
+        <textarea id="outlineOutput" class="article-kit-textarea" rows="15" spellcheck="false"></textarea>
+      </section>
+
+      <section class="article-kit-section">
+        <h3>記事用プロンプト</h3>
+        <textarea id="promptOutput" class="article-kit-textarea prompt-output" rows="22" spellcheck="false"></textarea>
+      </section>
+    </div>
+
+    <div class="dialog-actions">
+      <button id="copyArticleKitButton" class="button button-secondary" type="button">記事化セットをコピー</button>
+      <button id="copyPromptButton" class="button button-primary" type="button">記事用プロンプトをコピー</button>
+      <button id="copyMemoTableButton" class="button button-secondary" type="button">メモを表でコピー</button>
+    </div>
+  </dialog>
+
+  <dialog id="recordsDialog" class="records-dialog" aria-labelledby="records-dialog-title">
+    <div class="dialog-header">
+      <div>
+        <p class="section-kicker">ARCHIVE</p>
+        <h2 id="records-dialog-title">保存した記録</h2>
+      </div>
+      <button id="closeRecordsDialogButton" class="icon-button" type="button" aria-label="閉じる">×</button>
+    </div>
+    <div id="recordsList" class="records-list"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

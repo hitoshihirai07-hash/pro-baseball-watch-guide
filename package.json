@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "publish-watch-notes": "node tools/publish-watch-note.mjs",
     "update-site": "node tools/update-site.mjs",
     "build": "node tools/update-site.mjs"
   }

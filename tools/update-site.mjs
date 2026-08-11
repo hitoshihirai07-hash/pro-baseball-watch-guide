@@ -23,6 +23,14 @@ function escapeHtml(value = '') {
     .replaceAll("'", '&#39;');
 }
 
+function escapeXml(value = '') {
+  return escapeHtml(value);
+}
+
+function cdata(value = '') {
+  return String(value).replaceAll(']]>', ']]]]><![CDATA[>');
+}
+
 function replaceBlock(source, name, content) {
   const start = `<!-- AUTO:${name}:START -->`;
   const end = `<!-- AUTO:${name}:END -->`;
@@ -86,6 +94,11 @@ function validate(data) {
     paths.add(item.path);
     const source = path.join(ROOT, item.source);
     if (!fs.existsSync(source)) throw new Error(`元ページがありません: ${item.source}`);
+    if (item.nextPoints !== undefined) {
+      if (!Array.isArray(item.nextPoints) || item.nextPoints.length !== 3 || item.nextPoints.some(point => typeof point !== 'string' || !point.trim())) {
+        throw new Error(`${item.path}: nextPoints は空でない文字列3件にしてください。`);
+      }
+    }
   }
 }
 
@@ -111,7 +124,23 @@ function generateGiants(data) {
     .map(item => articleCard(item, item.path))
     .join('\n');
   const file = 'giants/index.html';
-  write(file, replaceBlock(read(file), 'GIANTS_WATCH_NOTES', html));
+  let source = replaceBlock(read(file), 'GIANTS_WATCH_NOTES', html);
+  const latestWithNextPoints = latestGiantsWatchNotes(data, 20)
+    .find(item => Array.isArray(item.nextPoints) && item.nextPoints.length === 3);
+  const nextPointsHtml = latestWithNextPoints
+    ? `<section aria-labelledby="next-card-points-title" class="container section">
+<div class="section-title">
+<p class="eyebrow">From The Latest Note</p>
+<h2 id="next-card-points-title">次カードで見たい3つ</h2>
+<p class="section-description"><a href="${escapeHtml(latestWithNextPoints.path)}">${escapeHtml(latestWithNextPoints.listTitle || latestWithNextPoints.title)}</a>から、次の試合で見たい点をまとめています。</p>
+</div>
+<div class="featured-article-grid">
+${latestWithNextPoints.nextPoints.map((point, index) => `<article class="featured-article-card"><span class="badge">${index + 1}</span><h3>${escapeHtml(point)}</h3></article>`).join('\n')}
+</div>
+</section>`
+    : '';
+  source = replaceBlock(source, 'GIANTS_NEXT_POINTS', nextPointsHtml);
+  write(file, source);
 }
 
 function generateWatchNotes(data) {
@@ -227,6 +256,41 @@ ${unique.map(entry => `  <url><loc>${SITE_URL}${entry.path}</loc><lastmod>${entr
   write('sitemap.xml', xml);
 }
 
+function generateFeed(data) {
+  const notes = data.articles
+    .filter(item => item.type === 'watch-note')
+    .sort((a, b) => b.published.localeCompare(a.published));
+  const latest = notes[0];
+  const lastBuildDate = new Date(`${latest?.updated || data.updated}T00:00:00+09:00`).toUTCString();
+  const items = notes.map(item => {
+    const url = `${SITE_URL}${item.path}`;
+    const pubDate = new Date(`${item.published}T00:00:00+09:00`).toUTCString();
+    const categories = (item.badges || []).map(value => `    <category>${escapeXml(value)}</category>`).join('\n');
+    return `  <item>
+    <title>${escapeXml(item.listTitle || item.title)}</title>
+    <link>${escapeXml(url)}</link>
+    <guid isPermaLink="true">${escapeXml(url)}</guid>
+    <pubDate>${pubDate}</pubDate>
+    <description><![CDATA[${cdata(item.listDescription || item.description)}]]></description>
+${categories}
+  </item>`;
+  }).join('\n');
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>プロ野球観戦メモ｜観戦メモRSS</title>
+  <link>${SITE_URL}/watch-notes/</link>
+  <description>巨人戦を中心に、試合・選手・起用を振り返る観戦メモの新着情報です。</description>
+  <language>ja</language>
+  <lastBuildDate>${lastBuildDate}</lastBuildDate>
+  <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
+${items}
+</channel>
+</rss>
+`;
+  write('feed.xml', xml);
+}
+
 const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 validate(data);
 generateHome(data);
@@ -234,4 +298,5 @@ generateGiants(data);
 generateWatchNotes(data);
 generateArticlesIndex(data);
 generateSitemap(data);
-console.log(`記事データ ${data.articles.length}件からトップ・巨人ページ・一覧・サイトマップを更新しました。`);
+generateFeed(data);
+console.log(`記事データ ${data.articles.length}件からトップ・巨人ページ・一覧・RSS・サイトマップを更新しました。`);

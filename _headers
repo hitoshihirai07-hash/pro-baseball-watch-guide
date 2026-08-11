@@ -2,3 +2,14 @@
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET
   Cache-Control: no-cache, must-revalidate
+
+/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+  Cache-Control: public, max-age=300
+
+/admin/*
+  Cache-Control: private, no-store
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/content/*
+  X-Robots-Tag: noindex, nofollow, noarchive
