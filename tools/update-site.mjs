@@ -99,6 +99,21 @@ function generateHome(data) {
   write(file, replaceBlock(read(file), 'HOME_WATCH_NOTES', html));
 }
 
+function latestGiantsWatchNotes(data, limit = 3) {
+  return data.articles
+    .filter(item => item.type === 'watch-note' && (item.tags || []).includes('giants'))
+    .sort((a, b) => b.published.localeCompare(a.published))
+    .slice(0, limit);
+}
+
+function generateGiants(data) {
+  const html = latestGiantsWatchNotes(data)
+    .map(item => articleCard(item, item.path))
+    .join('\n');
+  const file = 'giants/index.html';
+  write(file, replaceBlock(read(file), 'GIANTS_WATCH_NOTES', html));
+}
+
 function generateWatchNotes(data) {
   const notes = data.articles
     .filter(item => item.type === 'watch-note')
@@ -183,8 +198,10 @@ function generateSitemap(data) {
   const latestNote = data.articles
     .filter(item => item.type === 'watch-note')
     .sort((a, b) => b.updated.localeCompare(a.updated))[0];
+  const latestGiantsNote = latestGiantsWatchNotes(data, 1)[0];
   const staticPages = [
     { path: '/', updated: latestNote?.updated || data.updated },
+    { path: '/giants/', updated: latestGiantsNote?.updated || data.updated },
     { path: '/articles/', updated: data.updated },
     { path: '/watch-notes/', updated: latestNote?.updated || data.updated },
     { path: '/about', updated: '2026-07-02' },
@@ -213,7 +230,8 @@ ${unique.map(entry => `  <url><loc>${SITE_URL}${entry.path}</loc><lastmod>${entr
 const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 validate(data);
 generateHome(data);
+generateGiants(data);
 generateWatchNotes(data);
 generateArticlesIndex(data);
 generateSitemap(data);
-console.log(`記事データ ${data.articles.length}件からトップ・一覧・サイトマップを更新しました。`);
+console.log(`記事データ ${data.articles.length}件からトップ・巨人ページ・一覧・サイトマップを更新しました。`);
