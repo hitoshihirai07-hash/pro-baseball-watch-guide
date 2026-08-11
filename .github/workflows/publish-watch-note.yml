@@ -1,0 +1,53 @@
+name: 観戦メモを公開
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - content/watch-notes/*.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-watch-note
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 記事とサイトを生成
+        run: |
+          npm run publish-watch-notes
+          npm run update-site
+
+      - name: 生成結果を検証
+        run: |
+          git diff --check
+          test -s feed.xml
+          node --check tools/publish-watch-note.mjs
+          node --check tools/update-site.mjs
+
+      - name: 生成ファイルを反映
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/articles.json watch-notes index.html articles/index.html giants/index.html sitemap.xml feed.xml
+          if git diff --cached --quiet; then
+            echo "更新対象はありません。"
+            exit 0
+          fi
+          git commit -m "観戦メモを自動公開"
+          git push
