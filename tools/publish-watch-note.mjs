@@ -7,6 +7,13 @@ const CONTENT_DIR = path.join(ROOT, 'content', 'watch-notes');
 const DATA_PATH = path.join(ROOT, 'data', 'articles.json');
 const TEMPLATE_PATH = path.join(ROOT, 'tools', 'templates', 'watch-note.html');
 const SITE_URL = 'https://pro-baseball-watch-guide.com';
+const ARTICLE_TYPES = new Set([
+  '1試合の観戦メモ',
+  '3連戦・カードの振り返り',
+  '選手について感じたこと',
+  'チーム・起用・戦い方について感じたこと',
+  '期間・シーズンの総括'
+]);
 
 function escapeHtml(value = '') {
   return String(value)
@@ -164,6 +171,9 @@ function validate(note, sourceFile) {
   validateStringArray(note.keywords, sourceFile + ': keywords');
   validateStringArray(note.tags, sourceFile + ': tags');
   validateStringArray(note.badges, sourceFile + ': badges');
+  if (note.articleType !== undefined && !ARTICLE_TYPES.has(note.articleType)) {
+    throw new Error(sourceFile + ': articleType が対応していない種類です。');
+  }
 }
 
 function applyTemplate(template, values) {
@@ -248,6 +258,7 @@ for (const file of files) {
     keywords: note.keywords,
     tags: note.tags,
     badges: note.badges,
+    articleType: note.articleType || '',
     nextPoints: note.nextPoints,
     search: true,
     sitemap: true

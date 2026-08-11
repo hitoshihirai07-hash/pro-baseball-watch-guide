@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-11T08:33:01.368Z",
+  "status": "ok",
+  "summary": {
+    "pages": 73,
+    "articles": 61,
+    "watchNotes": 16,
+    "errors": 0,
+    "warnings": 0
+  },
+  "checks": [
+    {
+      "label": "内部リンク・画像・CSS・JavaScript",
+      "status": "ok",
+      "detail": "73ページの参照先を確認しました。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "記事データとHTML",
+      "status": "ok",
+      "detail": "61件の記事データとHTMLを照合しました。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "URL・slug・タイトルの重複",
+      "status": "ok",
+      "detail": "重複はありません。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "title・description・canonical",
+      "status": "ok",
+      "detail": "71ページの基本メタ情報を確認しました。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "観戦メモRSS",
+      "status": "ok",
+      "detail": "16件の観戦メモを確認しました。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "サイトマップ",
+      "status": "ok",
+      "detail": "61件の記事URLを確認しました。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "「巨人の今」の最新記事",
+      "status": "ok",
+      "detail": "/watch-notes/giants-swallows-2026-08-07-09を表示しています。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "管理画面の検索除外",
+      "status": "ok",
+      "detail": "2ページをnoindexで保護しています。",
+      "count": 0,
+      "samples": []
+    }
+  ]
+}

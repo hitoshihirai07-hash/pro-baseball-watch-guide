@@ -9,13 +9,14 @@
     '1試合の観戦メモ',
     '3連戦・カードの振り返り',
     '選手について感じたこと',
-    'チーム・起用・戦い方について感じたこと'
+    'チーム・起用・戦い方について感じたこと',
+    '期間・シーズンの総括'
   ];
 
   const ARTICLE_TYPE_MIGRATION = {
     '試合について感じたこと': '1試合の観戦メモ',
     '観戦・球場について感じたこと': '1試合の観戦メモ',
-    '期間を見て感じたこと': '3連戦・カードの振り返り',
+    '期間を見て感じたこと': '期間・シーズンの総括',
     'その他': '1試合の観戦メモ'
   };
 
@@ -471,7 +472,8 @@
       '1試合の観戦メモ': '試合観戦',
       '3連戦・カードの振り返り': 'カード振り返り',
       '選手について感じたこと': '選手',
-      'チーム・起用・戦い方について感じたこと': 'チーム'
+      'チーム・起用・戦い方について感じたこと': 'チーム',
+      '期間・シーズンの総括': '期間総括'
     };
     return map[articleType] || '観戦メモ';
   }
@@ -501,7 +503,8 @@
       '1試合の観戦メモ': '試合で印象に残ったこと',
       '3連戦・カードの振り返り': 'カードを通して見えたこと',
       '選手について感じたこと': '気になった選手',
-      'チーム・起用・戦い方について感じたこと': '起用とチームの変化'
+      'チーム・起用・戦い方について感じたこと': '起用とチームの変化',
+      '期間・シーズンの総括': '期間を通して印象に残ったこと'
     };
     return defaults[data.articleType] || '観戦メモ';
   }
@@ -529,6 +532,11 @@
         `【観戦メモ】${game}で見えたチームの変化`,
         `${game}を見て考えた起用とチームのこと`,
         `${topic}から見えた${game}の印象`
+      ],
+      '期間・シーズンの総括': [
+        `【期間総括】${game}を見て感じたこと`,
+        `${game}で印象に残った${topic}`,
+        `${game}を通して見えた変化と次に見たいこと`
       ]
     };
     return unique((templates[data.articleType] || templates['1試合の観戦メモ']).map((title) => shorten(title, 62)));
@@ -539,7 +547,8 @@
       '1試合の観戦メモ': ['この試合で印象に残ったこと', '良かった点と気になった点', '次に見たいこと'],
       '3連戦・カードの振り返り': ['カードを通して見えたこと', '良かった点と気になった点', '次に見たいこと'],
       '選手について感じたこと': ['この選手に注目した理由', '試合で見えたこと', '次に見たいこと'],
-      'チーム・起用・戦い方について感じたこと': ['起用とチーム全体を見て感じたこと', '良かった点と気になった点', '次に見たいこと']
+      'チーム・起用・戦い方について感じたこと': ['起用とチーム全体を見て感じたこと', '良かった点と気になった点', '次に見たいこと'],
+      '期間・シーズンの総括': ['期間を通して印象に残ったこと', '良かった点と気になった点', '次の期間で見たいこと']
     };
     return plans[articleType] || plans['1試合の観戦メモ'];
   }
@@ -825,6 +834,7 @@ ${data.articleLength}
     if (teams.includes('巨人')) filterTags.push('giants');
     else filterTags.push('other');
     if (data.articleType === '3連戦・カードの振り返り') filterTags.push('series');
+    if (data.articleType === '期間・シーズンの総括') filterTags.push('season-review');
     if (data.players || data.usageNotes || data.articleType.includes('選手') || data.articleType.includes('起用')) {
       filterTags.push('player-usage');
     }
@@ -836,7 +846,8 @@ ${data.articleLength}
       giants: '巨人戦',
       other: '他球団',
       series: '3連戦',
-      'player-usage': '選手・起用'
+      'player-usage': '選手・起用',
+      'season-review': '期間・総括'
     };
     return buildFilterTags(data).map((tag) => labels[tag]).filter(Boolean);
   }
@@ -853,7 +864,8 @@ ${data.articleLength}
       '1試合の観戦メモ': '1試合についての観戦メモ',
       '3連戦・カードの振り返り': '3連戦についての観戦メモ',
       '選手について感じたこと': '選手についての観戦メモ',
-      'チーム・起用・戦い方について感じたこと': 'チーム・起用についての観戦メモ'
+      'チーム・起用・戦い方について感じたこと': 'チーム・起用についての観戦メモ',
+      '期間・シーズンの総括': '期間・シーズンについての観戦メモ'
     };
     return labels[articleType] || 'プロ野球観戦メモ';
   }
@@ -924,6 +936,7 @@ ${data.articleLength}
       published: data.publish.published,
       updated: data.publish.published,
       gameLabel: data.gameTitle,
+      articleType: data.articleType,
       articleBadge: articleBadge(data.articleType),
       lead: data.publish.description,
       bodyMarkdown: data.publish.bodyMarkdown,
@@ -1131,6 +1144,9 @@ ${data.articleLength}
     hydrate(isRecordLike(draft) ? draft : newBlankData());
     updateSaveStatus(isRecordLike(draft) && hasMeaningfulContent(draft) ? '自動保存済み' : '新しい記録');
     bindEvents();
+    if (new URLSearchParams(window.location.search).get('records') === '1') {
+      window.setTimeout(openRecords, 0);
+    }
   }
 
   init();

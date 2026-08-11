@@ -5,6 +5,7 @@
   "scripts": {
     "publish-watch-notes": "node tools/publish-watch-note.mjs",
     "update-site": "node tools/update-site.mjs",
+    "check-site": "node tools/check-site.mjs",
     "build": "node tools/update-site.mjs"
   }
 }
