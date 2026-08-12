@@ -63,10 +63,17 @@
     'オリックス': 'buffaloes'
   };
 
+  const TARGET_TEAMS = [
+    '巨人', '阪神', 'DeNA', '広島', 'ヤクルト', '中日',
+    'ソフトバンク', '日本ハム', 'ロッテ', '西武', '楽天', 'オリックス',
+    '複数球団・その他'
+  ];
+
   const el = {
     form: $('#recordForm'),
     gameDate: $('#gameDate'),
     gameTitle: $('#gameTitle'),
+    targetTeam: $('#targetTeam'),
     stadium: $('#stadium'),
     articleType: $('#articleType'),
     mainPoint: $('#mainPoint'),
@@ -194,6 +201,7 @@
 
   function getFieldValues() {
     return {
+      targetTeam: normalizeText(el.targetTeam.value) || '巨人',
       stadium: normalizeText(el.stadium.value),
       players: normalizeText(el.players.value),
       goodPoints: normalizeText(el.goodPoints.value),
@@ -215,6 +223,7 @@
   }
 
   function setFieldValues(data = {}) {
+    setInputValue(el.targetTeam, resolveTargetTeam(data), '巨人');
     el.stadium.value = data.stadium || '';
     el.players.value = data.players || '';
     el.goodPoints.value = data.goodPoints || '';
@@ -315,6 +324,7 @@
       createdAt: new Date().toISOString(),
       gameDate: getTodayLocal(),
       gameTitle: '',
+      targetTeam: '巨人',
       stadium: '',
       articleType: '1試合の観戦メモ',
       watchMethods: [],
@@ -456,6 +466,20 @@
     return result;
   }
 
+  function resolveTargetTeam(data = {}) {
+    const selected = normalizeText(data.targetTeam);
+    if (TARGET_TEAMS.includes(selected)) return selected;
+
+    // 旧データには対象球団がないため、従来の「対象の試合・期間」から可能な範囲で引き継ぐ。
+    const detected = getTeamTags(data.gameTitle);
+    if (detected.includes('巨人')) return '巨人';
+    if (detected.length === 1) return detected[0];
+    if (detected.length > 1) return '複数球団・その他';
+
+    // 新規作成時の既定は、サイト運用の中心である巨人。
+    return '巨人';
+  }
+
   function splitPeople(value) {
     return normalizeText(value)
       .split(/[、,，／/｜|\n]+/)
@@ -479,9 +503,11 @@
   }
 
   function buildTags(data) {
+    const targetTeam = resolveTargetTeam(data);
     const tags = [
       '観戦メモ',
       articleTypeTag(data.articleType),
+      targetTeam !== '複数球団・その他' ? targetTeam : '',
       ...getTeamTags(data.gameTitle),
       ...splitPeople(data.players)
     ];
@@ -636,6 +662,7 @@ ${data.gameTitle || '（未入力）'}
 
 【日付・球場・観戦方法】
 - 日付：${data.gameDate || '（未入力）'}
+- 対象球団：${resolveTargetTeam(data)}
 - 球場：${data.stadium || '（未入力）'}
 - 観戦方法：${formatWatchMethods(data.watchMethods)}
 
@@ -785,7 +812,7 @@ ${data.articleLength}
 
   function buildSheetRow(data = currentData()) {
     const headers = [
-      '日付', '対象の試合・期間', '球場', '観戦方法', '記事の種類', '記事の結論',
+      '日付', '対象の試合・期間', '対象球団', '球場', '観戦方法', '記事の種類', '記事の結論',
       '気になった選手', '良かった点', '気になった点', '起用・継投・打順',
       'チーム全体', 'Player Lensで確認したいデータ', '自由メモ', '候補タグ',
       '避けたい表現', '記事の雰囲気', '記事の長さ'
@@ -793,6 +820,7 @@ ${data.articleLength}
     const row = [
       data.gameDate || '',
       oneLine(data.gameTitle),
+      resolveTargetTeam(data),
       oneLine(data.stadium),
       formatWatchMethods(data.watchMethods),
       data.articleType,
@@ -813,25 +841,25 @@ ${data.articleLength}
   }
 
   function buildMemoTable(data = currentData()) {
-    const headers = ['日付', '対象の試合・期間', '球場', '観戦方法', '記事の種類', 'メモ番号', '自由メモ'];
+    const headers = ['日付', '対象の試合・期間', '対象球団', '球場', '観戦方法', '記事の種類', 'メモ番号', '自由メモ'];
     const rows = data.memos.length
       ? data.memos.map((memo, index) => [
           data.gameDate || '',
           oneLine(data.gameTitle),
+          resolveTargetTeam(data),
           oneLine(data.stadium),
           formatWatchMethods(data.watchMethods),
           data.articleType,
           index + 1,
           oneLine(memo.text)
         ])
-      : [[data.gameDate || '', oneLine(data.gameTitle), oneLine(data.stadium), formatWatchMethods(data.watchMethods), data.articleType, '', '']];
+      : [[data.gameDate || '', oneLine(data.gameTitle), resolveTargetTeam(data), oneLine(data.stadium), formatWatchMethods(data.watchMethods), data.articleType, '', '']];
     return `${headers.join('\t')}\n${rows.map((row) => row.join('\t')).join('\n')}`;
   }
 
   function buildFilterTags(data) {
     const filterTags = [];
-    const teams = getTeamTags(data.gameTitle);
-    if (teams.includes('巨人')) filterTags.push('giants');
+    if (resolveTargetTeam(data) === '巨人') filterTags.push('giants');
     else filterTags.push('other');
     if (data.articleType === '3連戦・カードの振り返り') filterTags.push('series');
     if (data.articleType === '期間・シーズンの総括') filterTags.push('season-review');
@@ -853,7 +881,10 @@ ${data.articleLength}
   }
 
   function buildAutoSlug(data) {
-    const teamSlugs = getTeamTags(data.gameTitle).map((team) => TEAM_SLUGS[team]).filter(Boolean);
+    const detectedTeams = getTeamTags(data.gameTitle);
+    const targetTeam = resolveTargetTeam(data);
+    const slugTeams = detectedTeams.length ? detectedTeams : (TEAM_SLUGS[targetTeam] ? [targetTeam] : []);
+    const teamSlugs = slugTeams.map((team) => TEAM_SLUGS[team]).filter(Boolean);
     const teams = unique(teamSlugs).slice(0, 2);
     const prefix = teams.length ? teams.join('-') : 'watch-note';
     return `${prefix}-${data.gameDate || getTodayLocal()}`;
@@ -936,6 +967,7 @@ ${data.articleLength}
       published: data.publish.published,
       updated: data.publish.published,
       gameLabel: data.gameTitle,
+      targetTeam: resolveTargetTeam(data),
       articleType: data.articleType,
       articleBadge: articleBadge(data.articleType),
       lead: data.publish.description,

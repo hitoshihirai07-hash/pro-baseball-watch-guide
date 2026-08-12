@@ -57,9 +57,31 @@
 
         <div class="field-grid two-columns">
           <label class="field-label">
+            <span>対象球団</span>
+            <span class="field-help">記事を分類する球団です。通常は巨人のままで大丈夫です。</span>
+            <select id="targetTeam" name="targetTeam">
+              <option selected>巨人</option>
+              <option>阪神</option>
+              <option>DeNA</option>
+              <option>広島</option>
+              <option>ヤクルト</option>
+              <option>中日</option>
+              <option>ソフトバンク</option>
+              <option>日本ハム</option>
+              <option>ロッテ</option>
+              <option>西武</option>
+              <option>楽天</option>
+              <option>オリックス</option>
+              <option>複数球団・その他</option>
+            </select>
+          </label>
+          <label class="field-label">
             <span>球場</span>
             <input id="stadium" name="stadium" type="text" placeholder="例：東京ドーム">
           </label>
+        </div>
+
+        <div class="field-grid two-columns">
           <label class="field-label">
             <span>記事の種類</span>
             <select id="articleType" name="articleType">
