@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-11",
+  "updated": "2026-08-13",
   "articles": [
     {
       "type": "watch-note",
@@ -2216,6 +2216,47 @@
         "いつ代打出てくるか",
         "石塚",
         "堀田"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-tigers-20260811-0813-review",
+      "source": "watch-notes/giants-tigers-20260811-0813-review.html",
+      "contentSource": "content/watch-notes/giants-tigers-20260811-0813-review.json",
+      "slug": "giants-tigers-20260811-0813-review",
+      "title": "【カード振り返り】8/11～13　巨人対阪神3連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】8/11～13　巨人対阪神3連戦を見て感じたこと",
+      "description": "8月11日～13日の巨人対阪神3連戦を振り返り。ダルベックの阪神戦での相性の良さ、中山礼都の昇格直後の本塁打、堀田賢慎の16試合連続無失点など、印象に残ったポイントをまとめました。",
+      "listDescription": "ダルベックの連発、中山の昇格即本塁打、堀田の16試合連続無失点が印象に残った阪神3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-13",
+      "updated": "2026-08-13",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "阪神",
+        "ダルベック",
+        "中山"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "nextPoints": [
+        "中山",
+        "キャベッジ、中山",
+        "堀田、マルティネス"
       ],
       "search": true,
       "sitemap": true

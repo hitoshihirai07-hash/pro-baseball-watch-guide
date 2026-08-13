@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T14:54:41.965Z",
+  "generatedAt": "2026-08-13T12:51:45.461Z",
   "status": "ok",
   "summary": {
-    "pages": 74,
-    "articles": 62,
-    "watchNotes": 17,
+    "pages": 75,
+    "articles": 63,
+    "watchNotes": 18,
     "errors": 0,
     "warnings": 0
   },
@@ -13,14 +13,14 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "74ページの参照先を確認しました。",
+      "detail": "75ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "62件の記事データとHTMLを照合しました。",
+      "detail": "63件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -34,28 +34,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "72ページの基本メタ情報を確認しました。",
+      "detail": "73ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "17件の観戦メモを確認しました。",
+      "detail": "18件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "62件の記事URLを確認しました。",
+      "detail": "63件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/hayato-sakamoto-player-focusを表示しています。",
+      "detail": "/watch-notes/giants-tigers-20260811-0813-reviewを表示しています。",
       "count": 0,
       "samples": []
     },
