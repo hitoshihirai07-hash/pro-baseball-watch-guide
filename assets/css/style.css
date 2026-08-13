@@ -77,8 +77,9 @@
 .watch-note-box-heading>span{display:inline-flex;align-items:center;justify-content:center;min-width:66px;padding:4px 9px;border-radius:999px;background:#082e5c;color:#fff;font-size:.72rem;font-weight:900;letter-spacing:.12em}
 .watch-note-points{background:linear-gradient(135deg,#f8fbff,#edf5ff)}
 .watch-note-point-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-.watch-note-point-list li{position:relative;padding:11px 14px 11px 43px;border:1px solid #d7e5f3;border-radius:14px;background:#fff;color:#334a63;line-height:1.65}
-.watch-note-point-list li:before{content:"✓";position:absolute;left:13px;top:11px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#dcecff;color:#0b548f;font-weight:900;line-height:1}
+.watch-note-point-list li{padding:13px 15px;border:1px solid #d7e5f3;border-radius:14px;background:#fff;color:#334a63;line-height:1.65}
+.watch-note-point-label{display:block;color:#5d7894;font-size:.84rem;font-weight:900;line-height:1.5}
+.watch-note-point-value{display:block;margin-top:4px;color:#082e5c;font-size:1.05rem;line-height:1.55}
 .watch-note-result{border-color:#b8d1e9}
 .watch-note-result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .watch-note-result-card{border:1px solid #d3e2f0;border-radius:16px;padding:15px;background:#f9fcff}

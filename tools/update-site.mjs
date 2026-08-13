@@ -6,6 +6,12 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_PATH = path.join(ROOT, 'data', 'articles.json');
 const SITE_URL = 'https://pro-baseball-watch-guide.com';
 
+const DEFAULT_NEXT_POINT_LABELS = [
+  '打順・起用などで注目する点',
+  '状態を確認したい選手',
+  '登板状況を見たい投手'
+];
+
 function read(file) {
   return fs.readFileSync(path.join(ROOT, file), 'utf8');
 }
@@ -98,6 +104,9 @@ function validate(data) {
       if (!Array.isArray(item.nextPoints) || item.nextPoints.length !== 3 || item.nextPoints.some(point => typeof point !== 'string' || !point.trim())) {
         throw new Error(`${item.path}: nextPoints は空でない文字列3件にしてください。`);
       }
+      if (!Array.isArray(item.nextPointLabels) || item.nextPointLabels.length !== 3 || item.nextPointLabels.some(label => typeof label !== 'string' || !label.trim())) {
+        throw new Error(`${item.path}: nextPointLabels は空でない文字列3件にしてください。`);
+      }
     }
   }
 }
@@ -135,7 +144,12 @@ function generateGiants(data) {
 <p class="section-description"><a href="${escapeHtml(latestWithNextPoints.path)}">${escapeHtml(latestWithNextPoints.listTitle || latestWithNextPoints.title)}</a>から、次の試合で見たい点をまとめています。</p>
 </div>
 <div class="featured-article-grid">
-${latestWithNextPoints.nextPoints.map((point, index) => `<article class="featured-article-card"><span class="badge">${index + 1}</span><h3>${escapeHtml(point)}</h3></article>`).join('\n')}
+${latestWithNextPoints.nextPoints.map((point, index) => {
+  const labels = Array.isArray(latestWithNextPoints.nextPointLabels) && latestWithNextPoints.nextPointLabels.length === 3
+    ? latestWithNextPoints.nextPointLabels
+    : DEFAULT_NEXT_POINT_LABELS;
+  return `<article class="featured-article-card"><span class="badge">${index + 1}</span><h3>${escapeHtml(labels[index])}</h3><p>${escapeHtml(point)}</p></article>`;
+}).join('\n')}
 </div>
 </section>`
     : '';

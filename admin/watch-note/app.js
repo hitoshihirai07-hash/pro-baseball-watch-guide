@@ -20,6 +20,13 @@
     'その他': '1試合の観戦メモ'
   };
 
+
+  const NEXT_POINT_LABELS = [
+    '打順・起用などで注目する点',
+    '状態を確認したい選手',
+    '登板状況を見たい投手'
+  ];
+
   const TEAM_NAMES = [
     ['読売ジャイアンツ', '巨人'],
     ['巨人', '巨人'],
@@ -600,7 +607,9 @@
       data.watchMethods?.length ? `- 観戦方法：${formatWatchMethods(data.watchMethods)}` : ''
     ].filter(Boolean).join('\n');
 
-    const nextPoints = data.nextPoints.map((point) => point || '（入力）').map((point) => `- ${point}`).join('\n');
+    const nextPoints = data.nextPoints
+      .map((point, index) => `${index + 1}. **${NEXT_POINT_LABELS[index]}**：${point || '（入力）'}`)
+      .join('\n');
 
     return `---
 title: "${title.replace(/"/g, '＂')}"
@@ -638,8 +647,7 @@ ${nextPoints}`;
       ['気になった点', data.concerns],
       ['起用・継投・打順について', data.usageNotes],
       ['チーム全体について', data.teamNotes],
-      ['Player Lensで確認したいデータ', data.playerLensChecks],
-      ['次カードで見たい3つ', data.nextPoints.join('\n')]
+      ['Player Lensで確認したいデータ', data.playerLensChecks]
     ];
     return rows
       .filter(([, value]) => normalizeText(value))
@@ -680,13 +688,13 @@ ${tagsText}
 【記事に残したい内容】
 ${buildStructuredInput(data)}
 
-【自由メモ（ここに書かれた内容だけを材料にする）】
+【自由メモ（記事の主観・方向性の材料）】
 ${memoText}
 
 【次カードで見たい3つ】
-1. ${data.nextPoints[0] || '（未入力）'}
-2. ${data.nextPoints[1] || '（未入力）'}
-3. ${data.nextPoints[2] || '（未入力）'}
+1. ${NEXT_POINT_LABELS[0]}：${data.nextPoints[0] || '（未入力）'}
+2. ${NEXT_POINT_LABELS[1]}：${data.nextPoints[1] || '（未入力）'}
+3. ${NEXT_POINT_LABELS[2]}：${data.nextPoints[2] || '（未入力）'}
 
 【Markdown原稿の骨組み】
 ${articleKit.outline}
@@ -701,15 +709,20 @@ ${data.articleTone}
 ${data.articleLength}
 
 【原稿作成時の条件】
-- 入力欄と自由メモから読み取れる内容だけを使い、書かれていない感想・評価・背景を勝手に補わない。
-- 日付、試合結果、選手名、記録などの事実が必要な場合は、必ず公式情報で確認する。
+- 入力欄と自由メモは、ユーザーが実際に感じたこと・記事に残したい方向性として扱う。ユーザーが書いていない主観的な評価、選手の心理、首脳陣の意図などは勝手に作らない。
+- 原稿を書く前に、対象の試合・期間についてNPB公式、球団公式などの一次情報を必ず確認する。試合結果だけでなく、入力内容に関係する打席結果（安打・四球・本塁打・三振など）、投球内容、出場・登録・抹消なども必要に応じて調べる。
+- 入力が「期待できた」「状態が気になる」「降格が心配」など短い感想だけの場合でも、その感想に直接関係する試合内容を公式情報で確認し、確認できた客観的事実を使って「なぜそう感じたのか」が読者に伝わる観戦メモにする。
+- 入力欄に明記されていない事実でも、対象試合・期間の公式情報で確認でき、入力された感想を自然に説明するために直接必要な事実は補足してよい。ただし、そこから別の評価や背景を推測して付け足さない。
+- 速報や試合途中の数字ではなく、原則として試合終了後の最終記録・最新の公示を確認する。
+- 入力内容と公式情報が食い違う、または記事の核になる事実を確認できない場合は、黙って削除したり勝手に直したりせず、原稿作成前に「公式情報では○○と確認できました。○○として反映してよいですか？」のように具体的に確認する。
+- 制作上のルールを本文に書かない。「メモに書かれていないため」「推測はせず」「入力された範囲では」など、読者に不要な制作過程の説明は記事本文へ入れない。
 - 推測、移籍の噂、人格批判、断定的な批判は入れない。
 - 「現地で見た」は、観戦方法に「現地」と書かれている場合だけ使う。
-- 本文は「この試合・この期間を見た範囲では」と分かる書き方にする。
+- 本文は、この試合・この期間を見た観戦メモとして自然に読める文章にする。
 - 最初にタイトル案を3つ提示し、その後に最も合う1案を使ったMarkdown原稿を完成させる。
 - 見出しはMarkdown原稿の骨組みを基本にし、入力がない項目は無理に膨らませない。
-- 記事末に「次カードで見たい3つ」の見出しを設け、上の3項目を内容を変えずに掲載する。
-- 最後に、事実確認が必要な箇所だけを短くまとめる。`;
+- 記事末に「次カードで見たい3つ」の見出しを設け、「${NEXT_POINT_LABELS[0]}」「${NEXT_POINT_LABELS[1]}」「${NEXT_POINT_LABELS[2]}」の項目名と入力内容をセットで掲載する。
+- 原稿末には、確認した主な事実と公式情報を短くまとめる。未確認のまま「事実確認が必要」とだけ書いて終わらせない。`;
   }
 
   function buildArticleKit(data = currentData()) {
@@ -973,6 +986,7 @@ ${data.articleLength}
       lead: data.publish.description,
       bodyMarkdown: data.publish.bodyMarkdown,
       nextPoints: data.nextPoints,
+      nextPointLabels: [...NEXT_POINT_LABELS],
       keywords: unique(buildTags(data)),
       tags: buildFilterTags(data),
       badges: buildBadges(data)

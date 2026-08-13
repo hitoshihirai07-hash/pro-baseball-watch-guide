@@ -15,6 +15,12 @@ const ARTICLE_TYPES = new Set([
   '期間・シーズンの総括'
 ]);
 
+const DEFAULT_NEXT_POINT_LABELS = [
+  '打順・起用などで注目する点',
+  '状態を確認したい選手',
+  '登板状況を見たい投手'
+];
+
 function escapeHtml(value = '') {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -168,6 +174,10 @@ function validate(note, sourceFile) {
   }
   validateStringArray(note.nextPoints, sourceFile + ': nextPoints', 3);
   if (note.nextPoints.length !== 3) throw new Error(sourceFile + ': nextPoints は3件にしてください。');
+  if (note.nextPointLabels !== undefined) {
+    validateStringArray(note.nextPointLabels, sourceFile + ': nextPointLabels', 3);
+    if (note.nextPointLabels.length !== 3) throw new Error(sourceFile + ': nextPointLabels は3件にしてください。');
+  }
   validateStringArray(note.keywords, sourceFile + ': keywords');
   validateStringArray(note.tags, sourceFile + ': tags');
   validateStringArray(note.badges, sourceFile + ': badges');
@@ -197,7 +207,15 @@ function pageHtml(note) {
     isPartOf: { '@type': 'WebSite', name: 'プロ野球観戦メモ', url: SITE_URL + '/' },
     author: { '@type': 'Organization', name: 'プロ野球観戦メモ' }
   }, null, 2).replaceAll('<', '\\u003c');
-  const nextPoints = note.nextPoints.map((point) => '<li>' + escapeHtml(point) + '</li>').join('\n');
+  const nextPointLabels = Array.isArray(note.nextPointLabels) && note.nextPointLabels.length === 3
+    ? note.nextPointLabels
+    : DEFAULT_NEXT_POINT_LABELS;
+  const nextPoints = note.nextPoints.map((point, index) => [
+    '<li>',
+    '<span class="watch-note-point-label">' + (index + 1) + '．' + escapeHtml(nextPointLabels[index]) + '</span>',
+    '<strong class="watch-note-point-value">' + escapeHtml(point) + '</strong>',
+    '</li>'
+  ].join('')).join('\n');
   const giantsLinks = note.tags.includes('giants')
     ? '<a class="button ghost" href="../giants/">巨人の今を見る</a>\n<a class="button ghost" href="../articles/yomiuri-giants-guide">読売ジャイアンツの紹介を見る</a>'
     : '<a class="button ghost" href="../articles/teams">12球団の紹介を見る</a>';
@@ -241,6 +259,10 @@ for (const file of files) {
     throw new Error(file + ': 既存記事とURL末尾が重複しています（' + articlePath + '）。');
   }
 
+  const nextPointLabels = Array.isArray(note.nextPointLabels) && note.nextPointLabels.length === 3
+    ? note.nextPointLabels
+    : DEFAULT_NEXT_POINT_LABELS;
+
   const entry = {
     type: 'watch-note',
     path: articlePath,
@@ -260,6 +282,7 @@ for (const file of files) {
     badges: note.badges,
     articleType: note.articleType || '',
     nextPoints: note.nextPoints,
+    nextPointLabels,
     search: true,
     sitemap: true
   };

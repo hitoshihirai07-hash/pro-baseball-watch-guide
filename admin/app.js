@@ -130,6 +130,9 @@
     if (item.type === 'watch-note' && item.contentSource && (!Array.isArray(item.nextPoints) || item.nextPoints.length !== 3)) {
       return '次カード3点を確認';
     }
+    if (item.type === 'watch-note' && item.contentSource && (!Array.isArray(item.nextPointLabels) || item.nextPointLabels.length !== 3)) {
+      return '次カード3点の項目名を確認';
+    }
     return '';
   }
 
