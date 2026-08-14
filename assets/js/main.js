@@ -14,6 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.site-footer .footer-grid > div:first-child').forEach(function (footerBlock) {
+    if (footerBlock.querySelector('.blogmura-ranking')) return;
+    var ranking = document.createElement('div');
+    ranking.className = 'blogmura-ranking';
+    ranking.style.marginTop = '12px';
+    ranking.innerHTML = '<a href="https://baseball.blogmura.com/giants/ranking/in?p_cid=11217346" target="_blank" rel="noopener"><img src="https://b.blogmura.com/baseball/giants/88_31.gif" width="88" height="31" border="0" alt="にほんブログ村 野球ブログ 読売ジャイアンツへ" /></a><br /><a href="https://baseball.blogmura.com/giants/ranking/in?p_cid=11217346" target="_blank" rel="noopener">にほんブログ村</a>';
+    footerBlock.appendChild(ranking);
+  });
+});
+
+
 (function () {
   var articleSearchItems = [];
 
