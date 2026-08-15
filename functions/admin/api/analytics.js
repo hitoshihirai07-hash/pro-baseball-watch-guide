@@ -1,4 +1,5 @@
-const GRAPHQL_ENDPOINT = 'https://api.cloudflare.com/client/v4/graphql';
+const CLOUDFLARE_API_BASE = 'https://api.cloudflare.com/client/v4';
+const GRAPHQL_ENDPOINT = `${CLOUDFLARE_API_BASE}/graphql`;
 
 const QUERY = `
 query AdminWebAnalytics(
@@ -84,10 +85,129 @@ function cleanPages(groups = []) {
     .filter((row) => row.path && !row.path.startsWith('/admin') && !row.path.startsWith('/assets/'));
 }
 
-export async function onRequestGet({ env }) {
+function normalizeHost(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/\/$/, '');
+}
+
+function projectMatchesHost(project, hostname) {
+  const target = normalizeHost(hostname);
+  if (!target) return false;
+  const domains = Array.isArray(project?.domains) ? project.domains.map(normalizeHost) : [];
+  return domains.includes(target) || normalizeHost(project?.subdomain) === target;
+}
+
+function analyticsTagFromProject(project) {
+  return project?.build_config?.web_analytics_tag
+    || project?.canonical_deployment?.build_config?.web_analytics_tag
+    || project?.latest_deployment?.build_config?.web_analytics_tag
+    || '';
+}
+
+async function fetchPagesProject(accountId, token, hostname) {
+  let page = 1;
+  let totalPages = 1;
+
+  do {
+    const url = `${CLOUDFLARE_API_BASE}/accounts/${encodeURIComponent(accountId)}/pages/projects?page=${page}&per_page=100`;
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json'
+      }
+    });
+    const payload = await response.json().catch(() => null);
+
+    if (!response.ok || !payload?.success) {
+      const details = Array.isArray(payload?.errors)
+        ? payload.errors.map((error) => error?.message).filter(Boolean).slice(0, 3)
+        : [];
+      const error = new Error(
+        response.status === 403
+          ? 'Cloudflare APIトークンに「Pages: Read」権限を追加してください。PagesプロジェクトからWeb Analyticsの対象を自動判定するために必要です。'
+          : `Cloudflare Pages APIへの接続に失敗しました（${response.status}）。`
+      );
+      error.status = response.status;
+      error.details = details;
+      throw error;
+    }
+
+    const projects = Array.isArray(payload.result) ? payload.result : [];
+    const matched = projects.find((project) => projectMatchesHost(project, hostname));
+    if (matched) return matched;
+
+    totalPages = Math.max(1, Number(payload.result_info?.total_pages) || 1);
+    page += 1;
+  } while (page <= totalPages);
+
+  return null;
+}
+
+async function resolveAnalyticsSite({ accountId, token, hostname }) {
+  const project = await fetchPagesProject(accountId, token, hostname);
+  if (!project) {
+    const error = new Error(`Cloudflare Pagesで ${hostname} に紐づくプロジェクトを確認できませんでした。`);
+    error.status = 404;
+    throw error;
+  }
+
+  const siteTag = analyticsTagFromProject(project);
+  if (!siteTag) {
+    const error = new Error('Cloudflare PagesプロジェクトにWeb Analyticsタグが設定されていません。Pagesの「Metrics > Web Analytics」を確認してください。');
+    error.status = 404;
+    throw error;
+  }
+
+  return {
+    siteTag,
+    projectName: project.name || '',
+    subdomain: project.subdomain || ''
+  };
+}
+
+async function fetchAnalytics({ accountId, siteTag, token, end }) {
+  const response = await fetch(GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: QUERY,
+      variables: {
+        accountTag: accountId,
+        siteTag,
+        seriesStart: daysAgo(59),
+        top7Start: daysAgo(6),
+        top30Start: daysAgo(29),
+        end
+      }
+    })
+  });
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok || !payload) {
+    const error = new Error(`Cloudflare Analytics APIへの接続に失敗しました（${response.status}）。`);
+    error.status = response.status;
+    throw error;
+  }
+  if (Array.isArray(payload.errors) && payload.errors.length) {
+    const error = new Error('Cloudflare Analytics APIがクエリを受け付けませんでした。APIトークンの「Account Analytics: Read」権限を確認してください。');
+    error.status = 502;
+    error.details = payload.errors.map((item) => item?.message).filter(Boolean).slice(0, 3);
+    throw error;
+  }
+
+  return payload;
+}
+
+export async function onRequestGet({ env, request }) {
   const required = {
     CF_ACCOUNT_ID: env.CF_ACCOUNT_ID,
-    CF_WEB_ANALYTICS_SITE_TAG: env.CF_WEB_ANALYTICS_SITE_TAG,
     CF_API_TOKEN: env.CF_API_TOKEN
   };
   const missing = Object.entries(required).filter(([, value]) => !value).map(([name]) => name);
@@ -99,37 +219,37 @@ export async function onRequestGet({ env }) {
     }, 503);
   }
 
-  const end = new Date(startOfUtcDay().getTime() + 24 * 60 * 60 * 1000).toISOString();
-  const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${env.CF_API_TOKEN}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      query: QUERY,
-      variables: {
-        accountTag: env.CF_ACCOUNT_ID,
-        siteTag: env.CF_WEB_ANALYTICS_SITE_TAG,
-        seriesStart: daysAgo(59),
-        top7Start: daysAgo(6),
-        top30Start: daysAgo(29),
-        end
-      }
-    })
-  });
-
-  const payload = await response.json().catch(() => null);
-  if (!response.ok || !payload) {
-    return json({ configured: true, message: `Cloudflare Analytics APIへの接続に失敗しました（${response.status}）。` }, 502);
+  const hostname = new URL(request.url).hostname;
+  let analyticsSite;
+  try {
+    analyticsSite = await resolveAnalyticsSite({
+      accountId: env.CF_ACCOUNT_ID,
+      token: env.CF_API_TOKEN,
+      hostname
+    });
+  } catch (error) {
+    return json({
+      configured: false,
+      message: error.message || 'Cloudflare PagesのWeb Analytics設定を自動判定できませんでした。',
+      details: error.details || []
+    }, 503);
   }
-  if (Array.isArray(payload.errors) && payload.errors.length) {
+
+  const end = new Date(startOfUtcDay().getTime() + 24 * 60 * 60 * 1000).toISOString();
+  let payload;
+  try {
+    payload = await fetchAnalytics({
+      accountId: env.CF_ACCOUNT_ID,
+      siteTag: analyticsSite.siteTag,
+      token: env.CF_API_TOKEN,
+      end
+    });
+  } catch (error) {
     return json({
       configured: true,
-      message: 'Cloudflare Analytics APIがクエリを受け付けませんでした。Account Analytics: Read権限とサイトタグを確認してください。',
-      details: payload.errors.map((error) => error.message).filter(Boolean).slice(0, 3)
-    }, 502);
+      message: error.message || 'Cloudflare Analytics APIから閲覧データを取得できませんでした。',
+      details: error.details || []
+    }, error.status === 403 ? 503 : 502);
   }
 
   const account = payload.data?.viewer?.accounts?.[0];
@@ -151,6 +271,8 @@ export async function onRequestGet({ env }) {
   return json({
     configured: true,
     generatedAt: new Date().toISOString(),
+    analyticsSource: 'cloudflare-pages-project',
+    projectName: analyticsSite.projectName,
     series,
     topPages7: cleanPages(account.top7),
     topPages30: cleanPages(account.top30)
