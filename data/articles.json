@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-15",
+  "updated": "2026-08-16",
   "articles": [
     {
       "type": "watch-note",
@@ -2270,6 +2270,41 @@
       ],
       "search": true,
       "sitemap": true
+    },
+    {
+      "type": "article",
+      "path": "/articles/skyperfectv-pro-baseball-set",
+      "source": "articles/skyperfectv-pro-baseball-set.html",
+      "slug": "skyperfectv-pro-baseball-set",
+      "title": "【2026年版】スカパー！プロ野球セットとは？料金・12球団中継・スマホ視聴を確認",
+      "listTitle": "スカパー！プロ野球セットとは？料金・12球団中継・スマホ視聴を確認",
+      "description": "スカパー！プロ野球セットの2026年の料金、12球団公式戦の放送、テレビ・スマホでの視聴方法、申込み前に確認したい点を公式情報をもとに整理します。",
+      "listDescription": "12球団の公式戦を広く見たい人向けに、スカパー！プロ野球セットの料金、テレビ・スマホ視聴、申込み前の確認点を整理します。",
+      "category": "中継・配信",
+      "group": "watch-home",
+      "published": "2026-08-16",
+      "updated": "2026-08-16",
+      "keywords": [
+        "スカパー",
+        "スカパー！",
+        "プロ野球セット",
+        "プロ野球 中継",
+        "プロ野球 配信",
+        "12球団",
+        "テレビ",
+        "スマホ",
+        "CS",
+        "料金",
+        "B-CAS",
+        "ACAS"
+      ],
+      "tags": [],
+      "badges": [
+        "中継・配信"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 2
     },
     {
       "type": "recommendation",
