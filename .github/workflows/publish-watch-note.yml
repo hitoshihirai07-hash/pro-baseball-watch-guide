@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - content/watch-notes/*.json
+      - data/recommendations.json
+      - articles/baseball-watching-useful-goods.html
+      - tools/update-recommendations.mjs
 
 permissions:
   contents: write
@@ -39,6 +42,7 @@ jobs:
           test -s feed.xml
           node --check tools/publish-watch-note.mjs
           node --check tools/update-site.mjs
+          node --check tools/update-recommendations.mjs
           npm run check-site
 
       - name: 生成ファイルを反映
@@ -50,5 +54,5 @@ jobs:
             echo "更新対象はありません。"
             exit 0
           fi
-          git commit -m "観戦メモを自動公開"
+          git commit -m "観戦メモ・おすすめ記事を自動公開"
           git push
