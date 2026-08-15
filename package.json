@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "publish-watch-notes": "node tools/publish-watch-note.mjs",
-    "update-site": "node tools/update-site.mjs",
+    "update-site": "node tools/update-site.mjs && node tools/update-recommendations.mjs",
+    "update-recommendations": "node tools/update-recommendations.mjs",
     "check-site": "node tools/check-site.mjs",
-    "build": "node tools/update-site.mjs"
+    "build": "npm run update-site"
   }
 }

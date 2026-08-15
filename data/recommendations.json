@@ -1,0 +1,34 @@
+{
+  "updated": "2026-08-15",
+  "articles": [
+    {
+      "type": "recommendation",
+      "path": "/articles/baseball-watching-useful-goods",
+      "source": "articles/baseball-watching-useful-goods.html",
+      "slug": "baseball-watching-useful-goods",
+      "title": "【2026年版】プロ野球観戦を快適にするおすすめグッズ5選｜双眼鏡・暑さ・雨対策まで",
+      "listTitle": "プロ野球観戦を快適にするおすすめグッズ5選",
+      "description": "プロ野球観戦を快適にしたい人向けに、防振双眼鏡、モバイルバッテリー、暑さ対策、雨具、折りたたみ座布団のおすすめ5商品を目的別に紹介します。",
+      "listDescription": "双眼鏡、充電、暑さ、雨、座席の疲れという球場観戦の困りごと別に、Amazonで確認できる5商品を紹介します。",
+      "category": "観戦グッズ・おすすめ",
+      "group": "recommendations",
+      "published": "2026-08-15",
+      "updated": "2026-08-15",
+      "keywords": [
+        "プロ野球観戦 便利グッズ",
+        "野球観戦 おすすめグッズ",
+        "野球観戦 双眼鏡",
+        "野球観戦 モバイルバッテリー",
+        "野球観戦 暑さ対策",
+        "野球観戦 雨対策",
+        "野球観戦 クッション",
+        "観戦グッズ",
+        "Amazon"
+      ],
+      "badges": ["観戦グッズ", "Amazon"],
+      "search": true,
+      "sitemap": true,
+      "order": 1
+    }
+  ]
+}
