@@ -1,6 +1,7 @@
-name: 観戦メモを公開
+name: 観戦メモ・おすすめ記事を公開
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -9,6 +10,8 @@ on:
       - data/recommendations.json
       - articles/baseball-watching-useful-goods.html
       - tools/update-recommendations.mjs
+      - package.json
+      - .github/workflows/publish-watch-note.yml
 
 permissions:
   contents: write
