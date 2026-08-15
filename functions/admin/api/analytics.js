@@ -1,5 +1,6 @@
 const CLOUDFLARE_API_BASE = 'https://api.cloudflare.com/client/v4';
 const GRAPHQL_ENDPOINT = `${CLOUDFLARE_API_BASE}/graphql`;
+const PAGES_PROJECT_NAME = 'pro-baseball-watch-guide';
 
 const QUERY = `
 query AdminWebAnalytics(
@@ -85,21 +86,6 @@ function cleanPages(groups = []) {
     .filter((row) => row.path && !row.path.startsWith('/admin') && !row.path.startsWith('/assets/'));
 }
 
-function normalizeHost(value) {
-  return String(value || '')
-    .trim()
-    .toLowerCase()
-    .replace(/^https?:\/\//, '')
-    .replace(/\/$/, '');
-}
-
-function projectMatchesHost(project, hostname) {
-  const target = normalizeHost(hostname);
-  if (!target) return false;
-  const domains = Array.isArray(project?.domains) ? project.domains.map(normalizeHost) : [];
-  return domains.includes(target) || normalizeHost(project?.subdomain) === target;
-}
-
 function analyticsTagFromProject(project) {
   return project?.build_config?.web_analytics_tag
     || project?.canonical_deployment?.build_config?.web_analytics_tag
@@ -107,64 +93,52 @@ function analyticsTagFromProject(project) {
     || '';
 }
 
-async function fetchPagesProject(accountId, token, hostname) {
-  let page = 1;
-  let totalPages = 1;
+async function fetchPagesProject(accountId, token) {
+  const url = `${CLOUDFLARE_API_BASE}/accounts/${encodeURIComponent(accountId)}/pages/projects/${encodeURIComponent(PAGES_PROJECT_NAME)}`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json'
+    }
+  });
+  const payload = await response.json().catch(() => null);
 
-  do {
-    const url = `${CLOUDFLARE_API_BASE}/accounts/${encodeURIComponent(accountId)}/pages/projects?page=${page}&per_page=100`;
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json'
-      }
-    });
-    const payload = await response.json().catch(() => null);
+  if (!response.ok || !payload?.success || !payload?.result) {
+    const details = Array.isArray(payload?.errors)
+      ? payload.errors.map((error) => error?.message).filter(Boolean).slice(0, 3)
+      : [];
 
-    if (!response.ok || !payload?.success) {
-      const details = Array.isArray(payload?.errors)
-        ? payload.errors.map((error) => error?.message).filter(Boolean).slice(0, 3)
-        : [];
-      const error = new Error(
-        response.status === 403
-          ? 'Cloudflare APIトークンに「Pages: Read」権限を追加してください。PagesプロジェクトからWeb Analyticsの対象を自動判定するために必要です。'
-          : `Cloudflare Pages APIへの接続に失敗しました（${response.status}）。`
-      );
-      error.status = response.status;
-      error.details = details;
-      throw error;
+    let message = `Cloudflare Pages APIへの接続に失敗しました（${response.status}）。`;
+    if (response.status === 401) {
+      message = 'Cloudflare APIトークンを確認してください。';
+    } else if (response.status === 403) {
+      message = 'Cloudflare APIトークンに「Cloudflare Pages: Read」権限がありません。';
+    } else if (response.status === 404) {
+      message = `Cloudflare Pagesプロジェクト「${PAGES_PROJECT_NAME}」を確認できませんでした。`;
     }
 
-    const projects = Array.isArray(payload.result) ? payload.result : [];
-    const matched = projects.find((project) => projectMatchesHost(project, hostname));
-    if (matched) return matched;
-
-    totalPages = Math.max(1, Number(payload.result_info?.total_pages) || 1);
-    page += 1;
-  } while (page <= totalPages);
-
-  return null;
-}
-
-async function resolveAnalyticsSite({ accountId, token, hostname }) {
-  const project = await fetchPagesProject(accountId, token, hostname);
-  if (!project) {
-    const error = new Error(`Cloudflare Pagesで ${hostname} に紐づくプロジェクトを確認できませんでした。`);
-    error.status = 404;
+    const error = new Error(message);
+    error.status = response.status;
+    error.details = details;
     throw error;
   }
 
+  return payload.result;
+}
+
+async function resolveAnalyticsSite({ accountId, token }) {
+  const project = await fetchPagesProject(accountId, token);
   const siteTag = analyticsTagFromProject(project);
+
   if (!siteTag) {
-    const error = new Error('Cloudflare PagesプロジェクトにWeb Analyticsタグが設定されていません。Pagesの「Metrics > Web Analytics」を確認してください。');
+    const error = new Error('Cloudflare PagesプロジェクトからWeb Analyticsのサイトタグを取得できませんでした。');
     error.status = 404;
     throw error;
   }
 
   return {
     siteTag,
-    projectName: project.name || '',
-    subdomain: project.subdomain || ''
+    projectName: project.name || PAGES_PROJECT_NAME
   };
 }
 
@@ -205,7 +179,7 @@ async function fetchAnalytics({ accountId, siteTag, token, end }) {
   return payload;
 }
 
-export async function onRequestGet({ env, request }) {
+export async function onRequestGet({ env }) {
   const required = {
     CF_ACCOUNT_ID: env.CF_ACCOUNT_ID,
     CF_API_TOKEN: env.CF_API_TOKEN
@@ -219,13 +193,11 @@ export async function onRequestGet({ env, request }) {
     }, 503);
   }
 
-  const hostname = new URL(request.url).hostname;
   let analyticsSite;
   try {
     analyticsSite = await resolveAnalyticsSite({
       accountId: env.CF_ACCOUNT_ID,
-      token: env.CF_API_TOKEN,
-      hostname
+      token: env.CF_API_TOKEN
     });
   } catch (error) {
     return json({
