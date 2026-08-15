@@ -71,11 +71,10 @@ function daysAgo(days) {
 }
 
 function scaled(group, dimension) {
-  const interval = Math.max(1, Number(group?.avg?.sampleInterval) || 1);
   return {
     [dimension]: group?.dimensions?.[dimension] || '',
-    pageviews: Math.round((Number(group?.count) || 0) * interval),
-    visits: Math.round((Number(group?.sum?.visits) || 0) * interval)
+    pageviews: Math.round(Number(group?.count) || 0),
+    visits: Math.round(Number(group?.sum?.visits) || 0)
   };
 }
 
