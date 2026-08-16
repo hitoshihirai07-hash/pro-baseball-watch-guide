@@ -2307,6 +2307,52 @@
       "order": 2
     },
     {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-dragons-2026-08-14-16-review",
+      "source": "watch-notes/giants-dragons-2026-08-14-16-review.html",
+      "contentSource": "content/watch-notes/giants-dragons-2026-08-14-16-review.json",
+      "slug": "giants-dragons-2026-08-14-16-review",
+      "title": "【カード振り返り】8/14～8/16 中日対巨人3連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】8/14～8/16 中日対巨人3連戦を見て感じたこと",
+      "description": "8月14～16日の中日対巨人3連戦を振り返り。3試合連続安打の中山礼都、古巣バンテリンドームで7回無失点と好投した小笠原慎之介を中心に、キャベッジや捕手起用についても観戦メモとしてまとめました。",
+      "listDescription": "中山礼都の3試合連続安打と、小笠原慎之介の古巣での7回無失点が印象に残った中日3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-16",
+      "updated": "2026-08-16",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "中日",
+        "中山礼都",
+        "小笠原慎之介"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "nextPoints": [
+        "中山礼都",
+        "泉口友汰、キャベッジ",
+        "代木大和"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
       "type": "recommendation",
       "path": "/articles/baseball-watching-useful-goods",
       "source": "articles/baseball-watching-useful-goods.html",
