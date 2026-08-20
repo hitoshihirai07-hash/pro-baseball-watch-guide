@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-16",
+  "updated": "2026-08-20",
   "articles": [
     {
       "type": "watch-note",
@@ -2343,6 +2343,52 @@
         "中山礼都",
         "泉口友汰、キャベッジ",
         "代木大和"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-dena-series-review-20260818-0820",
+      "source": "watch-notes/giants-dena-series-review-20260818-0820.html",
+      "contentSource": "content/watch-notes/giants-dena-series-review-20260818-0820.json",
+      "slug": "giants-dena-series-review-20260818-0820",
+      "title": "【カード振り返り】8/18～8/20　巨人対DeNA3連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】8/18～8/20　巨人対DeNA3連戦を見て感じたこと",
+      "description": "8/18～8/20のDeNA対巨人3連戦を振り返り。大城卓三の4安打3打点、中山礼都の2ラン、マタの来日初勝利、堀田賢慎の好投など、1勝2敗のカードで感じた収穫と課題をまとめました。",
+      "listDescription": "大城の4安打3打点、中山の2ランが光ったDeNA3連戦。接戦を支えた投手陣と、打線で感じた課題を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-20",
+      "updated": "2026-08-20",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "DeNA",
+        "大城",
+        "中山"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "nextPoints": [
+        "中山",
+        "石塚",
+        "堀田"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",
