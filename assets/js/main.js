@@ -6,6 +6,25 @@ if (!window.clarity) {
   })(window, document, "clarity", "script", "y5b8b6a2x5");
 }
 
+(function () {
+  var measurementId = 'G-RKRFYZS2YV';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+  if (!document.querySelector('script[src*="googletagmanager.com/gtag/js?id=' + measurementId + '"]')) {
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+    document.head.appendChild(gaScript);
+  }
+
+  if (!window.__pbwgGa4Configured) {
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId);
+    window.__pbwgGa4Configured = true;
+  }
+})();
+
 document.documentElement.classList.add('js-enabled');
 
 document.addEventListener('DOMContentLoaded', function () {
