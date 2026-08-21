@@ -257,6 +257,7 @@ function generateSitemap(data) {
     { path: '/giants/', updated: latestGiantsNote?.updated || data.updated },
     { path: '/articles/', updated: data.updated },
     { path: '/watch-notes/', updated: latestNote?.updated || data.updated },
+    { path: '/player-lens/', updated: data.updated },
     { path: '/about', updated: '2026-07-02' },
     { path: '/contact', updated: '2026-06-17' },
     { path: '/disclaimer', updated: '2026-06-17' },

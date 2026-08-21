@@ -6,6 +6,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_PATH = path.join(ROOT, 'data', 'articles.json');
 const REPORT_PATH = path.join(ROOT, 'admin', 'site-check.json');
 const SITE_ORIGIN = 'https://pro-baseball-watch-guide.com';
+const PLAYER_LENS_PROXY_PATH = path.join(ROOT, 'functions', 'player-lens', '[[path]].js');
 
 function filesUnder(directory, extension = '') {
   const result = [];
@@ -46,6 +47,7 @@ function localTargetExists(value, sourceFile) {
     return false;
   }
   if (url.origin !== SITE_ORIGIN || url.pathname.startsWith('/cdn-cgi/')) return true;
+  if ((url.pathname === '/player-lens' || url.pathname.startsWith('/player-lens/')) && fs.existsSync(PLAYER_LENS_PROXY_PATH)) return true;
   return targetCandidates(url.pathname).some((candidate) => fs.existsSync(path.join(ROOT, candidate)));
 }
 
@@ -80,6 +82,15 @@ checks.push(check(
   brokenReferences.length ? `${brokenReferences.length}件の参照先が見つかりません。` : `${htmlFiles.length}ページの参照先を確認しました。`,
   brokenReferences.length,
   brokenReferences
+));
+
+const playerLensProxyExists = fs.existsSync(PLAYER_LENS_PROXY_PATH);
+checks.push(check(
+  'Player Lens統合ルート',
+  playerLensProxyExists ? 'ok' : 'error',
+  playerLensProxyExists ? '/player-lens/ をPlayer Lensへ接続するPages Functionを確認しました。' : 'functions/player-lens/[[path]].js がありません。',
+  playerLensProxyExists ? 0 : 1,
+  playerLensProxyExists ? [] : ['functions/player-lens/[[path]].js']
 ));
 
 const missingArticleFiles = articles

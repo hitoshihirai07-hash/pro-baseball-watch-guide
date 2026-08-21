@@ -3,3 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /content/
 Sitemap: https://pro-baseball-watch-guide.com/sitemap.xml
+Sitemap: https://pro-baseball-watch-guide.com/player-lens/sitemap.xml
