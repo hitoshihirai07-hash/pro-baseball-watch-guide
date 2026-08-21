@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-20",
+  "updated": "2026-08-21",
   "articles": [
     {
       "type": "watch-note",
@@ -2388,6 +2388,47 @@
       "nextPoints": [
         "中山",
         "石塚",
+        "堀田"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/kenshin-hotta-relief-2026",
+      "source": "watch-notes/kenshin-hotta-relief-2026.html",
+      "contentSource": "content/watch-notes/kenshin-hotta-relief-2026.json",
+      "slug": "kenshin-hotta-relief-2026",
+      "title": "【選手フォーカス】堀田賢慎｜救援で見えてきた安定感と18試合連続無失点",
+      "listTitle": "【選手フォーカス】堀田賢慎｜救援で見えてきた安定感と18試合連続無失点",
+      "description": "巨人・堀田賢慎が2026年に救援で見せている安定感に注目。ドラフト1位入団からトミー・ジョン手術、育成契約、支配下復帰を経て、18試合連続無失点を記録するまでの歩みと、好投を支えるチェンジアップ、今後への期待をまとめました。",
+      "listDescription": "救援で存在感を増す堀田賢慎。18試合連続無失点までの歩みと、2026年に感じる変化を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-21",
+      "updated": "2026-08-21",
+      "keywords": [
+        "観戦メモ",
+        "選手",
+        "巨人"
+      ],
+      "tags": [
+        "giants",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "選手・起用"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "石塚",
+        "中山",
         "堀田"
       ],
       "nextPointLabels": [
