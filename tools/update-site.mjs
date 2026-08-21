@@ -204,13 +204,26 @@ ${latestNotes.map(item => articleCard(item, `..${item.path}`, { compact: true })
       description: '先発、打順、継投、守備から、試合の流れを追うための記事です。',
       items: byGroup('game-view')
     }),
-    categorySection({
-      id: 'teams-stadiums',
-      eyebrow: 'Teams & Stadiums',
-      title: '12球団・球場',
-      description: '球団と本拠地球場、球場ルールを確認するための入口です。',
-      items: byGroup('teams-stadiums')
-    }),
+    (() => {
+      const items = byGroup('teams-stadiums');
+      const overview = items.filter(item => !['12球団', '球場ガイド'].includes(item.category) || item.slug === 'teams');
+      const teams = items.filter(item => item.category === '12球団' && item.slug !== 'teams');
+      const stadiums = items.filter(item => item.category === '球場ガイド');
+      return `<section class="container section article-category-block" id="teams-stadiums">
+<div class="category-heading"><div><p class="eyebrow">Teams & Stadiums</p><h2>12球団・球場</h2></div><p>12球団の紹介、本拠地球場、球場ルールをそれぞれ一覧から選べます。</p></div>
+<div class="category-article-grid">
+${overview.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true })).join('\n')}
+</div>
+<div class="category-subsection"><h3>12球団ガイド</h3></div>
+<div class="category-article-grid">
+${teams.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true })).join('\n')}
+</div>
+<div class="category-subsection"><h3>球場ガイド</h3></div>
+<div class="category-article-grid">
+${stadiums.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true })).join('\n')}
+</div>
+</section>`;
+    })(),
     categorySection({
       id: 'watch-home',
       eyebrow: 'Watch',
@@ -220,16 +233,13 @@ ${latestNotes.map(item => articleCard(item, `..${item.path}`, { compact: true })
     })
   ];
 
-  const archive = byGroup('archive');
+  const watchGuide = byGroup('watch-guide');
   const site = byGroup('site');
-  sections.push(`<section class="container section article-category-block archive-section" id="archive">
-<div class="category-heading"><div><p class="eyebrow">Archive</p><h2>過去の記事</h2></div><p>チケット、初観戦、SNS投稿、個別の球団・球場など、以前に作成した記事をまとめています。</p></div>
-<details class="archive-article-block">
-<summary>過去の記事を表示（${archive.length}件）</summary>
-<div class="category-article-grid archive-article-grid">
-${archive.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true })).join('\n')}
+  sections.push(`<section class="container section article-category-block" id="watch-guide">
+<div class="category-heading"><div><p class="eyebrow">Watching Guide</p><h2>観戦準備・特集</h2></div><p>チケット、応援席、シーズンの特集など、観戦前後に役立つ記事をまとめています。</p></div>
+<div class="category-article-grid">
+${watchGuide.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true })).join('\n')}
 </div>
-</details>
 ${site.map(item => articleCard(item, hrefForArticlesIndex(item), { compact: true, showDate: false })).join('\n')}
 </section>`);
 

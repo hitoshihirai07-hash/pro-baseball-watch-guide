@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-21",
+  "updated": "2026-08-22",
   "articles": [
     {
       "type": "watch-note",
@@ -794,7 +794,7 @@
       "description": "マイナビオールスターゲーム2026の日程、東京ドーム・富山市民球場（アルペンスタジアム）の特徴とアクセス、チケット確認先を紹介。オールスターをきっかけに12球団とプロ野球の魅力を楽しむための案内です。",
       "listDescription": "2026年の開催日程、東京ドーム・富山市民球場の特徴、チケットと観戦前の確認ポイントをまとめます。",
       "category": "オールスター",
-      "group": "archive",
+      "group": "watch-guide",
       "published": "2026-06-25",
       "updated": "2026-06-25",
       "keywords": [
@@ -898,141 +898,6 @@
     },
     {
       "type": "article",
-      "path": "/articles/baseball-stadium-report-post-template",
-      "source": "articles/baseball-stadium-report-post-template.html",
-      "slug": "baseball-stadium-report-post-template",
-      "title": "プロ野球の現地観戦レポートの書き方｜写真なしでも投稿できる感想メモ",
-      "listTitle": "プロ野球の現地観戦レポートの書き方",
-      "description": "プロ野球を球場で見たあとにSNSやブログへ感想を残したい人向けに、写真なしでも書ける現地観戦レポートの型を整理します。",
-      "listDescription": "写真が多くなくても、席・球場の雰囲気・試合後メモから観戦レポートを作る方法を整理します。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-19",
-      "updated": "2026-06-19",
-      "keywords": [
-        "SNS",
-        "投稿",
-        "現地観戦",
-        "レポート",
-        "観戦記",
-        "写真なし",
-        "感想",
-        "メモ",
-        "席",
-        "球場",
-        "ブログ",
-        "note",
-        "X",
-        "Bluesky"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
-      "path": "/articles/baseball-series-recap-post-template",
-      "source": "articles/baseball-series-recap-post-template.html",
-      "slug": "baseball-series-recap-post-template",
-      "title": "プロ野球の3連戦振り返りテンプレ｜カード勝ち越し・負け越しをどう書く？",
-      "listTitle": "プロ野球の3連戦振り返りテンプレ",
-      "description": "プロ野球の3連戦をSNSで振り返りたい人向けに、カード勝ち越し、負け越し、1勝1敗1分などの書き方とテンプレを整理します。",
-      "listDescription": "カード勝ち越し、負け越し、1勝1敗1分などの書き方とテンプレを整理します。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-19",
-      "updated": "2026-06-19",
-      "keywords": [
-        "SNS",
-        "投稿",
-        "3連戦",
-        "カード",
-        "勝ち越し",
-        "負け越し",
-        "引き分け",
-        "振り返り",
-        "テンプレ",
-        "X",
-        "Bluesky"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
-      "path": "/articles/baseball-game-recap-post-template",
-      "source": "articles/baseball-game-recap-post-template.html",
-      "slug": "baseball-game-recap-post-template",
-      "title": "プロ野球の試合後投稿テンプレ｜勝った日・負けた日・引き分けの日に何を書く？",
-      "listTitle": "プロ野球の試合後投稿テンプレ",
-      "description": "プロ野球の試合後にSNSへ投稿したい人向けに、勝った日、負けた日、引き分けの日で書きやすい内容と投稿テンプレを整理します。",
-      "listDescription": "勝った日、負けた日、引き分けの日で書きやすい内容と投稿テンプレを整理します。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-19",
-      "updated": "2026-06-19",
-      "keywords": [
-        "SNS",
-        "投稿",
-        "試合後",
-        "テンプレ",
-        "勝った日",
-        "負けた日",
-        "引き分け",
-        "感想",
-        "振り返り",
-        "X",
-        "Bluesky"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
-      "path": "/articles/baseball-blog-post-start-guide",
-      "source": "articles/baseball-blog-post-start-guide.html",
-      "slug": "baseball-blog-post-start-guide",
-      "title": "プロ野球ブログの始め方｜試合感想を記事にする流れ",
-      "listTitle": "プロ野球ブログの始め方",
-      "description": "プロ野球の試合感想をSNSだけでなくブログやnoteにまとめたい人向けに、短い観戦メモから記事へ広げる流れを整理します。",
-      "listDescription": "SNS投稿を観戦メモとして使い、ブログやnoteの記事へ広げる流れをまとめます。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-19",
-      "updated": "2026-06-19",
-      "keywords": [
-        "ブログ",
-        "note",
-        "SNS",
-        "投稿",
-        "観戦メモ",
-        "試合感想",
-        "記事",
-        "書き方",
-        "始め方",
-        "X",
-        "Bluesky"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
       "path": "/articles/player-lens-pitcher-guide",
       "source": "articles/player-lens-pitcher-guide.html",
       "slug": "player-lens-pitcher-guide",
@@ -1114,7 +979,7 @@
       "description": "初めてプロ野球観戦に行く人向けに、チケットを取る前に決めること、購入先、内野席・外野席・応援席・ビジター席の違い、失敗しにくい席選びを整理します。",
       "listDescription": "チケットを取る前に決めること、内野席・外野席・応援席・ビジター席の違いを整理します。",
       "category": "チケット・席種",
-      "group": "archive",
+      "group": "watch-guide",
       "published": "2026-06-17",
       "updated": "2026-06-17",
       "keywords": [
@@ -1138,74 +1003,6 @@
     },
     {
       "type": "article",
-      "path": "/articles/baseball-sns-post-start-guide",
-      "source": "articles/baseball-sns-post-start-guide.html",
-      "slug": "baseball-sns-post-start-guide",
-      "title": "プロ野球SNS投稿の始め方｜試合前・試合後に何を書けばいい？",
-      "listTitle": "プロ野球SNS投稿の始め方",
-      "description": "プロ野球についてXやBlueskyなどに投稿したい人向けに、試合前・試合中・試合後に書きやすい内容、続けるための型、投稿時の注意点を整理します。",
-      "listDescription": "試合前・試合中・試合後に書きやすい内容、続けるための型、投稿時の注意点を整理します。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-17",
-      "updated": "2026-06-19",
-      "keywords": [
-        "SNS",
-        "投稿",
-        "X",
-        "Twitter",
-        "Bluesky",
-        "ブルースカイ",
-        "試合前",
-        "試合中",
-        "試合後",
-        "感想",
-        "テンプレ",
-        "野球投稿"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
-      "path": "/articles/baseball-game-preview-post-template",
-      "source": "articles/baseball-game-preview-post-template.html",
-      "slug": "baseball-game-preview-post-template",
-      "title": "プロ野球の試合前投稿テンプレ｜先発・打順・3連戦の見どころを整理",
-      "listTitle": "プロ野球の試合前投稿テンプレ",
-      "description": "プロ野球の試合前にSNSへ投稿したい人向けに、先発投手、打順、3連戦、球場、天候などから投稿を作るテンプレと考え方を整理します。",
-      "listDescription": "先発投手、打順、3連戦、球場、天候などから試合前投稿を作るテンプレと考え方を整理します。",
-      "category": "SNS投稿",
-      "group": "archive",
-      "published": "2026-06-17",
-      "updated": "2026-06-19",
-      "keywords": [
-        "SNS",
-        "投稿",
-        "試合前",
-        "テンプレ",
-        "先発",
-        "打順",
-        "3連戦",
-        "見どころ",
-        "球場",
-        "天候",
-        "X",
-        "Bluesky"
-      ],
-      "tags": [],
-      "badges": [
-        "SNS投稿"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
       "path": "/articles/baseball-cheering-visitor-seat-guide",
       "source": "articles/baseball-cheering-visitor-seat-guide.html",
       "slug": "baseball-cheering-visitor-seat-guide",
@@ -1214,7 +1011,7 @@
       "description": "プロ野球の応援席、外野席、ビジター応援席の違いを初心者向けに紹介。ユニフォーム、応援ルール、席選びで気をつけたい点を整理します。",
       "listDescription": "応援席、外野席、ビジター応援席の違いを初心者向けに整理します。",
       "category": "応援席",
-      "group": "archive",
+      "group": "watch-guide",
       "published": "2026-06-17",
       "updated": "2026-06-17",
       "keywords": [
@@ -1244,7 +1041,7 @@
       "description": "東北楽天ゴールデンイーグルスの基本情報、2005年の球団創設から2013年の日本一、本拠地の楽天モバイル 最強パーク宮城、初めて観戦する人向けの楽しみ方をわかりやすくまとめます。",
       "listDescription": "楽天の基本情報、楽天モバイル 最強パーク宮城、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-15",
       "updated": "2026-06-17",
       "keywords": [
@@ -1279,7 +1076,7 @@
       "description": "楽天モバイル 最強パーク宮城の基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "楽天モバイル 最強パーク宮城で初めて観戦する人向けに、アクセス、完全キャッシュレス、持ち物、ナイター後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-15",
       "updated": "2026-06-17",
       "keywords": [
@@ -1352,7 +1149,7 @@
       "description": "ZOZOマリンスタジアムの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "ZOZOマリンで初めて観戦する人向けに、海浜幕張からのアクセス、屋外観戦の服装、持ち物、ナイター後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-14",
       "updated": "2026-06-17",
       "keywords": [
@@ -1384,7 +1181,7 @@
       "description": "千葉ロッテマリーンズの基本情報、毎日オリオンズ時代から千葉移転後までの歩み、本拠地のZOZOマリンスタジアム、初めて観戦する人向けの楽しみ方をわかりやすくまとめます。",
       "listDescription": "ロッテの基本情報、ZOZOマリンスタジアム、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-14",
       "updated": "2026-06-17",
       "keywords": [
@@ -1417,7 +1214,7 @@
       "description": "埼玉西武ライオンズの基本情報、西鉄時代から西武時代、現在のライオンズまでの歩み、本拠地のベルーナドーム、初めて観戦する人向けの楽しみ方をわかりやすくまとめます。",
       "listDescription": "西武の基本情報、ベルーナドーム、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-13",
       "updated": "2026-06-17",
       "keywords": [
@@ -1449,7 +1246,7 @@
       "description": "オリックス・バファローズの基本情報、阪急時代からブルーウェーブ、現在のバファローズまでの歩み、本拠地の京セラドーム大阪、初めて観戦する人向けの楽しみ方をわかりやすくまとめます。",
       "listDescription": "オリックスの基本情報、京セラドーム大阪、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-13",
       "updated": "2026-06-17",
       "keywords": [
@@ -1481,7 +1278,7 @@
       "description": "京セラドーム大阪の基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "京セラドーム大阪で初めて観戦する人向けに、アクセス、ドーム観戦の準備、持ち込みルール、ナイター後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-13",
       "updated": "2026-06-17",
       "keywords": [
@@ -1512,7 +1309,7 @@
       "description": "ベルーナドームの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "ベルーナドームで初めて観戦する人向けに、アクセス、屋根付き球場の服装、持ち物、ナイター後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-13",
       "updated": "2026-06-17",
       "keywords": [
@@ -1542,7 +1339,7 @@
       "description": "みずほPayPayドーム福岡の基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "みずほPayPayドーム福岡で初めて観戦する人向けに、球場の特徴と本拠地球団、試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-12",
       "updated": "2026-06-17",
       "keywords": [
@@ -1572,7 +1369,7 @@
       "description": "北海道日本ハムファイターズの基本情報、歴史、本拠地のエスコンフィールドHOKKAIDO、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "ファイターズの基本情報、エスコンフィールドHOKKAIDO、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-12",
       "updated": "2026-06-17",
       "keywords": [
@@ -1606,7 +1403,7 @@
       "description": "福岡ソフトバンクホークスの基本情報、南海時代から続く歴史、本拠地のみずほPayPayドーム福岡、初めて観戦する人向けの楽しみ方をわかりやすくまとめます。",
       "listDescription": "ソフトバンクの基本情報、みずほPayPayドーム福岡、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-12",
       "updated": "2026-06-17",
       "keywords": [
@@ -1638,7 +1435,7 @@
       "description": "エスコンフィールドHOKKAIDOの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "エスコンフィールドで初めて観戦する人向けに、球場の特徴と本拠地球団、試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-12",
       "updated": "2026-06-17",
       "keywords": [
@@ -1670,7 +1467,7 @@
       "description": "横浜スタジアムの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "横浜スタジアムで球場の特徴や本拠地球団、屋外試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1700,7 +1497,7 @@
       "description": "横浜DeNAベイスターズの基本情報、歴史、本拠地の横浜スタジアム、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "DeNAの基本情報、横浜スタジアムとのつながり、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1732,7 +1529,7 @@
       "description": "東京ヤクルトスワローズの基本情報、歴史、本拠地の明治神宮野球場、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "ヤクルトの基本情報、明治神宮野球場とのつながり、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1763,7 +1560,7 @@
       "description": "バンテリンドーム ナゴヤの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "バンテリンドーム ナゴヤで球場の特徴や本拠地球団、ドーム試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-22",
       "keywords": [
@@ -1794,7 +1591,7 @@
       "description": "明治神宮野球場の基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "明治神宮野球場で球場の特徴や本拠地球団、屋外試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1823,7 +1620,7 @@
       "description": "マツダ スタジアムの基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "マツダスタジアムで球場の特徴や本拠地球団、屋外試合を見るときのポイントをまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1853,7 +1650,7 @@
       "description": "広島東洋カープの基本情報、歴史、本拠地のMAZDA Zoom-Zoom スタジアム広島、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "カープの基本情報、マツダスタジアムとのつながり、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-17",
       "keywords": [
@@ -1885,7 +1682,7 @@
       "description": "中日ドラゴンズの基本情報、歴史、本拠地のバンテリンドーム ナゴヤ、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "中日の基本情報、バンテリンドーム ナゴヤとのつながり、初めて観戦する人向けの楽しみ方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-10",
       "updated": "2026-06-22",
       "keywords": [
@@ -1986,7 +1783,7 @@
       "description": "東京ドームで初めてプロ野球を観戦する人向けに、最寄り駅、入場前の確認、座席の見方、服装と持ち物、ナイター後の帰り方をまとめます。",
       "listDescription": "東京ドームで初めて観戦する人向けに、最寄り駅、入場前の確認、座席、服装と持ち物、試合終了後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-09",
       "updated": "2026-07-28",
       "keywords": [
@@ -2056,7 +1853,7 @@
       "description": "阪神甲子園球場の基本情報、本拠地球団、アクセス、球場の特徴をまとめます。",
       "listDescription": "阪神甲子園球場で球場の特徴や本拠地球団、天候対策、ナイター後の動き方をまとめます。",
       "category": "球場ガイド",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-09",
       "updated": "2026-06-17",
       "keywords": [
@@ -2086,7 +1883,7 @@
       "description": "阪神タイガースの基本情報、歴史、本拠地の阪神甲子園球場、初めて観戦する人向けの楽しみ方を初心者にもわかりやすくまとめます。",
       "listDescription": "阪神の基本情報、甲子園観戦、屋外球場の準備、テレビ・配信での見方をまとめます。",
       "category": "12球団",
-      "group": "archive",
+      "group": "teams-stadiums",
       "published": "2026-06-09",
       "updated": "2026-06-17",
       "keywords": [

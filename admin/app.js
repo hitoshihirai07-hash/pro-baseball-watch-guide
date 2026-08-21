@@ -118,7 +118,7 @@
       'game-view': '試合の見方',
       'teams-stadiums': '12球団・球場',
       'watch-home': '中継・配信',
-      archive: '過去の記事',
+      'watch-guide': '観戦準備・特集',
       site: 'サイト案内'
     };
     return labels[item.group] || 'ガイド・記事';

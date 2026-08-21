@@ -122,21 +122,21 @@ function updateArticlesIndex(items) {
 
   html = html.replace(/\n?<!-- AUTO:RECOMMENDATIONS:START -->[\s\S]*?<!-- AUTO:RECOMMENDATIONS:END -->\n?/g, '\n');
 
-  const archiveStart = '<section class="container section article-category-block archive-section" id="archive">';
-  if (!html.includes(archiveStart)) {
-    throw new Error('articles/index.html の過去の記事セクションを確認できません。');
+  const guideStart = '<section class="container section article-category-block" id="watch-guide">';
+  if (!html.includes(guideStart)) {
+    throw new Error('articles/index.html の観戦準備・特集セクションを確認できません。');
   }
   if (items.length) {
-    html = html.replace(archiveStart, `${recommendationSection(items)}\n${archiveStart}`);
+    html = html.replace(guideStart, `${recommendationSection(items)}\n${guideStart}`);
   }
 
   const gearChip = '<a class="category-chip" href="#watch-gear">観戦グッズ・おすすめ</a>';
   html = html.replace(gearChip, '');
-  const archiveChip = '<a class="category-chip" href="#archive">過去の記事</a>';
-  if (!html.includes(archiveChip)) {
+  const guideChip = '<a class="category-chip" href="#watch-guide">観戦準備・特集</a>';
+  if (!html.includes(guideChip)) {
     throw new Error('articles/index.html のカテゴリショートカットを確認できません。');
   }
-  if (items.length) html = html.replace(archiveChip, `${gearChip}${archiveChip}`);
+  if (items.length) html = html.replace(guideChip, `${gearChip}${guideChip}`);
 
   const gearSuggestion = '<button data-search-suggestion="観戦グッズ" type="button">観戦グッズ</button>';
   html = html.replace(gearSuggestion, '');
@@ -146,8 +146,8 @@ function updateArticlesIndex(items) {
   }
 
   html = html.replaceAll(
-    '観戦メモ、試合の見方、12球団・球場、中継・配信、データ、SNS投稿',
-    '観戦メモ、試合の見方、12球団・球場、中継・配信、データ、観戦グッズ・おすすめ、SNS投稿'
+    '観戦メモ、試合の見方、12球団・球場、中継・配信、データ、観戦準備・特集',
+    '観戦メモ、試合の見方、12球団・球場、中継・配信、データ、観戦グッズ・おすすめ、観戦準備・特集'
   );
   html = html.replace(
     '観戦メモ、Player Lens・データ、試合の見方、12球団・球場、中継・配信から、気になるテーマを選べます。',
