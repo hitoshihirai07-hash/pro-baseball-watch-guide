@@ -257,7 +257,7 @@
         <label class="field-label"><span>決定タイトル <b aria-hidden="true">*</b></span><input id="publishTitle" type="text" placeholder="タイトル案から決めたものを入力"></label>
         <label class="field-label"><span>検索・SNS用の説明 <b aria-hidden="true">*</b></span><textarea id="publishDescription" rows="3" placeholder="記事全体を自然な1～2文で説明"></textarea></label>
         <label class="field-label"><span>一覧用の短い説明 <b aria-hidden="true">*</b></span><textarea id="publishListDescription" rows="2" placeholder="観戦メモ一覧に表示する短い説明"></textarea></label>
-        <label class="field-label"><span>完成したMarkdown本文 <b aria-hidden="true">*</b></span><textarea id="publishMarkdown" class="publish-markdown" rows="18" spellcheck="false" placeholder="承認した原稿の本文を貼り付けます。先頭のタイトルやfront matterは不要です。"></textarea></label>
+        <label class="field-label"><span>完成したMarkdown本文 <b aria-hidden="true">*</b></span><textarea id="publishMarkdown" class="publish-markdown" rows="18" spellcheck="false" placeholder="承認した原稿の本文を貼り付けます。Markdown見出し（##）を残してください。MDファイルからの読み込みもできます。"></textarea></label>
       </div>
       <div class="publish-check">
         <label><input id="publishApproved" type="checkbox"> タイトル・本文・事実関係・次カードの3点を確認し、この内容で公開する</label>
@@ -346,5 +346,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
+  <script src="publish-guard.js"></script>
 </body>
 </html>
