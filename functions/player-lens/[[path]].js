@@ -2,6 +2,7 @@ const PLAYER_LENS_ORIGIN = "https://player-lens-pages.pages.dev";
 const PLAYER_LENS_PREFIX = "/player-lens";
 const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
 const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260822-stage3";
+const WATCH_NOTE_BRIDGE_SCRIPT = "/assets/js/player-lens-watch-note-bridge.js?v=20260822-stage3-links";
 
 const TEXT_CONTENT_TYPES = [
   "text/html",
@@ -114,6 +115,13 @@ function integrateHtml(html) {
     );
   }
 
+  if (!integrated.includes(WATCH_NOTE_BRIDGE_SCRIPT)) {
+    integrated = integrated.replace(
+      /<\/body>/i,
+      `  <script src="${WATCH_NOTE_BRIDGE_SCRIPT}" defer></script>\n</body>`,
+    );
+  }
+
   return removeInternalNewTab(integrated);
 }
 
@@ -199,7 +207,7 @@ export async function onRequest(context) {
   headers.delete("etag");
 
   headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
-  headers.set("x-player-lens-integration-stage", "3");
+  headers.set("x-player-lens-integration-stage", "3-links");
 
   return new Response(body, {
     status: upstream.status,
