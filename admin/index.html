@@ -3,155 +3,221 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fdf9f5">
+  <meta name="theme-color" content="#fff8f0">
   <meta name="robots" content="noindex,nofollow,noarchive">
-  <meta name="description" content="プロ野球観戦メモの管理者用運営ダッシュボード。">
+  <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260822-stage5">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
+
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="./" aria-label="運営ダッシュボード">
         <span class="brand-mark" aria-hidden="true">B</span>
-        <span>プロ野球観戦メモ</span>
+        <span><strong>プロ野球観戦メモ</strong><small>管理者ダッシュボード</small></span>
       </a>
-      <h1>運営ダッシュボード</h1>
-      <nav class="top-actions" aria-label="管理メニュー">
-        <a class="button button-primary" href="watch-note/"><span aria-hidden="true">＋</span> 新しい観戦メモ</a>
-        <a class="button button-secondary" href="watch-note/?records=1">保存した記録</a>
+      <nav class="top-actions" aria-label="クイック操作">
+        <a class="button button-primary" href="watch-note/">＋ 観戦メモ</a>
         <a class="button button-secondary" href="../" target="_blank" rel="noopener">公開サイト</a>
+        <a class="button button-secondary" href="../player-lens/" target="_blank" rel="noopener">Player Lens</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="page-shell">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">OWNER WORKSPACE</p>
+        <h1>今日の運営を、ここだけで確認</h1>
+        <p>Cloudflare・GA4・Clarity・Player Lens・X運用・記事管理を1つにまとめています。</p>
+      </div>
+      <button id="refreshAllButton" class="button button-primary" type="button">↻ 全体を更新</button>
+    </section>
+
     <section class="summary-strip" aria-label="運営状況の概要">
-      <article class="summary-item">
-        <span class="summary-icon" aria-hidden="true">▤</span>
-        <div><p>全記事</p><strong id="allArticleCount">--</strong><small id="articleUpdateLabel">読み込み中</small></div>
-      </article>
-      <article class="summary-item">
-        <span class="summary-icon" aria-hidden="true">□</span>
-        <div><p>観戦メモ</p><strong id="watchNoteCount">--</strong><small id="watchNoteTypeLabel">種類別に集計</small></div>
-      </article>
-      <article class="summary-item summary-published">
-        <span class="summary-icon" aria-hidden="true">◇</span>
-        <div><p>最終公開</p><strong id="latestPublished">--</strong><small id="latestTitle">読み込み中</small></div>
-      </article>
-      <article class="summary-item">
-        <span class="summary-icon status-icon" aria-hidden="true">✓</span>
-        <div><p>サイト状態</p><strong id="siteStatusSummary" class="status-text pending">確認中</strong><small id="siteCheckedAt">自動チェックを読み込み中</small></div>
-      </article>
+      <article class="summary-item"><span>Cloudflare / 7日</span><strong id="summaryCfPv">--</strong><small id="summaryCfVisits">読込中</small></article>
+      <article class="summary-item"><span>GA4 / 30日</span><strong id="summaryGa4Users">--</strong><small id="summaryGa4Sessions">読込中</small></article>
+      <article class="summary-item"><span>Clarity / 3日</span><strong id="summaryClaritySessions">--</strong><small id="summaryClarityIssues">読込中</small></article>
+      <article class="summary-item"><span>記事</span><strong id="summaryArticleCount">--</strong><small id="summaryLatestArticle">読込中</small></article>
+      <article class="summary-item"><span>Player Lens</span><strong id="summaryPlayerLens">確認中</strong><small id="summaryPlayerLensDetail">データ確認中</small></article>
     </section>
 
     <div id="pageNotice" class="page-notice" role="status" hidden></div>
 
-    <section class="workspace-grid">
-      <section class="panel analytics-panel" aria-labelledby="analytics-title">
-        <div class="panel-heading">
-          <div>
-            <h2 id="analytics-title">閲覧状況</h2>
-            <p>Cloudflare Web Analyticsの集計です。</p>
-          </div>
-          <div class="heading-actions">
-            <div class="period-switch" role="group" aria-label="集計期間">
-              <button class="period-button is-active" type="button" data-days="7" aria-pressed="true">過去7日</button>
-              <button class="period-button" type="button" data-days="30" aria-pressed="false">過去30日</button>
-            </div>
-            <button id="refreshButton" class="icon-button" type="button" aria-label="データを再読み込み">↻ <span>更新</span></button>
-          </div>
-        </div>
+    <nav class="workspace-tabs" aria-label="管理機能">
+      <button type="button" class="workspace-tab is-active" data-tab="overview" aria-pressed="true">ホーム</button>
+      <button type="button" class="workspace-tab" data-tab="evaluation" aria-pressed="false">ページ評価</button>
+      <button type="button" class="workspace-tab" data-tab="player-lens" aria-pressed="false">Player Lens管理</button>
+      <button type="button" class="workspace-tab" data-tab="social" aria-pressed="false">X・SNS</button>
+      <button type="button" class="workspace-tab" data-tab="articles" aria-pressed="false">記事管理</button>
+    </nav>
 
-        <div id="analyticsLoading" class="loading-state">閲覧データを読み込んでいます。</div>
-        <div id="analyticsSetup" class="setup-state" hidden>
-          <h3>閲覧数を表示するための設定が必要です</h3>
-          <p id="analyticsSetupMessage">Cloudflare Pagesへ3つの値を登録すると、この欄に実数が表示されます。</p>
-          <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Cloudflareを開く</a>
-        </div>
-        <div id="analyticsContent" hidden>
-          <div class="analytics-body">
-            <div class="metric-rail">
-              <article><p>ページビュー</p><strong id="pageViews">0</strong><span id="pageViewsChange" class="change-neutral">比較データなし</span></article>
-              <article><p>訪問数</p><strong id="visits">0</strong><span id="visitsChange" class="change-neutral">比較データなし</span></article>
-            </div>
-            <div class="trend-wrap">
-              <div class="chart-legend"><span><i class="legend-pageviews"></i>ページビュー</span><span><i class="legend-visits"></i>訪問数</span></div>
-              <svg id="trendChart" class="trend-chart" viewBox="0 0 680 250" role="img" aria-labelledby="chartTitle chartDescription">
-                <title id="chartTitle">閲覧数の推移</title>
-                <desc id="chartDescription">選択した期間のページビューと訪問数を日別に表示します。</desc>
-              </svg>
-            </div>
+    <section class="tab-panel is-active" data-panel="overview">
+      <div class="dashboard-grid">
+        <section class="panel span-2">
+          <div class="panel-heading">
+            <div><p class="eyebrow">TRAFFIC</p><h2>サイト閲覧状況</h2><p>Cloudflareは過去7日、GA4は過去30日の主要指標です。</p></div>
           </div>
-
-          <div class="popular-pages">
-            <div class="subheading"><h3>よく読まれているページ</h3><span id="popularPeriod">過去7日</span></div>
-            <div class="table-scroll">
-              <table>
-                <thead><tr><th scope="col">ページ</th><th scope="col">PV</th><th scope="col">訪問</th><th scope="col"><span class="sr-only">操作</span></th></tr></thead>
-                <tbody id="popularPagesBody"></tbody>
-              </table>
-            </div>
+          <div class="metric-grid metric-grid-6">
+            <article><span>CF ページビュー</span><strong id="cfPageViews">--</strong><small>過去7日</small></article>
+            <article><span>CF 訪問</span><strong id="cfVisits">--</strong><small>過去7日</small></article>
+            <article><span>GA4 ユーザー</span><strong id="ga4Users">--</strong><small>過去30日</small></article>
+            <article><span>GA4 セッション</span><strong id="ga4Sessions">--</strong><small>過去30日</small></article>
+            <article><span>GA4 表示回数</span><strong id="ga4Views">--</strong><small>過去30日</small></article>
+            <article><span>GA4 エンゲージメント率</span><strong id="ga4EngagementRate">--</strong><small>過去30日</small></article>
           </div>
-        </div>
-      </section>
-
-      <aside class="side-rail">
-        <section class="panel draft-panel" aria-labelledby="draft-title">
-          <div class="panel-heading compact"><div><h2 id="draft-title">端末内の記録</h2><p id="draftCountLabel">確認中</p></div></div>
-          <div id="draftList" class="draft-list"></div>
-          <a class="text-link" href="watch-note/?records=1">保存した記録を開く</a>
+          <div class="chart-wrap">
+            <svg id="trafficChart" class="trend-chart" viewBox="0 0 760 250" role="img" aria-label="Cloudflare閲覧推移"></svg>
+          </div>
         </section>
 
-        <section class="panel health-panel" aria-labelledby="health-title">
-          <div class="panel-heading compact">
-            <div><h2 id="health-title">サイト状態</h2><p>公開前に自動確認した結果</p></div>
-          </div>
-          <ul id="healthList" class="health-list"><li class="loading-row">チェック結果を読み込んでいます。</li></ul>
-          <button id="rerunHealthButton" class="text-button" type="button">公開ページの応答を確認</button>
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">NEXT ACTION</p><h2>今日見るべきこと</h2></div></div>
+          <div id="todayActions" class="action-list"><p class="loading-row">分析中です。</p></div>
         </section>
 
-        <section class="panel external-panel" aria-labelledby="external-title">
-          <div class="panel-heading compact"><div><h2 id="external-title">外部サービス・確認</h2></div></div>
-          <nav class="external-links" aria-label="外部サービス">
-            <a href="https://github.com/hitoshihirai07-hash/pro-baseball-watch-guide/actions" target="_blank" rel="noopener"><span>GitHub Actions<small>公開処理を確認</small></span><b>開く</b></a>
-            <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener"><span>Cloudflare<small>分析・デプロイを確認</small></span><b>開く</b></a>
-            <a href="/player-lens/"><span>Player Lens<small>公開ページを確認</small></span><b>開く</b></a>
-          </nav>
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">HEALTH</p><h2>公開ページ状態</h2></div></div>
+          <div id="siteHealth" class="health-grid"><p class="loading-row">確認中です。</p></div>
+          <button id="rerunHealthButton" class="text-button" type="button">もう一度確認</button>
         </section>
-      </aside>
+
+        <section class="panel span-2">
+          <div class="panel-heading"><div><p class="eyebrow">TOP PAGES</p><h2>よく読まれているページ</h2><p>CloudflareとGA4の上位ページをまとめています。</p></div></div>
+          <div class="split-tables">
+            <div><h3>Cloudflare / 7日</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>PV</th><th>訪問</th></tr></thead><tbody id="cfTopPages"></tbody></table></div></div>
+            <div><h3>GA4 / 30日</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>表示</th><th>ユーザー</th></tr></thead><tbody id="ga4TopPages"></tbody></table></div></div>
+            <div><h3>GA4 流入元 / 30日</h3><div class="table-scroll"><table><thead><tr><th>チャネル</th><th>セッション</th><th>ユーザー</th></tr></thead><tbody id="ga4Sources"></tbody></table></div></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">CLARITY</p><h2>直近3日の操作状況</h2></div></div>
+          <div class="metric-grid metric-grid-2 compact-metrics">
+            <article><span>セッション</span><strong id="claritySessions">--</strong></article>
+            <article><span>Rage Click</span><strong id="clarityRage">--</strong></article>
+            <article><span>Dead Click</span><strong id="clarityDead">--</strong></article>
+            <article><span>Script Error</span><strong id="clarityScriptError">--</strong></article>
+          </div>
+          <p id="clarityStatus" class="small-note">Clarityを読み込んでいます。</p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">RECENT</p><h2>最新の観戦メモ</h2></div></div>
+          <div id="recentArticles" class="compact-list"><p class="loading-row">読み込み中です。</p></div>
+          <a class="text-link" href="watch-note/?records=1">端末内の保存記録を見る</a>
+        </section>
+      </div>
     </section>
 
-    <section class="panel article-panel" aria-labelledby="articles-title">
-      <div class="panel-heading article-heading">
-        <div><h2 id="articles-title">記事管理</h2><p>公開記事の種類、不足項目、リンク先をまとめて確認できます。</p></div>
-        <span id="filteredCount" class="result-count">0件</span>
-      </div>
+    <section class="tab-panel" data-panel="evaluation" hidden>
+      <section class="panel">
+        <div class="panel-heading article-heading">
+          <div><p class="eyebrow">PAGE QUALITY</p><h2>ページ評価</h2><p>Cloudflare 7日・GA4 30日・Clarity 3日を同じページ単位で見比べます。</p></div>
+          <div class="heading-actions">
+            <label class="search-field"><span class="sr-only">ページ検索</span><input id="evaluationSearch" type="search" placeholder="ページ名・URLで検索"></label>
+            <select id="evaluationFilter" aria-label="評価で絞り込み"><option value="all">すべて</option><option value="improve">改善候補</option><option value="good">良好</option><option value="watch">様子見</option><option value="low-data">データ少</option></select>
+          </div>
+        </div>
+        <div class="evaluation-summary" id="evaluationSummary"></div>
+        <div class="table-scroll wide-table-scroll">
+          <table class="evaluation-table">
+            <thead><tr><th>ページ</th><th>CF PV</th><th>GA4表示</th><th>ユーザー</th><th>平均Eng時間</th><th>表示/人</th><th>Scroll</th><th>Rage</th><th>Dead</th><th>評価</th></tr></thead>
+            <tbody id="evaluationRows"></tbody>
+          </table>
+        </div>
+        <p class="small-note">「改善候補」は自動判定です。閲覧数が少ないページは無理に評価せず「データ少」にします。</p>
+      </section>
+    </section>
 
-      <div id="watchNoteKinds" class="kind-summary" aria-label="観戦メモの種類別件数"></div>
+    <section class="tab-panel" data-panel="player-lens" hidden>
+      <div class="dashboard-grid">
+        <section class="panel span-2">
+          <div class="panel-heading">
+            <div><p class="eyebrow">PLAYER LENS DATA</p><h2>データ更新状況</h2><p>公開中の <code>/player-lens/data/</code> を直接確認します。管理元はPlayer LensのGitHubのままです。</p></div>
+            <button id="reloadPlayerLensButton" class="button button-secondary" type="button">再確認</button>
+          </div>
+          <div class="table-scroll"><table><thead><tr><th>データ</th><th>件数</th><th>最新日</th><th>状態</th></tr></thead><tbody id="playerLensDataRows"></tbody></table></div>
+        </section>
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">PUBLIC CHECK</p><h2>主要ページ</h2></div></div>
+          <div id="playerLensHealth" class="health-grid"></div>
+        </section>
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">SHORTCUTS</p><h2>確認ページ</h2></div></div>
+          <nav class="shortcut-list">
+            <a href="../player-lens/" target="_blank" rel="noopener">Player Lens トップ <b>開く</b></a>
+            <a href="../player-lens/teams/giants" target="_blank" rel="noopener">巨人ページ <b>開く</b></a>
+            <a href="../player-lens/data-question" target="_blank" rel="noopener">データに質問 <b>開く</b></a>
+            <a href="../player-lens/standings" target="_blank" rel="noopener">順位・残り試合 <b>開く</b></a>
+          </nav>
+        </section>
+      </div>
+    </section>
 
-      <div class="article-tools">
-        <label class="search-field"><span class="sr-only">記事を検索</span><input id="articleSearch" type="search" placeholder="タイトル・タグで検索"></label>
-        <label><span class="sr-only">記事の大分類</span><select id="articleGroupFilter"><option value="all">すべての記事</option><option value="watch-note">観戦メモ</option><option value="article">ガイド・記事</option><option value="tool">ツール</option></select></label>
-        <label><span class="sr-only">確認状態</span><select id="articleStatusFilter"><option value="all">すべての状態</option><option value="ok">公開済み</option><option value="warning">要確認</option></select></label>
-      </div>
+    <section class="tab-panel" data-panel="social" hidden>
+      <div class="dashboard-grid">
+        <section class="panel span-2">
+          <div class="panel-heading"><div><p class="eyebrow">X COMPOSER</p><h2>Player Lensデータから投稿文を作る</h2><p>作成後、そのままXの投稿画面を開けます。</p></div></div>
+          <div class="form-grid form-grid-3">
+            <label><span>球団</span><select id="xTeam"><option value="all">全体</option></select></label>
+            <label><span>テーマ</span><select id="xTheme"><option value="batter">打者ランキング</option><option value="pitcher">投手ランキング</option><option value="recent-batter">直近6試合 野手</option><option value="recent-pitcher">直近6試合 投手</option><option value="standings">順位・残り試合</option></select></label>
+            <label><span>人数</span><select id="xCount"><option value="3">3人</option><option value="5" selected>5人</option></select></label>
+          </div>
+          <textarea id="xOutput" rows="9" placeholder="「投稿文を作成」を押してください。"></textarea>
+          <div class="button-row"><button id="buildXButton" class="button button-primary" type="button">投稿文を作成</button><button id="copyXButton" class="button button-secondary" type="button">コピー</button><button id="openXButton" class="button button-dark" type="button">Xで投稿画面を開く</button></div>
+          <p id="xMessage" class="small-note"></p>
+          <div class="x-image-workspace">
+            <canvas id="xImageCanvas" width="1200" height="675" aria-label="X投稿画像プレビュー"></canvas>
+            <div class="button-row"><button id="drawXImageButton" class="button button-secondary" type="button">画像を更新</button><button id="downloadXImageButton" class="button button-secondary" type="button">PNGで保存</button></div>
+          </div>
+        </section>
 
-      <div class="table-scroll article-table-scroll">
-        <table class="article-table">
-          <thead><tr><th scope="col">タイトル</th><th scope="col">種類</th><th scope="col">公開日</th><th scope="col">状態</th><th scope="col"><span class="sr-only">操作</span></th></tr></thead>
-          <tbody id="articleTableBody"></tbody>
-        </table>
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">TODAY</p><h2>投稿候補</h2></div></div>
+          <div id="xCandidates" class="compact-list"><p class="loading-row">Player Lensを確認中です。</p></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">IMPORT</p><h2>X投稿分析CSV</h2></div></div>
+          <label class="drop-zone" id="snsDropZone"><input id="snsCsvFile" type="file" accept=".csv,text/csv" hidden><strong>CSVをここにドロップ</strong><span>またはクリックして選択</span></label>
+          <p id="snsFileStatus" class="small-note">CSVはまだ読み込まれていません。</p>
+        </section>
+
+        <section class="panel span-3" id="snsAnalysisPanel" hidden>
+          <div class="panel-heading"><div><p class="eyebrow">X ANALYTICS</p><h2>投稿傾向</h2><p>CSVはブラウザ内だけで処理します。</p></div><button id="clearSnsButton" class="button button-secondary" type="button">解除</button></div>
+          <div class="metric-grid metric-grid-6" id="snsSummary"></div>
+          <div class="split-tables">
+            <div><h3>投稿タイプ別</h3><div class="table-scroll"><table><thead><tr><th>タイプ</th><th>投稿</th><th>中央値imp</th><th>反応率</th><th>URL</th></tr></thead><tbody id="snsCategoryRows"></tbody></table></div></div>
+            <div><h3>伸びた投稿 Top5</h3><div id="snsTopPosts" class="post-ranking"></div></div>
+          </div>
+          <div id="snsRecommendations" class="recommendation-grid"></div>
+        </section>
       </div>
-      <div class="pagination-row">
-        <p id="paginationLabel">0件</p>
-        <div id="paginationButtons" class="pagination-buttons" aria-label="記事一覧のページ切り替え"></div>
-      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="articles" hidden>
+      <section class="panel">
+        <div class="panel-heading article-heading">
+          <div><p class="eyebrow">CONTENT</p><h2>記事管理</h2><p>公開記事と観戦メモをまとめて確認します。</p></div>
+          <div class="heading-actions"><a class="button button-primary" href="watch-note/">＋ 新しい観戦メモ</a><span id="filteredCount" class="result-count">0件</span></div>
+        </div>
+        <div id="watchNoteKinds" class="kind-summary"></div>
+        <div class="article-tools">
+          <label class="search-field"><span class="sr-only">記事検索</span><input id="articleSearch" type="search" placeholder="タイトル・タグで検索"></label>
+          <select id="articleGroupFilter" aria-label="記事の種類"><option value="all">すべての記事</option><option value="watch-note">観戦メモ</option><option value="article">ガイド・記事</option><option value="tool">ツール</option></select>
+          <select id="articleStatusFilter" aria-label="確認状態"><option value="all">すべての状態</option><option value="ok">公開済み</option><option value="warning">要確認</option></select>
+        </div>
+        <div class="table-scroll article-table-scroll"><table class="article-table"><thead><tr><th>タイトル</th><th>種類</th><th>公開日</th><th>状態</th><th></th></tr></thead><tbody id="articleTableBody"></tbody></table></div>
+        <div class="pagination-row"><p id="paginationLabel">0件</p><div id="paginationButtons" class="pagination-buttons"></div></div>
+      </section>
     </section>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js" defer></script>
+  <script src="app.js?v=20260822-stage5" defer></script>
 </body>
 </html>
