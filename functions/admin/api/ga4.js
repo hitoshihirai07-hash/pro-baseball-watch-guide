@@ -131,28 +131,126 @@ function cacheApi() {
   }
 }
 
+function stripCredentialWrapper(value) {
+  let text = String(value || '').replace(/^\uFEFF/, '').trim();
+  if (/^```/.test(text)) {
+    text = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  }
+  text = text.replace(/^GA4_SERVICE_ACCOUNT_JSON\s*=\s*/i, '').trim();
+  return text;
+}
+
+function escapeLiteralControlsInsideJsonStrings(value) {
+  let result = '';
+  let inString = false;
+  let escaped = false;
+  for (const char of String(value || '')) {
+    if (inString) {
+      if (escaped) {
+        result += char;
+        escaped = false;
+        continue;
+      }
+      if (char === '\\') {
+        result += char;
+        escaped = true;
+        continue;
+      }
+      if (char === '"') {
+        result += char;
+        inString = false;
+        continue;
+      }
+      if (char === '\n') { result += '\\n'; continue; }
+      if (char === '\r') { result += '\\r'; continue; }
+      if (char === '\t') { result += '\\t'; continue; }
+      result += char;
+      continue;
+    }
+    result += char;
+    if (char === '"') inString = true;
+  }
+  return result;
+}
+
+function decodeBase64Text(value) {
+  try {
+    let normalized = String(value || '').trim().replace(/-/g, '+').replace(/_/g, '/');
+    normalized += '='.repeat((4 - normalized.length % 4) % 4);
+    const binary = atob(normalized);
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  } catch {
+    return '';
+  }
+}
+
+function parseServiceAccountJson(raw) {
+  const initial = stripCredentialWrapper(raw);
+  const attempts = [];
+  const add = (value) => {
+    const text = String(value || '').trim();
+    if (text && !attempts.includes(text)) attempts.push(text);
+  };
+
+  add(initial);
+  add(escapeLiteralControlsInsideJsonStrings(initial));
+
+  const decoded = decodeBase64Text(initial);
+  if (decoded) {
+    add(stripCredentialWrapper(decoded));
+    add(escapeLiteralControlsInsideJsonStrings(stripCredentialWrapper(decoded)));
+  }
+
+  for (const candidate of attempts) {
+    try {
+      let parsed = JSON.parse(candidate);
+      if (typeof parsed === 'string') parsed = JSON.parse(escapeLiteralControlsInsideJsonStrings(parsed));
+      if (parsed && typeof parsed === 'object') return parsed;
+    } catch {
+      // Try the next supported representation.
+    }
+  }
+  return null;
+}
+
+function serviceAccountFromEnv(env) {
+  const raw = String(env.GA4_SERVICE_ACCOUNT_JSON || '').trim();
+  if (raw) {
+    const parsed = parseServiceAccountJson(raw);
+    if (parsed) return { credentials: parsed, source: 'json' };
+  }
+
+  const clientEmail = String(env.GA4_SERVICE_ACCOUNT_EMAIL || '').trim();
+  const privateKey = String(env.GA4_PRIVATE_KEY || '').trim().replace(/\\n/g, '\n');
+  if (clientEmail && privateKey) {
+    return { credentials: { client_email: clientEmail, private_key: privateKey }, source: 'split' };
+  }
+  return { credentials: null, source: raw ? 'invalid-json' : 'missing' };
+}
+
 export async function onRequestGet({ env, request }) {
   const propertyId = String(env.GA4_PROPERTY_ID || '').trim();
-  const rawCredentials = String(env.GA4_SERVICE_ACCOUNT_JSON || '').trim();
-  if (!propertyId || !rawCredentials) {
+  const account = serviceAccountFromEnv(env);
+  if (!propertyId) {
+    return json({ configured: false, message: 'GA4_PROPERTY_ID が設定されていません。' }, 503);
+  }
+  if (!account.credentials) {
     return json({
       configured: false,
-      message: 'GA4_PROPERTY_ID と GA4_SERVICE_ACCOUNT_JSON をCloudflareの変数・シークレットに設定してください。'
+      message: account.source === 'invalid-json'
+        ? 'GA4_SERVICE_ACCOUNT_JSON は受け取れていますが、JSONとして解析できません。ダウンロードしたサービスアカウントJSONの「{」から「}」までをそのままSecretへ保存してください。'
+        : 'GA4_SERVICE_ACCOUNT_JSON を設定してください。代わりに GA4_SERVICE_ACCOUNT_EMAIL と GA4_PRIVATE_KEY の2項目でも利用できます。'
     }, 503);
   }
 
-  let credentials;
-  try {
-    credentials = JSON.parse(rawCredentials);
-  } catch {
-    return json({ configured: false, message: 'GA4_SERVICE_ACCOUNT_JSON が正しいJSONではありません。' }, 503);
-  }
+  const credentials = account.credentials;
   if (!credentials.client_email || !credentials.private_key) {
-    return json({ configured: false, message: 'GA4_SERVICE_ACCOUNT_JSON に client_email または private_key がありません。' }, 503);
+    return json({ configured: false, message: 'サービスアカウント情報に client_email または private_key がありません。' }, 503);
   }
 
   const cache = cacheApi();
-  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-stage5-v1`);
+  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-stage5-v2`);
   if (cache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
