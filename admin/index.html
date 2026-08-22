@@ -119,7 +119,7 @@
           <div><p class="eyebrow">PAGE QUALITY</p><h2>ページ評価</h2><p>Cloudflare 7日・GA4 30日・Clarity 3日を同じページ単位で見比べます。</p></div>
           <div class="heading-actions">
             <label class="search-field"><span class="sr-only">ページ検索</span><input id="evaluationSearch" type="search" placeholder="ページ名・URLで検索"></label>
-            <select id="evaluationFilter" aria-label="評価で絞り込み"><option value="all">すべて</option><option value="improve">改善候補</option><option value="good">良好</option><option value="watch">様子見</option><option value="low-data">データ少</option></select>
+            <select id="evaluationFilter" aria-label="評価で絞り込み"><option value="all">すべて</option><option value="improve">改善優先</option><option value="good">良好</option><option value="watch">様子見</option><option value="low-data">データ少</option></select>
           </div>
         </div>
         <div class="evaluation-summary" id="evaluationSummary"></div>
@@ -129,7 +129,7 @@
             <tbody id="evaluationRows"></tbody>
           </table>
         </div>
-        <p class="small-note">「改善候補」は自動判定です。閲覧数が少ないページは無理に評価せず「データ少」にします。</p>
+        <p class="small-note">「改善優先」は、十分なGA4ユーザー数があり、直したときの効果が見込めるページだけを自動判定します。GA4ユーザー10人未満は「データ少」として判断を保留し、トップ・一覧・Player Lensなどの入口ページは平均Eng時間が短いだけでは改善扱いにしません。</p>
       </section>
     </section>
 
@@ -218,6 +218,6 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260822-stage5" defer></script>
+  <script src="app.js?v=20260822-stage5-eval2" defer></script>
 </body>
 </html>

@@ -526,18 +526,66 @@
     });
     return [...map.values()].map((item) => ({ ...item, evaluation:evaluatePage(item) })).sort((a,b) => Math.max(b.ga4Views,b.cfPv)-Math.max(a.ga4Views,a.cfPv));
   }
+  function pageEvaluationKind(path) {
+    const normalized = normalizePath(path);
+    if ([
+      '/', '/articles', '/watch-notes', '/player-lens', '/player-lens/teams'
+    ].includes(normalized)) return 'navigation';
+    if (normalized.startsWith('/player-lens/')) return 'tool';
+    return 'content';
+  }
+
   function evaluatePage(item) {
-    const volume = Math.max(item.ga4Views,item.cfPv);
-    if (volume < 8) return { key:'low-data', label:'データ少', tone:'muted', reasons:[] };
+    const kind = pageEvaluationKind(item.path);
+    const ga4Users = Number(item.ga4Users) || 0;
+    const ga4Views = Number(item.ga4Views) || 0;
+    const cfPv = Number(item.cfPv) || 0;
+    const avgSession = Number(item.avgSession) || 0;
+    const scroll = Number(item.scroll) || 0;
+    const rage = Number(item.rage) || 0;
+    const dead = Number(item.dead) || 0;
+
+    // ページ品質の判断材料はGA4のユーザー数を基準にする。
+    // Cloudflare PVが多くても、GA4ユーザーが少ない段階では改善判断を急がない。
+    if (!state.ga4 || ga4Users < 10) {
+      const reason = state.ga4
+        ? `GA4ユーザー${ga4Users}人のため判断保留`
+        : 'GA4データ未取得のため判断保留';
+      return { key:'low-data', label:'データ少', tone:'muted', reasons:[reason] };
+    }
+
+    const highTraffic = ga4Users >= 15 || ga4Views >= 30 || cfPv >= 40;
+    const uxReasons = [];
+    if (rage >= 2) uxReasons.push('Rage Clickあり');
+    if (dead >= 3) uxReasons.push('Dead Clickあり');
+
+    // 読ませるページだけ、滞在とスクロールを内容改善の判断材料にする。
+    // トップ・一覧・Player Lensなどの入口/ツールページは、短時間で次へ進むこと自体を悪く扱わない。
+    const contentReasons = [];
+    if (kind === 'content') {
+      if (avgSession > 0 && avgSession < 20) contentReasons.push('平均Eng時間が短め');
+      if (scroll > 0 && scroll < 30) contentReasons.push('スクロールが浅め');
+    }
+
+    if (highTraffic && uxReasons.length) {
+      return { key:'improve', label:'改善優先', tone:'bad', reasons:uxReasons };
+    }
+    if (kind === 'content' && highTraffic && contentReasons.length >= 2) {
+      return { key:'improve', label:'改善優先', tone:'bad', reasons:contentReasons };
+    }
+
+    if (kind === 'content') {
+      if (avgSession >= 45 || scroll >= 55) {
+        return { key:'good', label:'良好', tone:'good', reasons:[] };
+      }
+    } else if (!uxReasons.length && (avgSession >= 20 || Number(item.viewsPerUser) >= 1.5)) {
+      return { key:'good', label:'良好', tone:'good', reasons:[] };
+    }
+
     const reasons = [];
-    if (item.viewsPerUser > 0 && item.viewsPerUser < 1.15) reasons.push('表示/人が低め');
-    if (item.avgSession > 0 && item.avgSession < 25) reasons.push('平均Eng時間が短め');
-    if (item.scroll > 0 && item.scroll < 35) reasons.push('スクロールが浅め');
-    if (item.rage >= 2) reasons.push('Rage Clickあり');
-    if (item.dead >= 3) reasons.push('Dead Clickあり');
-    if (reasons.length) return { key:'improve', label:'改善候補', tone:'bad', reasons };
-    if (item.avgSession >= 45 && item.viewsPerUser >= 1.2) return { key:'good', label:'良好', tone:'good', reasons:[] };
-    return { key:'watch', label:'様子見', tone:'warn', reasons:[] };
+    if (kind === 'content' && contentReasons.length) reasons.push(...contentReasons);
+    if (uxReasons.length) reasons.push(...uxReasons);
+    return { key:'watch', label:'様子見', tone:'warn', reasons };
   }
   function renderPageEvaluation() {
     if (!el.evaluationRows) return;
@@ -547,7 +595,7 @@
     const visible = all.filter((item) => (filter==='all' || item.evaluation.key===filter) && (!query || `${item.title} ${item.path}`.toLowerCase().includes(query)));
     const counts = all.reduce((acc,item) => { acc[item.evaluation.key]=(acc[item.evaluation.key]||0)+1; return acc; },{});
     el.evaluationSummary.innerHTML = [
-      ['改善候補',counts.improve||0],['良好',counts.good||0],['様子見',counts.watch||0],['データ少',counts['low-data']||0]
+      ['改善優先',counts.improve||0],['良好',counts.good||0],['様子見',counts.watch||0],['データ少',counts['low-data']||0]
     ].map(([label,count]) => `<span class="evaluation-pill"><span>${label}</span><b>${count}</b></span>`).join('');
     el.evaluationRows.replaceChildren();
     if (!visible.length) return renderTableMessage(el.evaluationRows, 10, '条件に合うページがありません。');
@@ -635,7 +683,7 @@
     const actions=[];
     const evals=evaluationData();
     const improve=evals.filter((item)=>item.evaluation.key==='improve').slice(0,2);
-    improve.forEach((item)=>actions.push({title:`改善候補：${item.title}`,detail:item.evaluation.reasons.join('・')||item.path,tone:'bad',badge:'確認'}));
+    improve.forEach((item)=>actions.push({title:`改善優先：${item.title}`,detail:item.evaluation.reasons.join('・')||item.path,tone:'bad',badge:'確認'}));
     const failed=state.playerLensReports.filter((item)=>!item.ok);
     if (failed.length) actions.push({title:'Player Lensデータ要確認',detail:`${failed.length}件を取得できません`,tone:'bad',badge:'エラー'});
     const rage=clarityTotal(/Rage Click/i,/rage|click/i);
