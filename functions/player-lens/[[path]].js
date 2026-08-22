@@ -1,6 +1,7 @@
 const PLAYER_LENS_ORIGIN = "https://player-lens-pages.pages.dev";
 const PLAYER_LENS_PREFIX = "/player-lens";
 const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
+const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260822-stage3";
 
 const TEXT_CONTENT_TYPES = [
   "text/html",
@@ -15,9 +16,35 @@ const TEXT_CONTENT_TYPES = [
   "image/svg+xml",
 ];
 
+const BRIDGE_HEADER = `
+<header class="pbwg-bridge-header" data-pbwg-bridge="true">
+  <div class="pbwg-bridge-inner">
+    <a class="pbwg-bridge-brand" href="/" aria-label="プロ野球観戦メモ トップへ">
+      <span class="pbwg-bridge-mark" aria-hidden="true">⚾</span>
+      <span class="pbwg-bridge-brand-copy">
+        <strong>プロ野球観戦メモ</strong>
+        <small>試合・選手・チームを見て、データでも楽しむ</small>
+      </span>
+    </a>
+    <nav class="pbwg-bridge-nav" aria-label="プロ野球観戦メモ 共通メニュー">
+      <a href="/">トップ</a>
+      <a href="/giants/">巨人の今</a>
+      <a href="/articles/">記事一覧</a>
+      <a href="/watch-notes/">観戦メモ</a>
+      <a class="is-current" href="/player-lens/" aria-current="page">Player Lens</a>
+      <a href="/about">このサイトについて</a>
+      <a href="/contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>`;
+
 function isTextResponse(contentType = "") {
   const normalized = contentType.toLowerCase();
   return TEXT_CONTENT_TYPES.some((type) => normalized.includes(type));
+}
+
+function isHtmlResponse(contentType = "") {
+  return contentType.toLowerCase().includes("text/html");
 }
 
 function publicPlayerLensUrl(sourceUrl) {
@@ -50,19 +77,61 @@ function rewriteLocation(headers) {
   }
 }
 
-function rewriteTextBody(text) {
-  return text.replaceAll(
+function addIntegratedBodyClass(html) {
+  return html.replace(/<body([^>]*)>/i, (match, attrs) => {
+    const classMatch = attrs.match(/\sclass=(['"])(.*?)\1/i);
+    if (classMatch) {
+      const quote = classMatch[1];
+      const classes = classMatch[2].split(/\s+/).filter(Boolean);
+      if (!classes.includes("pbwg-integrated-player-lens")) classes.push("pbwg-integrated-player-lens");
+      return match.replace(classMatch[0], ` class=${quote}${classes.join(" ")}${quote}`);
+    }
+    return `<body${attrs} class="pbwg-integrated-player-lens">`;
+  });
+}
+
+function removeInternalNewTab(html) {
+  return html.replace(/<a\b[^>]*>/gi, (tag) => {
+    const href = tag.match(/\bhref=(['"])(.*?)\1/i)?.[2] || "";
+    if (!href.startsWith(CANONICAL_ORIGIN)) return tag;
+    return tag
+      .replace(/\s+target=(['"])_blank\1/gi, "")
+      .replace(/\s+rel=(['"])(?:noopener(?:\s+noreferrer)?|noreferrer(?:\s+noopener)?)\1/gi, "");
+  });
+}
+
+function integrateHtml(html) {
+  let integrated = addIntegratedBodyClass(html);
+
+  if (!integrated.includes("data-pbwg-bridge=\"true\"")) {
+    integrated = integrated.replace(/<body([^>]*)>/i, (bodyTag) => `${bodyTag}\n${BRIDGE_HEADER}`);
+  }
+
+  if (!integrated.includes(BRIDGE_STYLESHEET)) {
+    integrated = integrated.replace(
+      /<\/head>/i,
+      `  <link rel="stylesheet" href="${BRIDGE_STYLESHEET}">\n</head>`,
+    );
+  }
+
+  return removeInternalNewTab(integrated);
+}
+
+function rewriteTextBody(text, contentType = "") {
+  let rewritten = text.replaceAll(
     PLAYER_LENS_ORIGIN,
     `${CANONICAL_ORIGIN}${PLAYER_LENS_PREFIX}`,
   );
+
+  if (isHtmlResponse(contentType)) rewritten = integrateHtml(rewritten);
+  return rewritten;
 }
 
 export async function onRequest(context) {
   const request = context.request;
   const incoming = new URL(request.url);
 
-  // A trailing slash is required on the Player Lens root so ./assets and ./data
-  // resolve under /player-lens/ rather than at the site root.
+  // Keep the root with a trailing slash so ./assets and ./data resolve under /player-lens/.
   if (incoming.pathname === PLAYER_LENS_PREFIX) {
     incoming.pathname = `${PLAYER_LENS_PREFIX}/`;
     return Response.redirect(incoming.toString(), 308);
@@ -124,14 +193,13 @@ export async function onRequest(context) {
     });
   }
 
-  const body = rewriteTextBody(await upstream.text());
+  const body = rewriteTextBody(await upstream.text(), contentType);
   headers.delete("content-length");
   headers.delete("content-encoding");
   headers.delete("etag");
 
-  // The upstream site remains the data/source deployment during stage 2,
-  // while public canonical URLs are the integrated /player-lens/ paths.
   headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
+  headers.set("x-player-lens-integration-stage", "3");
 
   return new Response(body, {
     status: upstream.status,
