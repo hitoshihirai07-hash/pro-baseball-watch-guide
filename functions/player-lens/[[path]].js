@@ -17,6 +17,19 @@ const TEXT_CONTENT_TYPES = [
   "image/svg+xml",
 ];
 
+const REVALIDATE_CONTENT_TYPES = [
+  "text/html",
+  "text/css",
+  "text/javascript",
+  "application/javascript",
+  "application/json",
+  "application/ld+json",
+  "application/xml",
+  "text/xml",
+  "text/plain",
+  "text/csv",
+];
+
 const BRIDGE_HEADER = `
 <header class="pbwg-bridge-header" data-pbwg-bridge="true">
   <div class="pbwg-bridge-inner">
@@ -46,6 +59,11 @@ function isTextResponse(contentType = "") {
 
 function isHtmlResponse(contentType = "") {
   return contentType.toLowerCase().includes("text/html");
+}
+
+function shouldRevalidate(contentType = "") {
+  const normalized = contentType.toLowerCase();
+  return REVALIDATE_CONTENT_TYPES.some((type) => normalized.includes(type));
 }
 
 function publicPlayerLensUrl(sourceUrl) {
@@ -135,6 +153,16 @@ function rewriteTextBody(text, contentType = "") {
   return rewritten;
 }
 
+function preparePublicHeaders(headers, contentType = "") {
+  // The upstream origin is intentionally noindex. The public /player-lens/ URL is the indexable copy.
+  headers.delete("x-robots-tag");
+
+  // Player Lens is updated from its own repository. Revalidate data/code so those updates appear here promptly.
+  if (shouldRevalidate(contentType)) {
+    headers.set("cache-control", "no-cache, must-revalidate");
+  }
+}
+
 export async function onRequest(context) {
   const request = context.request;
   const incoming = new URL(request.url);
@@ -161,7 +189,11 @@ export async function onRequest(context) {
       headers: {
         Accept: request.headers.get("accept") || "*/*",
         "Accept-Language": request.headers.get("accept-language") || "ja,en;q=0.8",
+        "Cache-Control": "no-cache",
         "User-Agent": request.headers.get("user-agent") || "Player-Lens-Proxy",
+      },
+      cf: {
+        cacheTtl: 0,
       },
     });
   } catch (error) {
@@ -173,7 +205,9 @@ export async function onRequest(context) {
   }
 
   const headers = new Headers(upstream.headers);
+  const contentType = headers.get("content-type") || "";
   rewriteLocation(headers);
+  preparePublicHeaders(headers, contentType);
 
   if (upstream.status >= 300 && upstream.status < 400) {
     headers.delete("content-length");
@@ -192,8 +226,9 @@ export async function onRequest(context) {
     });
   }
 
-  const contentType = headers.get("content-type") || "";
   if (!isTextResponse(contentType)) {
+    headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
+    headers.set("x-player-lens-integration-stage", "4-single-source");
     return new Response(upstream.body, {
       status: upstream.status,
       statusText: upstream.statusText,
@@ -207,7 +242,7 @@ export async function onRequest(context) {
   headers.delete("etag");
 
   headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
-  headers.set("x-player-lens-integration-stage", "3-links");
+  headers.set("x-player-lens-integration-stage", "4-single-source");
 
   return new Response(body, {
     status: upstream.status,
