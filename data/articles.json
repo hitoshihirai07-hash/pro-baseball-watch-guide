@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-22",
+  "updated": "2026-08-23",
   "articles": [
     {
       "type": "watch-note",
@@ -2228,6 +2228,52 @@
         "石塚",
         "中山",
         "堀田"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-carp-series-review-20260821-0823",
+      "source": "watch-notes/giants-carp-series-review-20260821-0823.html",
+      "contentSource": "content/watch-notes/giants-carp-series-review-20260821-0823.json",
+      "slug": "giants-carp-series-review-20260821-0823",
+      "title": "【カード振り返り】代木大和のプロ初勝利と投手陣の安定感　8/21～8/23巨人対広島",
+      "listTitle": "【カード振り返り】代木大和のプロ初勝利と投手陣の安定感　8/21～8/23巨人対広島",
+      "description": "8月21日～23日の巨人対広島3連戦を振り返ります。代木大和のプロ初先発・初勝利、2試合連続完封を支えた投手陣、坂本勇人や増田陸、松本剛らの活躍を中心にまとめました。",
+      "listDescription": "代木大和のプロ初勝利と投手陣の安定感が印象に残った、8月21日～23日の巨人対広島3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-23",
+      "updated": "2026-08-23",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "広島",
+        "代木大和",
+        "坂本勇人"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "nextPoints": [
+        "増田陸",
+        "坂本勇人",
+        "堀田賢慎"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",
