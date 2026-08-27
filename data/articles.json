@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-23",
+  "updated": "2026-08-27",
   "articles": [
     {
       "type": "watch-note",
@@ -2274,6 +2274,50 @@
         "増田陸",
         "坂本勇人",
         "堀田賢慎"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-swallows-20260825-0827",
+      "source": "watch-notes/giants-swallows-20260825-0827.html",
+      "contentSource": "content/watch-notes/giants-swallows-20260825-0827.json",
+      "slug": "giants-swallows-20260825-0827",
+      "title": "【観戦メモ】8/25～8/27 巨人対ヤクルトで印象に残った佐々木",
+      "listTitle": "【観戦メモ】8/25～8/27 巨人対ヤクルトで印象に残った佐々木",
+      "description": "8月25日～27日の巨人対ヤクルト3連戦を振り返り。佐々木俊輔、松本剛、ダルベックの打撃、鈴木大和のプロ初記録、甲斐拓也の一発、マタの投球内容を中心にまとめました。",
+      "listDescription": "佐々木、松本剛、ダルベックが打線をけん引。鈴木大和のプロ初記録も生まれたヤクルト3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-27",
+      "updated": "2026-08-27",
+      "keywords": [
+        "観戦メモ",
+        "試合観戦",
+        "巨人",
+        "ヤクルト",
+        "佐々木",
+        "松本剛"
+      ],
+      "tags": [
+        "giants",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "選手・起用"
+      ],
+      "articleType": "1試合の観戦メモ",
+      "nextPoints": [
+        "佐々木の起用法",
+        "石塚",
+        "田中瑛斗"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",

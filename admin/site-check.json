@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T08:37:46.474Z",
+  "generatedAt": "2026-08-27T12:56:23.572Z",
   "status": "ok",
   "summary": {
-    "pages": 75,
-    "articles": 63,
-    "watchNotes": 22,
+    "pages": 76,
+    "articles": 64,
+    "watchNotes": 23,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "75ページの参照先を確認しました。",
+      "detail": "76ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "63件の記事データとHTMLを照合しました。",
+      "detail": "64件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "73ページの基本メタ情報を確認しました。",
+      "detail": "74ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "22件の観戦メモを確認しました。",
+      "detail": "23件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "63件の記事URLを確認しました。",
+      "detail": "64件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-carp-series-review-20260821-0823を表示しています。",
+      "detail": "/watch-notes/giants-swallows-20260825-0827を表示しています。",
       "count": 0,
       "samples": []
     },
