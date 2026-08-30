@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-27",
+  "updated": "2026-08-30",
   "articles": [
     {
       "type": "watch-note",
@@ -2320,6 +2320,52 @@
         "佐々木の起用法",
         "石塚",
         "田中瑛斗"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-tigers-series-review-20260828-0830",
+      "source": "watch-notes/giants-tigers-series-review-20260828-0830.html",
+      "contentSource": "content/watch-notes/giants-tigers-series-review-20260828-0830.json",
+      "slug": "giants-tigers-series-review-20260828-0830",
+      "title": "【カード振り返り】8/28～8/30　巨人対阪神を見て感じたこと",
+      "listTitle": "【カード振り返り】8/28～8/30　巨人対阪神を見て感じたこと",
+      "description": "8月28日～30日の巨人対阪神3連戦を振り返り。丸佳浩の4安打、森田駿哉ら救援陣の踏ん張り、則本昂大の中継ぎ起用、阪神先発陣を崩せなかった打線を中心にまとめました。",
+      "listDescription": "丸佳浩の4安打と救援陣の粘りが印象に残った阪神3連戦。打線の課題や則本昂大の中継ぎ起用も振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-30",
+      "updated": "2026-08-30",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "阪神",
+        "丸佳浩",
+        "森田駿哉"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "nextPoints": [
+        "佐々木俊輔",
+        "大城卓三",
+        "則本昂大"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",

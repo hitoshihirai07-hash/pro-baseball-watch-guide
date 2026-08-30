@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-30T04:33:31.027Z",
+  "generatedAt": "2026-08-30T13:17:51.781Z",
   "status": "ok",
   "summary": {
-    "pages": 76,
-    "articles": 64,
-    "watchNotes": 23,
+    "pages": 77,
+    "articles": 65,
+    "watchNotes": 24,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "76ページの参照先を確認しました。",
+      "detail": "77ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "64件の記事データとHTMLを照合しました。",
+      "detail": "65件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "74ページの基本メタ情報を確認しました。",
+      "detail": "75ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "23件の観戦メモを確認しました。",
+      "detail": "24件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "64件の記事URLを確認しました。",
+      "detail": "65件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-swallows-20260825-0827を表示しています。",
+      "detail": "/watch-notes/giants-tigers-series-review-20260828-0830を表示しています。",
       "count": 0,
       "samples": []
     },
