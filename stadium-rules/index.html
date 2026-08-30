@@ -118,15 +118,15 @@
 <p class="microcopy">このページは個人が公式情報を整理した非公式ツールです。試合日、主催球団、イベントによりルールが変わる場合があります。</p>
 </section>
 
-<section class="container section article-ad" aria-label="広告">
+<section class="container section article-ad article-ad--end" aria-label="広告" data-ad-network="i-mobile" data-ad-position="article-end">
 <p class="ad-label">広告</p>
-<div class="admax-unit">
+<div class="imobile-unit">
 <script>
 (function () {
-  var admaxSrc = window.matchMedia("(max-width: 767px)").matches
-    ? "https://adm.shinobi.jp/s/0e85ab0d2cab83e27f12482979152477"
-    : "https://adm.shinobi.jp/s/a6e8e14cba910de1f044e25e24e2f00f";
-  document.write('<script src="' + admaxSrc + '"><\/script>');
+  var isMobile = navigator.userAgentData
+    ? navigator.userAgentData.mobile
+    : /iPhone|iPod|Android.*Mobile|Windows Phone|Mobi/i.test(navigator.userAgent);
+  document.write(isMobile ? "<div id=\"im-f311a9ba4edc4af0ad43a52ebc7b17a6\">\n  <script async src=\"https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104\"><\/script>\n  <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595759,asid:1942267,type:\"banner\",display:\"inline\",elementid:\"im-f311a9ba4edc4af0ad43a52ebc7b17a6\"})<\/script>\n</div>" : "<div id=\"im-57a8604ff38a479f981fffd9df4ea3e1\">\n  <script async src=\"https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104\"><\/script>\n  <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595661,asid:1942264,type:\"banner\",display:\"inline\",elementid:\"im-57a8604ff38a479f981fffd9df4ea3e1\"})<\/script>\n</div>");
 }());
 </script>
 <noscript><p class="microcopy">広告を表示するにはJavaScriptを有効にしてください。</p></noscript>
