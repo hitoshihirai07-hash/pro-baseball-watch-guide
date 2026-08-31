@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-30",
+  "updated": "2026-08-31",
   "articles": [
     {
       "type": "watch-note",
@@ -2371,6 +2371,53 @@
         "打順・起用などで注目する点",
         "状態を確認したい選手",
         "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-august-2026-review",
+      "source": "watch-notes/giants-august-2026-review.html",
+      "contentSource": "content/watch-notes/giants-august-2026-review.json",
+      "slug": "giants-august-2026-review",
+      "title": "【8月総括】巨人の8月を振り返る　佐々木俊輔と森田駿哉、阪神戦で残った課題",
+      "listTitle": "【8月総括】巨人の8月を振り返る　佐々木俊輔と森田駿哉、阪神戦で残った課題",
+      "description": "2026年8月の巨人を振り返り。12勝14敗ながら得失点差はプラス14。佐々木俊輔、森田駿哉、ハワードらの好成績と、阪神戦6戦全敗で残った課題を観戦メモとしてまとめました。",
+      "listDescription": "佐々木俊輔と森田駿哉の活躍、阪神戦6戦全敗。数字と試合の流れから巨人の8月を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-08-31",
+      "updated": "2026-08-31",
+      "keywords": [
+        "観戦メモ",
+        "月間振り返り",
+        "巨人",
+        "佐々木俊輔",
+        "森田駿哉",
+        "ハワード",
+        "浦田俊輔"
+      ],
+      "tags": [
+        "giants",
+        "monthly-review",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人",
+        "8月総括",
+        "月間振り返り"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "佐々木俊輔と浦田俊輔の上位打線",
+        "ハワードを中心とした先発投手陣",
+        "阪神戦での得点の作り方"
+      ],
+      "nextPointLabels": [
+        "打線で注目する点",
+        "先発陣で注目する点",
+        "9月最大の注目点"
       ],
       "search": true,
       "sitemap": true
