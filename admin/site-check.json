@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-31T10:28:51.427Z",
+  "generatedAt": "2026-09-02T13:14:34.266Z",
   "status": "ok",
   "summary": {
-    "pages": 78,
-    "articles": 66,
-    "watchNotes": 25,
+    "pages": 79,
+    "articles": 67,
+    "watchNotes": 26,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "78ページの参照先を確認しました。",
+      "detail": "79ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "66件の記事データとHTMLを照合しました。",
+      "detail": "67件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "76ページの基本メタ情報を確認しました。",
+      "detail": "77ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "25件の観戦メモを確認しました。",
+      "detail": "26件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "66件の記事URLを確認しました。",
+      "detail": "67件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-august-2026-reviewを表示しています。",
+      "detail": "/watch-notes/giants-dena-series-review-20260901-0902を表示しています。",
       "count": 0,
       "samples": []
     },

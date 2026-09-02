@@ -182,7 +182,7 @@ function generateArticlesIndex(data) {
   const latestNotes = byGroup('watch-notes').slice(0, 3);
   const watchSection = `<section class="container section article-category-block" id="watch-notes">
 <div class="category-heading"><div><p class="eyebrow">Watch Notes</p><h2>観戦メモ</h2></div><p>巨人戦を中心に、試合で気になった選手・起用・チームの変化を新しい順に残しています。</p></div>
-<article class="article-card category-feature"><div><span class="badge">観戦メモ一覧</span><h3><a href="../watch-notes/">観戦メモをまとめて読む</a></h3><p>3連戦の振り返り、選手や起用について感じたことを一覧から探せます。</p></div><a class="text-link" href="../watch-notes/">一覧を見る →</a></article>
+<article class="article-card category-feature"><div><span class="badge">観戦メモ一覧</span><h3><a href="../watch-notes/">観戦メモをまとめて読む</a></h3><p>カードの振り返り、選手や起用について感じたことを一覧から探せます。</p></div><a class="text-link" href="../watch-notes/">一覧を見る →</a></article>
 <div class="category-article-grid">
 ${latestNotes.map(item => articleCard(item, `..${item.path}`, { compact: true })).join('\n')}
 </div>

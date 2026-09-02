@@ -9,7 +9,7 @@
 
   const ARTICLE_KIND_LABELS = [
     '1試合の観戦メモ',
-    '3連戦・カードの振り返り',
+    'カードの振り返り',
     '選手・出来事',
     'チーム・起用・戦い方',
     '期間・シーズン総括'
@@ -391,7 +391,7 @@
     const title = String(item.title || '');
     const tags = new Set([...(item.tags || []), ...(item.badges || [])]);
     if (/総括|前半戦|後半戦|シーズン/u.test(title)) return '期間・シーズン総括';
-    if (tags.has('series') || tags.has('3連戦') || /カード振り返り/u.test(title)) return '3連戦・カードの振り返り';
+    if (tags.has('series') || tags.has('2連戦') || tags.has('3連戦') || /カード振り返り/u.test(title)) return 'カードの振り返り';
     if (/起用|打順|継投|チーム/u.test(title)) return 'チーム・起用・戦い方';
     if (tags.has('single-game') || tags.has('試合観戦')) return '1試合の観戦メモ';
     return '選手・出来事';

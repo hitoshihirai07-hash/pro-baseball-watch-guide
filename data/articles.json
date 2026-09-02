@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-08-31",
+  "updated": "2026-09-02",
   "articles": [
     {
       "type": "watch-note",
@@ -2418,6 +2418,53 @@
         "打線で注目する点",
         "先発陣で注目する点",
         "9月最大の注目点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-dena-series-review-20260901-0902",
+      "source": "watch-notes/giants-dena-series-review-20260901-0902.html",
+      "contentSource": "content/watch-notes/giants-dena-series-review-20260901-0902.json",
+      "slug": "giants-dena-series-review-20260901-0902",
+      "title": "【カード振り返り】9/1～9/2　巨人対DeNAを見て感じたこと",
+      "listTitle": "【カード振り返り】9/1～9/2　巨人対DeNAを見て感じたこと",
+      "description": "9月1日～2日に京セラドームで行われた巨人対DeNAの2連戦を振り返り。石塚裕惺のプロ初サヨナラ打、西舘勇陽の6回無失点10奪三振、打線やダルベックの状態を中心にまとめました。",
+      "listDescription": "石塚裕惺のプロ初サヨナラ打と西舘勇陽の好投が印象に残ったDeNA2連戦。打線やダルベックの状態も振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-02",
+      "updated": "2026-09-02",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "DeNA",
+        "石塚裕惺",
+        "西舘勇陽"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "2連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "seriesGameCount": 2,
+      "nextPoints": [
+        "石塚裕惺",
+        "ティマ",
+        "田中瑛斗"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
       ],
       "search": true,
       "sitemap": true

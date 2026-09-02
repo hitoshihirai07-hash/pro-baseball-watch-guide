@@ -86,10 +86,18 @@
             <span>記事の種類</span>
             <select id="articleType" name="articleType">
               <option>1試合の観戦メモ</option>
-              <option>3連戦・カードの振り返り</option>
+              <option value="3連戦・カードの振り返り">カードの振り返り</option>
               <option>選手について感じたこと</option>
               <option>チーム・起用・戦い方について感じたこと</option>
               <option>期間・シーズンの総括</option>
+            </select>
+          </label>
+          <label id="seriesGameCountField" class="field-label" hidden>
+            <span>カードの試合数</span>
+            <span class="field-help">カード振り返りの記事・一覧バッジに反映します。</span>
+            <select id="seriesGameCount" name="seriesGameCount">
+              <option value="2">2連戦</option>
+              <option value="3" selected>3連戦</option>
             </select>
           </label>
         </div>
@@ -273,7 +281,7 @@
       <details class="utility-details">
         <summary>観戦メモの基本方針</summary>
         <div class="utility-content">
-          <p>巨人戦を中心に、強く印象に残った試合・選手・チームについて残します。記事の種類は「1試合の観戦メモ」「3連戦・カードの振り返り」「選手について感じたこと」「チーム・起用・戦い方について感じたこと」「期間・シーズンの総括」の5つです。</p>
+          <p>巨人戦を中心に、強く印象に残った試合・選手・チームについて残します。記事の種類は「1試合の観戦メモ」「カードの振り返り」「選手について感じたこと」「チーム・起用・戦い方について感じたこと」「期間・シーズンの総括」の5つです。カード振り返りは2連戦・3連戦を切り替えられます。</p>
         </div>
       </details>
     </section>

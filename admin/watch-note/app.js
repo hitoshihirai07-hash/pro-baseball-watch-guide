@@ -83,6 +83,8 @@
     targetTeam: $('#targetTeam'),
     stadium: $('#stadium'),
     articleType: $('#articleType'),
+    seriesGameCountField: $('#seriesGameCountField'),
+    seriesGameCount: $('#seriesGameCount'),
     mainPoint: $('#mainPoint'),
     players: $('#players'),
     goodPoints: $('#goodPoints'),
@@ -209,6 +211,7 @@
   function getFieldValues() {
     return {
       targetTeam: normalizeText(el.targetTeam.value) || '巨人',
+      seriesGameCount: el.seriesGameCount ? Number(el.seriesGameCount.value) || 3 : 3,
       stadium: normalizeText(el.stadium.value),
       players: normalizeText(el.players.value),
       goodPoints: normalizeText(el.goodPoints.value),
@@ -231,6 +234,7 @@
 
   function setFieldValues(data = {}) {
     setInputValue(el.targetTeam, resolveTargetTeam(data), '巨人');
+    if (el.seriesGameCount) setInputValue(el.seriesGameCount, String(data.seriesGameCount || 3), '3');
     el.stadium.value = data.stadium || '';
     el.players.value = data.players || '';
     el.goodPoints.value = data.goodPoints || '';
@@ -311,6 +315,7 @@
     el.gameTitle.value = data.gameTitle || '';
     el.stadium.value = data.stadium || '';
     setInputValue(el.articleType, normalizeArticleType(data.articleType), '1試合の観戦メモ');
+    updateSeriesGameCountVisibility();
     setWatchMethods(data.watchMethods || []);
     el.mainPoint.value = data.mainPoint || '';
     setFieldValues(data);
@@ -334,6 +339,7 @@
       targetTeam: '巨人',
       stadium: '',
       articleType: '1試合の観戦メモ',
+      seriesGameCount: 3,
       watchMethods: [],
       mainPoint: '',
       players: '',
@@ -496,6 +502,29 @@
 
   function unique(values) {
     return [...new Set(values.filter(Boolean))];
+  }
+
+  function isSeriesArticle(dataOrType) {
+    const articleType = typeof dataOrType === 'string' ? dataOrType : dataOrType?.articleType;
+    return articleType === '3連戦・カードの振り返り';
+  }
+
+  function seriesGameCount(data = {}) {
+    const count = Number(data.seriesGameCount);
+    return count === 2 ? 2 : 3;
+  }
+
+  function seriesGameLabel(data = {}) {
+    return `${seriesGameCount(data)}連戦`;
+  }
+
+  function promptArticleType(data = {}) {
+    return isSeriesArticle(data) ? `${seriesGameLabel(data)}・カードの振り返り` : data.articleType;
+  }
+
+  function updateSeriesGameCountVisibility() {
+    if (!el.seriesGameCountField) return;
+    el.seriesGameCountField.hidden = !isSeriesArticle(el.articleType?.value);
   }
 
   function articleTypeTag(articleType) {
@@ -663,7 +692,7 @@ ${nextPoints}`;
 以下の内容をもとに、ブログ掲載前の Markdown 原稿を作成してください。
 
 【記事の種類】
-${data.articleType}
+${promptArticleType(data)}
 
 【対象の試合・期間】
 ${data.gameTitle || '（未入力）'}
@@ -886,11 +915,10 @@ ${data.articleLength}
     const labels = {
       giants: '巨人戦',
       other: '他球団',
-      series: '3連戦',
       'player-usage': '選手・起用',
       'season-review': '期間・総括'
     };
-    return buildFilterTags(data).map((tag) => labels[tag]).filter(Boolean);
+    return buildFilterTags(data).map((tag) => tag === 'series' ? seriesGameLabel(data) : labels[tag]).filter(Boolean);
   }
 
   function buildAutoSlug(data) {
@@ -903,15 +931,15 @@ ${data.articleLength}
     return `${prefix}-${data.gameDate || getTodayLocal()}`;
   }
 
-  function articleBadge(articleType) {
+  function articleBadge(data) {
     const labels = {
       '1試合の観戦メモ': '1試合についての観戦メモ',
-      '3連戦・カードの振り返り': '3連戦についての観戦メモ',
       '選手について感じたこと': '選手についての観戦メモ',
       'チーム・起用・戦い方について感じたこと': 'チーム・起用についての観戦メモ',
       '期間・シーズンの総括': '期間・シーズンについての観戦メモ'
     };
-    return labels[articleType] || 'プロ野球観戦メモ';
+    if (isSeriesArticle(data)) return `${seriesGameLabel(data)}についての観戦メモ`;
+    return labels[data.articleType] || 'プロ野球観戦メモ';
   }
 
   function fillPublishFields() {
@@ -982,7 +1010,8 @@ ${data.articleLength}
       gameLabel: data.gameTitle,
       targetTeam: resolveTargetTeam(data),
       articleType: data.articleType,
-      articleBadge: articleBadge(data.articleType),
+      seriesGameCount: isSeriesArticle(data) ? seriesGameCount(data) : undefined,
+      articleBadge: articleBadge(data),
       lead: data.publish.description,
       bodyMarkdown: data.publish.bodyMarkdown,
       nextPoints: data.nextPoints,
@@ -1159,6 +1188,8 @@ ${data.articleLength}
       }
     });
     el.generatePrompt.addEventListener('click', showArticleKit);
+    el.articleType.addEventListener('change', () => { updateSeriesGameCountVisibility(); scheduleSave(); });
+    if (el.seriesGameCount) el.seriesGameCount.addEventListener('change', scheduleSave);
     el.closeDialog.addEventListener('click', () => el.outputDialog.close());
     el.copyArticleKit.addEventListener('click', () => copyText(buildArticleKitText(), '記事化セットをコピーしました。'));
     el.copyPrompt.addEventListener('click', () => copyText(el.promptOutput.value, '記事用プロンプトをコピーしました。'));

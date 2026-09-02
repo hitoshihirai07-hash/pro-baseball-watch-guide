@@ -304,6 +304,7 @@ for (const file of files) {
     tags: note.tags,
     badges: note.badges,
     articleType: note.articleType || '',
+    seriesGameCount: note.seriesGameCount || undefined,
     nextPoints: note.nextPoints,
     nextPointLabels,
     search: true,
