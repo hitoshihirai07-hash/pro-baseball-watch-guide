@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260903-threads1">
+  <link rel="stylesheet" href="styles.css?v=20260903-threads2">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
@@ -208,9 +208,16 @@
             <div>
               <p class="eyebrow">THREADS API</p>
               <h2>Threads接続・投稿分析</h2>
-              <p>アクセストークンはCloudflareのシークレットからだけ読み込み、ブラウザには返しません。最新20投稿を取得して反応を比較します。</p>
+              <p>アクセストークンはCloudflareのシークレットからだけ読み込み、ブラウザには返しません。取得件数を選んで投稿実績を比較できます。</p>
             </div>
             <div class="button-row">
+              <label class="compact-control">取得件数
+                <select id="threadsLimit" aria-label="Threads取得件数">
+                  <option value="20">20件</option>
+                  <option value="30" selected>30件</option>
+                  <option value="50">50件</option>
+                </select>
+              </label>
               <button id="threadsTestButton" class="button button-secondary" type="button">接続確認</button>
               <button id="reloadThreadsButton" class="button button-primary" type="button">データ更新</button>
             </div>
@@ -225,20 +232,33 @@
 
         <section class="panel span-3">
           <div class="panel-heading">
-            <div><p class="eyebrow">PERFORMANCE</p><h2>最新投稿の合計</h2><p id="threadsMetricNote">取得できた最新投稿を集計します。</p></div>
+            <div><p class="eyebrow">PERFORMANCE</p><h2>投稿分析サマリー</h2><p id="threadsMetricNote">取得できた投稿を集計します。</p></div>
+            <div class="button-row">
+              <button id="downloadThreadsCsvButton" class="button button-secondary" type="button" disabled>分析CSV</button>
+              <button id="downloadThreadsJsonButton" class="button button-secondary" type="button" disabled>共有用JSON</button>
+            </div>
           </div>
           <div class="metric-grid metric-grid-6" id="threadsSummary">
-            <article><span>表示</span><strong>--</strong><small>最新投稿</small></article>
-            <article><span>いいね</span><strong>--</strong><small>最新投稿</small></article>
-            <article><span>返信</span><strong>--</strong><small>最新投稿</small></article>
-            <article><span>リポスト</span><strong>--</strong><small>最新投稿</small></article>
-            <article><span>引用</span><strong>--</strong><small>最新投稿</small></article>
-            <article><span>シェア</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>平均表示</span><strong>--</strong><small>1投稿あたり</small></article>
+            <article><span>平均いいね</span><strong>--</strong><small>1投稿あたり</small></article>
+            <article><span>平均返信</span><strong>--</strong><small>1投稿あたり</small></article>
+            <article><span>総反応</span><strong>--</strong><small>取得投稿</small></article>
+            <article><span>全体反応率</span><strong>--</strong><small>総反応÷総表示</small></article>
+            <article><span>分析投稿</span><strong>--</strong><small>取得件数</small></article>
           </div>
+          <p class="small-note">CSV/JSONには投稿本文と分析値を含みますが、アクセストークンは含みません。このチャットへ添付して投稿傾向の分析にも使えます。</p>
         </section>
 
         <section class="panel span-2">
-          <div class="panel-heading compact"><div><p class="eyebrow">TOP POSTS</p><h2>表示数 上位5投稿</h2></div></div>
+          <div class="panel-heading compact">
+            <div><p class="eyebrow">TOP POSTS</p><h2>伸びた投稿</h2></div>
+            <select id="threadsRankingMetric" class="ranking-select" aria-label="ランキング指標">
+              <option value="views">表示数</option>
+              <option value="likes">いいね</option>
+              <option value="replies">返信</option>
+              <option value="rate">反応率（100表示以上）</option>
+            </select>
+          </div>
           <div id="threadsTopPosts" class="post-ranking"><p class="loading-row">Threadsを読み込み中です。</p></div>
         </section>
 
@@ -246,6 +266,36 @@
           <div class="panel-heading compact"><div><p class="eyebrow">ACCOUNT</p><h2>アカウント指標</h2></div></div>
           <div id="threadsAccountMetrics" class="compact-list"><p class="loading-row">取得中です。</p></div>
           <p class="small-note">アカウント指標はThreads APIが返す集計値です。投稿別の数値とは集計単位が異なる場合があります。</p>
+        </section>
+
+        <section class="panel span-3">
+          <div class="panel-heading compact">
+            <div><p class="eyebrow">TIMING</p><h2>曜日・時間帯別</h2><p>投稿時刻は日本時間で集計します。件数が少ない区分は参考値として見てください。</p></div>
+          </div>
+          <div class="split-tables">
+            <div>
+              <h3>曜日別</h3>
+              <div class="table-scroll"><table><thead><tr><th>曜日</th><th>投稿</th><th>平均表示</th><th>平均反応</th><th>反応率</th></tr></thead><tbody id="threadsWeekdayRows"><tr><td colspan="5" class="empty-state">取得待ち</td></tr></tbody></table></div>
+            </div>
+            <div>
+              <h3>時間帯別</h3>
+              <div class="table-scroll"><table><thead><tr><th>時間帯</th><th>投稿</th><th>平均表示</th><th>平均反応</th><th>反応率</th></tr></thead><tbody id="threadsTimeRows"><tr><td colspan="5" class="empty-state">取得待ち</td></tr></tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel span-3">
+          <div class="panel-heading">
+            <div><p class="eyebrow">DISCOVER</p><h2>Threads話題検索</h2><p>Threads上の公開投稿をキーワードまたはトピックタグで検索します。利用には threads_keyword_search 権限が必要です。</p></div>
+          </div>
+          <div class="threads-search-tools">
+            <label><span>検索語</span><input id="threadsSearchQuery" type="search" placeholder="例：巨人、坂本勇人、ドラフト"></label>
+            <label><span>並び</span><select id="threadsSearchType"><option value="RECENT">新着</option><option value="TOP">上位</option></select></label>
+            <label><span>検索方法</span><select id="threadsSearchMode"><option value="KEYWORD">キーワード</option><option value="TAG">トピックタグ</option></select></label>
+            <button id="threadsSearchButton" class="button button-primary" type="button">検索</button>
+          </div>
+          <p id="threadsSearchStatus" class="small-note">検索語を入力してください。</p>
+          <div id="threadsSearchResults" class="threads-search-results"><p class="empty-state">検索結果はここに表示します。</p></div>
         </section>
 
         <section class="panel span-3">
@@ -283,6 +333,6 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260903-threads1" defer></script>
+  <script src="app.js?v=20260903-threads2" defer></script>
 </body>
 </html>

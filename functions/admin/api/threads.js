@@ -2,7 +2,7 @@ const THREADS_API_BASE = 'https://graph.threads.net';
 const PROFILE_FIELDS = 'id,username,name,threads_profile_picture_url,threads_biography';
 const POST_FIELDS = 'id,media_product_type,media_type,permalink,username,text,timestamp,shortcode,is_quote_post,has_replies';
 const POST_METRICS = 'views,likes,replies,reposts,quotes,shares';
-const ACCOUNT_METRICS = 'views,likes,replies,reposts,quotes,followers_count';
+const ACCOUNT_METRICS = 'views,likes,replies,reposts,quotes,clicks,followers_count';
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -125,9 +125,10 @@ export async function onRequestGet({ request, env }) {
   }
 
   const url = new URL(request.url);
-  const mode = url.searchParams.get('mode') === 'status' ? 'status' : 'dashboard';
-  const requestedLimit = Number.parseInt(url.searchParams.get('limit') || '20', 10);
-  const limit = Math.min(30, Math.max(5, Number.isFinite(requestedLimit) ? requestedLimit : 20));
+  const requestedMode = String(url.searchParams.get('mode') || 'dashboard').toLowerCase();
+  const mode = ['status','dashboard','search'].includes(requestedMode) ? requestedMode : 'dashboard';
+  const requestedLimit = Number.parseInt(url.searchParams.get('limit') || '30', 10);
+  const limit = Math.min(50, Math.max(5, Number.isFinite(requestedLimit) ? requestedLimit : 30));
 
   let profile;
   try {
@@ -162,6 +163,48 @@ export async function onRequestGet({ request, env }) {
       ...base,
       message: 'Threads APIへ接続できました。'
     });
+  }
+
+  if (mode === 'search') {
+    const q = String(url.searchParams.get('q') || '').trim();
+    if (!q) {
+      return json({
+        ...base,
+        posts: [],
+        message: 'Threads検索の検索語を入力してください。'
+      }, 400);
+    }
+    const searchType = String(url.searchParams.get('search_type') || 'RECENT').toUpperCase() === 'TOP' ? 'TOP' : 'RECENT';
+    const searchMode = String(url.searchParams.get('search_mode') || 'KEYWORD').toUpperCase() === 'TAG' ? 'TAG' : 'KEYWORD';
+    try {
+      const searchPayload = await graphRequest('/keyword_search', token, {
+        q,
+        search_type: searchType,
+        search_mode: searchMode,
+        fields: POST_FIELDS,
+        limit: Math.min(limit, 25)
+      });
+      const posts = (searchPayload?.data || []).map(normalizePost).filter((post) => post.id);
+      return json({
+        ...base,
+        posts,
+        query: q,
+        searchType,
+        searchMode,
+        limit: Math.min(limit, 25),
+        message: 'Threadsの公開投稿を検索しました。'
+      });
+    } catch (error) {
+      return json({
+        ...base,
+        posts: [],
+        query: q,
+        searchType,
+        searchMode,
+        message: 'Threads話題検索に失敗しました。トークンに threads_keyword_search 権限があるか確認してください。',
+        meta: error.meta || null
+      }, error.status === 401 || error.status === 403 ? 403 : 502);
+    }
   }
 
   const warnings = [];
