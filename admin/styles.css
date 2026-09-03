@@ -192,3 +192,23 @@ textarea { resize: vertical; line-height: 1.65; }
 }
 .x-image-workspace { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 .x-image-workspace canvas { display: block; width: min(100%, 760px); height: auto; margin-bottom: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+
+/* Threads API */
+.threads-connection { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+.threads-connection article { min-width: 0; padding: 12px; border: 1px solid #eef0f4; border-radius: 12px; background: #fafbfc; }
+.threads-connection span { display: block; color: var(--muted); font-size: 11px; font-weight: 750; }
+.threads-connection strong { display: block; margin-top: 4px; font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.threads-connection small { display: block; margin-top: 3px; color: #8991a1; font-size: 10px; line-height: 1.45; }
+.threads-table-scroll { max-height: 650px; }
+.threads-table { min-width: 1120px; }
+.thread-post-cell { min-width: 300px; max-width: 430px; }
+.thread-post-cell strong { display: block; max-width: 410px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.thread-post-cell small { display: block; margin-top: 3px; color: var(--muted); }
+.thread-metric-missing { color: #9aa2b1; }
+
+@media (min-width: 1101px) {
+  .summary-strip { grid-template-columns: repeat(6, minmax(0,1fr)); }
+}
+@media (max-width: 760px) {
+  .threads-connection { grid-template-columns: 1fr; }
+}

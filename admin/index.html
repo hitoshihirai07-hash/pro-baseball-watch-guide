@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260822-stage5">
+  <link rel="stylesheet" href="styles.css?v=20260903-threads1">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
       <div>
         <p class="eyebrow">OWNER WORKSPACE</p>
         <h1>今日の運営を、ここだけで確認</h1>
-        <p>Cloudflare・GA4・Clarity・Player Lens・X運用・記事管理を1つにまとめています。</p>
+        <p>Cloudflare・GA4・Clarity・Player Lens・X・Threads運用・記事管理を1つにまとめています。</p>
       </div>
       <button id="refreshAllButton" class="button button-primary" type="button">↻ 全体を更新</button>
     </section>
@@ -43,6 +43,7 @@
       <article class="summary-item"><span>Clarity / 3日</span><strong id="summaryClaritySessions">--</strong><small id="summaryClarityIssues">読込中</small></article>
       <article class="summary-item"><span>記事</span><strong id="summaryArticleCount">--</strong><small id="summaryLatestArticle">読込中</small></article>
       <article class="summary-item"><span>Player Lens</span><strong id="summaryPlayerLens">確認中</strong><small id="summaryPlayerLensDetail">データ確認中</small></article>
+      <article class="summary-item"><span>Threads</span><strong id="summaryThreads">確認中</strong><small id="summaryThreadsDetail">API接続確認中</small></article>
     </section>
 
     <div id="pageNotice" class="page-notice" role="status" hidden></div>
@@ -52,6 +53,7 @@
       <button type="button" class="workspace-tab" data-tab="evaluation" aria-pressed="false">ページ評価</button>
       <button type="button" class="workspace-tab" data-tab="player-lens" aria-pressed="false">Player Lens管理</button>
       <button type="button" class="workspace-tab" data-tab="social" aria-pressed="false">X・SNS</button>
+      <button type="button" class="workspace-tab" data-tab="threads" aria-pressed="false">Threads</button>
       <button type="button" class="workspace-tab" data-tab="articles" aria-pressed="false">記事管理</button>
     </nav>
 
@@ -199,6 +201,69 @@
       </div>
     </section>
 
+    <section class="tab-panel" data-panel="threads" hidden>
+      <div class="dashboard-grid">
+        <section class="panel span-3">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">THREADS API</p>
+              <h2>Threads接続・投稿分析</h2>
+              <p>アクセストークンはCloudflareのシークレットからだけ読み込み、ブラウザには返しません。最新20投稿を取得して反応を比較します。</p>
+            </div>
+            <div class="button-row">
+              <button id="threadsTestButton" class="button button-secondary" type="button">接続確認</button>
+              <button id="reloadThreadsButton" class="button button-primary" type="button">データ更新</button>
+            </div>
+          </div>
+          <div id="threadsConnection" class="threads-connection">
+            <article><span>接続状態</span><strong>確認中</strong><small>Threads APIを確認しています。</small></article>
+            <article><span>アカウント</span><strong>--</strong><small>プロフィール取得待ち</small></article>
+            <article><span>分析権限</span><strong>--</strong><small>threads_manage_insights を確認</small></article>
+          </div>
+          <p id="threadsStatusMessage" class="small-note">THREADS_ACCESS_TOKEN の設定状況を確認しています。</p>
+        </section>
+
+        <section class="panel span-3">
+          <div class="panel-heading">
+            <div><p class="eyebrow">PERFORMANCE</p><h2>最新投稿の合計</h2><p id="threadsMetricNote">取得できた最新投稿を集計します。</p></div>
+          </div>
+          <div class="metric-grid metric-grid-6" id="threadsSummary">
+            <article><span>表示</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>いいね</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>返信</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>リポスト</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>引用</span><strong>--</strong><small>最新投稿</small></article>
+            <article><span>シェア</span><strong>--</strong><small>最新投稿</small></article>
+          </div>
+        </section>
+
+        <section class="panel span-2">
+          <div class="panel-heading compact"><div><p class="eyebrow">TOP POSTS</p><h2>表示数 上位5投稿</h2></div></div>
+          <div id="threadsTopPosts" class="post-ranking"><p class="loading-row">Threadsを読み込み中です。</p></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading compact"><div><p class="eyebrow">ACCOUNT</p><h2>アカウント指標</h2></div></div>
+          <div id="threadsAccountMetrics" class="compact-list"><p class="loading-row">取得中です。</p></div>
+          <p class="small-note">アカウント指標はThreads APIが返す集計値です。投稿別の数値とは集計単位が異なる場合があります。</p>
+        </section>
+
+        <section class="panel span-3">
+          <div class="panel-heading">
+            <div><p class="eyebrow">POSTS</p><h2>最新投稿</h2><p>表示・いいね・返信・リポスト・引用・シェアと反応率を一覧で比較します。</p></div>
+            <span id="threadsPostCount" class="result-count">0件</span>
+          </div>
+          <div class="table-scroll threads-table-scroll">
+            <table class="threads-table">
+              <thead><tr><th>日時</th><th>投稿</th><th>表示</th><th>いいね</th><th>返信</th><th>リポスト</th><th>引用</th><th>シェア</th><th>反応率</th><th></th></tr></thead>
+              <tbody id="threadsPostRows"><tr><td colspan="10" class="empty-state">Threadsを読み込み中です。</td></tr></tbody>
+            </table>
+          </div>
+          <p class="small-note">反応率＝（いいね＋返信＋リポスト＋引用＋シェア）÷表示数。API側で分析値を取得できない投稿は「--」表示にします。</p>
+        </section>
+      </div>
+    </section>
+
     <section class="tab-panel" data-panel="articles" hidden>
       <section class="panel">
         <div class="panel-heading article-heading">
@@ -218,6 +283,6 @@
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=20260822-stage5-eval2" defer></script>
+  <script src="app.js?v=20260903-threads1" defer></script>
 </body>
 </html>

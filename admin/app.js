@@ -58,7 +58,8 @@
     playerLens: new Map(),
     playerLensReports: [],
     articlePage: 1,
-    snsRows: []
+    snsRows: [],
+    threads: null
   };
 
   const $ = (selector) => document.querySelector(selector);
@@ -69,6 +70,7 @@
     'evaluationSearch','evaluationFilter','evaluationSummary','evaluationRows',
     'reloadPlayerLensButton','playerLensDataRows','playerLensHealth',
     'xTeam','xTheme','xCount','xOutput','buildXButton','copyXButton','openXButton','xMessage','xImageCanvas','drawXImageButton','downloadXImageButton','xCandidates','snsDropZone','snsCsvFile','snsFileStatus','snsAnalysisPanel','clearSnsButton','snsSummary','snsCategoryRows','snsTopPosts','snsRecommendations',
+    'threadsTestButton','reloadThreadsButton','threadsConnection','threadsStatusMessage','threadsSummary','threadsMetricNote','threadsTopPosts','threadsAccountMetrics','threadsPostCount','threadsPostRows','summaryThreads','summaryThreadsDetail',
     'watchNoteKinds','articleSearch','articleGroupFilter','articleStatusFilter','filteredCount','articleTableBody','paginationLabel','paginationButtons','toast'
   ].map((id) => [id, document.getElementById(id)]));
 
@@ -858,12 +860,239 @@
     } catch(error){state.snsRows=[];el.snsFileStatus.textContent=error.message;el.snsFileStatus.classList.add('error-note');renderSnsAnalysis();}
   }
 
+  function formatThreadsDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value || '--');
+    return new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'Asia/Tokyo', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    }).format(date);
+  }
+
+  function threadInsight(post, name) {
+    const value = Number(post?.insights?.[name]);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function threadReactionRate(post) {
+    const views = threadInsight(post, 'views');
+    if (!views) return null;
+    const reactions = ['likes','replies','reposts','quotes','shares'].reduce((sum, name) => sum + (threadInsight(post, name) || 0), 0);
+    return reactions / views * 100;
+  }
+
+  function setThreadsConnectionCards(cards) {
+    el.threadsConnection.replaceChildren();
+    cards.forEach(({ label, value, note }) => {
+      const article = document.createElement('article');
+      const span = document.createElement('span');
+      const strong = document.createElement('strong');
+      const small = document.createElement('small');
+      span.textContent = label;
+      strong.textContent = value;
+      small.textContent = note;
+      article.append(span, strong, small);
+      el.threadsConnection.append(article);
+    });
+  }
+
+  function renderThreadsConnection(data, statusOnly = false) {
+    const profile = data?.profile || {};
+    const insightLabel = statusOnly
+      ? '未確認'
+      : (data?.insightsAvailable === false ? '一部取得不可' : '利用可能');
+    const insightNote = statusOnly
+      ? '投稿分析は「データ更新」で確認'
+      : (data?.insightsAvailable === false ? 'threads_manage_insights 権限を確認' : '投稿ごとのインサイト取得成功');
+    setThreadsConnectionCards([
+      { label: '接続状態', value: '接続済み', note: 'Cloudflare経由でThreads APIへ接続' },
+      { label: 'アカウント', value: profile.username ? `@${profile.username}` : (profile.name || '--'), note: profile.name || 'プロフィール取得成功' },
+      { label: '分析権限', value: insightLabel, note: insightNote }
+    ]);
+    el.threadsStatusMessage.classList.remove('error-note');
+    const warnings = Array.isArray(data?.warnings) ? data.warnings.filter(Boolean) : [];
+    el.threadsStatusMessage.textContent = warnings.length ? warnings.join(' ') : (data?.message || 'Threads APIへ接続できました。');
+    el.summaryThreads.textContent = profile.username ? `@${profile.username}` : '接続済み';
+    el.summaryThreadsDetail.textContent = statusOnly ? 'API接続OK' : `${data?.posts?.length || 0}投稿を取得`;
+  }
+
+  function renderThreadsError(error) {
+    const message = error?.message || 'Threads APIを取得できませんでした。';
+    const needsSecret = message.includes('THREADS_ACCESS_TOKEN');
+    state.threads = null;
+    setThreadsConnectionCards([
+      { label: '接続状態', value: needsSecret ? '未設定' : 'エラー', note: needsSecret ? 'Cloudflareにシークレットを登録してください' : 'アクセストークンまたはAPI状態を確認' },
+      { label: 'アカウント', value: '--', note: 'プロフィールを取得できません' },
+      { label: '分析権限', value: '--', note: '接続後に確認します' }
+    ]);
+    el.threadsStatusMessage.textContent = message;
+    el.threadsStatusMessage.classList.add('error-note');
+    el.summaryThreads.textContent = needsSecret ? '未設定' : 'エラー';
+    el.summaryThreadsDetail.textContent = needsSecret ? 'Secret設定が必要' : '接続を確認';
+    el.threadsSummary.innerHTML = ['表示','いいね','返信','リポスト','引用','シェア'].map((label) => `<article><span>${label}</span><strong>--</strong><small>取得できません</small></article>`).join('');
+    el.threadsMetricNote.textContent = 'Threads APIへ接続できると最新投稿の合計を表示します。';
+    el.threadsTopPosts.innerHTML = '<p class="loading-row">投稿分析を取得できません。</p>';
+    el.threadsAccountMetrics.innerHTML = '<p class="loading-row">アカウント指標を取得できません。</p>';
+    el.threadsPostCount.textContent = '0件';
+    el.threadsPostRows.innerHTML = '<tr><td colspan="10" class="empty-state">THREADS_ACCESS_TOKEN を設定後、「データ更新」を押してください。</td></tr>';
+  }
+
+  function renderThreadsSummary(posts) {
+    const names = [
+      ['views','表示'], ['likes','いいね'], ['replies','返信'], ['reposts','リポスト'], ['quotes','引用'], ['shares','シェア']
+    ];
+    const analyzable = posts.filter((post) => post?.insights);
+    el.threadsSummary.replaceChildren();
+    names.forEach(([name, label]) => {
+      const value = analyzable.reduce((sum, post) => sum + (threadInsight(post, name) || 0), 0);
+      const article = document.createElement('article');
+      article.innerHTML = `<span>${label}</span><strong>${analyzable.length ? formatNumber(value) : '--'}</strong><small>${analyzable.length}投稿を集計</small>`;
+      el.threadsSummary.append(article);
+    });
+    el.threadsMetricNote.textContent = `${posts.length}投稿取得 / ${analyzable.length}投稿で分析値を取得`;
+  }
+
+  function renderThreadsTopPosts(posts) {
+    const rows = posts.filter((post) => threadInsight(post, 'views') !== null).sort((a, b) => (threadInsight(b, 'views') || 0) - (threadInsight(a, 'views') || 0)).slice(0, 5);
+    el.threadsTopPosts.replaceChildren();
+    if (!rows.length) {
+      el.threadsTopPosts.innerHTML = '<p class="loading-row">表示数を取得できる投稿がありません。</p>';
+      return;
+    }
+    rows.forEach((post, index) => {
+      const item = document.createElement('article');
+      item.className = 'post-item';
+      const header = document.createElement('header');
+      const strong = document.createElement('strong');
+      const small = document.createElement('small');
+      const body = document.createElement('p');
+      strong.textContent = `#${index + 1} ${formatNumber(threadInsight(post, 'views'))} 表示`;
+      const rate = threadReactionRate(post);
+      small.textContent = `${formatThreadsDate(post.timestamp)} / 反応率${rate === null ? '--' : `${rate.toFixed(1)}%`}`;
+      body.textContent = post.text || '（本文なし）';
+      header.append(strong, small);
+      item.append(header, body);
+      el.threadsTopPosts.append(item);
+    });
+  }
+
+  function renderThreadsAccountMetrics(insights) {
+    el.threadsAccountMetrics.replaceChildren();
+    if (!insights) {
+      el.threadsAccountMetrics.innerHTML = '<p class="loading-row">アカウント分析を取得できません。threads_manage_insights 権限を確認してください。</p>';
+      return;
+    }
+    const rows = [
+      ['フォロワー', insights.followers_count],
+      ['プロフィール表示', insights.views],
+      ['いいね', insights.likes],
+      ['返信', insights.replies],
+      ['リポスト', insights.reposts],
+      ['引用', insights.quotes]
+    ];
+    rows.forEach(([label, value]) => {
+      const item = document.createElement('div');
+      item.className = 'compact-item';
+      const span = document.createElement('span');
+      const strong = document.createElement('strong');
+      const small = document.createElement('small');
+      strong.textContent = label;
+      small.textContent = 'Threads API';
+      span.append(strong, small);
+      const count = document.createElement('b');
+      count.textContent = formatNumber(value);
+      item.append(span, count);
+      el.threadsAccountMetrics.append(item);
+    });
+  }
+
+  function renderThreadsPosts(posts) {
+    el.threadsPostRows.replaceChildren();
+    el.threadsPostCount.textContent = `${posts.length}件`;
+    if (!posts.length) {
+      el.threadsPostRows.innerHTML = '<tr><td colspan="10" class="empty-state">投稿が見つかりませんでした。</td></tr>';
+      return;
+    }
+    posts.forEach((post) => {
+      const tr = document.createElement('tr');
+      const dateCell = document.createElement('td');
+      dateCell.textContent = formatThreadsDate(post.timestamp);
+      const postCell = document.createElement('td');
+      postCell.className = 'thread-post-cell';
+      const title = document.createElement('strong');
+      const note = document.createElement('small');
+      title.textContent = post.text || '（本文なし）';
+      note.textContent = [post.mediaType || '投稿', post.isQuotePost ? '引用投稿' : ''].filter(Boolean).join(' / ');
+      postCell.append(title, note);
+      tr.append(dateCell, postCell);
+      ['views','likes','replies','reposts','quotes','shares'].forEach((name) => {
+        const td = document.createElement('td');
+        const value = threadInsight(post, name);
+        td.textContent = value === null ? '--' : formatNumber(value);
+        if (value === null) td.className = 'thread-metric-missing';
+        tr.append(td);
+      });
+      const rateCell = document.createElement('td');
+      const rate = threadReactionRate(post);
+      rateCell.textContent = rate === null ? '--' : `${rate.toFixed(1)}%`;
+      tr.append(rateCell);
+      const linkCell = document.createElement('td');
+      if (post.permalink) {
+        const link = document.createElement('a');
+        link.className = 'open-link';
+        link.href = post.permalink;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = '開く';
+        linkCell.append(link);
+      } else {
+        linkCell.textContent = '--';
+      }
+      tr.append(linkCell);
+      el.threadsPostRows.append(tr);
+    });
+  }
+
+  function renderThreads(data) {
+    state.threads = data;
+    renderThreadsConnection(data);
+    const posts = Array.isArray(data?.posts) ? data.posts : [];
+    renderThreadsSummary(posts);
+    renderThreadsTopPosts(posts);
+    renderThreadsAccountMetrics(data?.accountInsights || null);
+    renderThreadsPosts(posts);
+  }
+
+  async function loadThreads() {
+    el.reloadThreadsButton.disabled = true;
+    try {
+      const data = await fetchJson('api/threads?mode=dashboard&limit=20');
+      renderThreads(data);
+    } catch (error) {
+      renderThreadsError(error);
+    } finally {
+      el.reloadThreadsButton.disabled = false;
+    }
+  }
+
+  async function testThreadsConnection() {
+    el.threadsTestButton.disabled = true;
+    try {
+      const data = await fetchJson('api/threads?mode=status');
+      renderThreadsConnection(data, true);
+      showToast('Threads APIへ接続できました');
+    } catch (error) {
+      renderThreadsError(error);
+    } finally {
+      el.threadsTestButton.disabled = false;
+    }
+  }
+
   function getLocalRecordsCount() {
     const records=safeJson(localStorage.getItem(RECORDS_KEY),[]); const draft=safeJson(localStorage.getItem(DRAFT_KEY),null); let count=Array.isArray(records)?records.length:0; if(draft&&typeof draft==='object') count+=1; return count;
   }
 
   function setupEvents() {
-    el.refreshAllButton.addEventListener('click', async()=>{ setNotice('全体を更新しています。'); await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks()]); setNotice(''); showToast('全体を更新しました'); });
+    el.refreshAllButton.addEventListener('click', async()=>{ setNotice('全体を更新しています。'); await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),loadThreads(),runHealthChecks()]); setNotice(''); showToast('全体を更新しました'); });
     el.rerunHealthButton.addEventListener('click',runHealthChecks);
     el.reloadPlayerLensButton.addEventListener('click',()=>loadPlayerLens(true));
     el.evaluationSearch.addEventListener('input',renderPageEvaluation); el.evaluationFilter.addEventListener('change',renderPageEvaluation);
@@ -879,12 +1108,14 @@
     ['dragleave','drop'].forEach((name)=>el.snsDropZone.addEventListener(name,(event)=>{event.preventDefault();el.snsDropZone.classList.remove('is-dragging');}));
     el.snsDropZone.addEventListener('drop',(event)=>handleSnsFile(event.dataTransfer?.files?.[0]));
     el.clearSnsButton.addEventListener('click',()=>{state.snsRows=[];el.snsCsvFile.value='';el.snsFileStatus.textContent='CSVはまだ読み込まれていません。';el.snsAnalysisPanel.hidden=true;});
+    el.threadsTestButton.addEventListener('click',testThreadsConnection);
+    el.reloadThreadsButton.addEventListener('click',loadThreads);
   }
 
   async function init() {
     setupTabs(); setupEvents(); renderXTeamOptions();
     if(getLocalRecordsCount()>0) el.summaryLatestArticle.title=`端末内の保存記録 ${getLocalRecordsCount()}件`;
-    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks()]);
+    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),loadThreads(),runHealthChecks()]);
     drawXImage();
     renderTodayActions();
   }
