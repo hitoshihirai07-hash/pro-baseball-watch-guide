@@ -265,6 +265,9 @@
       renderTableMessage(el.ga4Sources, 3, error.message);
     }
   }
+  function ga4Warning(section) {
+    return (state.ga4?.warnings || []).find((item) => item?.section === section)?.message || '';
+  }
   function renderGa4() {
     const overview = state.ga4?.overview30 || {};
     el.summaryGa4Users.textContent = formatNumber(overview.activeUsers);
@@ -273,7 +276,9 @@
     el.ga4Sessions.textContent = formatNumber(overview.sessions);
     el.ga4Views.textContent = formatNumber(overview.screenPageViews);
     el.ga4EngagementRate.textContent = formatPercent(overview.engagementRate);
-    renderSimplePages(el.ga4TopPages, state.ga4?.pages30 || [], ['screenPageViews','activeUsers']);
+    const pagesWarning = ga4Warning('pages30');
+    if (pagesWarning) renderTableMessage(el.ga4TopPages, 3, pagesWarning);
+    else renderSimplePages(el.ga4TopPages, state.ga4?.pages30 || [], ['screenPageViews','activeUsers']);
     renderGa4Sources();
     renderPageEvaluation();
     renderTodayActions();
@@ -281,6 +286,8 @@
 
   function renderGa4Sources() {
     el.ga4Sources.replaceChildren();
+    const warning = ga4Warning('sources30');
+    if (warning) return renderTableMessage(el.ga4Sources, 3, warning);
     const rows = (state.ga4?.sources30 || []).slice(0,8);
     if (!rows.length) return renderTableMessage(el.ga4Sources,3,'データがありません。');
     rows.forEach((row)=>{

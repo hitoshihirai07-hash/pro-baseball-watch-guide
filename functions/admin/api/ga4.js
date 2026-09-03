@@ -61,6 +61,15 @@ async function serviceAccountAssertion(credentials) {
   return `${unsigned}.${base64Url(new Uint8Array(signature))}`;
 }
 
+function googleErrorDetail(payload, status) {
+  const apiMessage = String(payload?.error?.message || payload?.error_description || payload?.error || '').trim();
+  if (status === 400) return apiMessage || 'リクエスト内容またはGA4プロパティIDを確認してください。';
+  if (status === 401) return apiMessage || 'Google認証情報を確認してください。';
+  if (status === 403) return apiMessage || 'サービスアカウントのGA4閲覧権限、またはGoogle Analytics Data APIの有効化を確認してください。';
+  if (status === 429) return apiMessage || 'Google Analytics Data APIの利用上限に達しました。';
+  return apiMessage || `HTTP ${status}`;
+}
+
 async function accessToken(credentials) {
   const assertion = await serviceAccountAssertion(credentials);
   const body = new URLSearchParams({
@@ -74,13 +83,12 @@ async function accessToken(credentials) {
   });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok || !payload.access_token) {
-    const detail = payload.error_description || payload.error || `HTTP ${response.status}`;
-    throw new Error(`Google認証に失敗しました：${detail}`);
+    throw new Error(`Google認証に失敗しました：${googleErrorDetail(payload, response.status)}`);
   }
   return payload.access_token;
 }
 
-async function runReport({ token, propertyId, body }) {
+async function runReport({ token, propertyId, body, label = 'GA4レポート' }) {
   const response = await fetch(`${DATA_API_BASE}/properties/${encodeURIComponent(propertyId)}:runReport`, {
     method: 'POST',
     headers: {
@@ -92,16 +100,15 @@ async function runReport({ token, propertyId, body }) {
   });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const message = payload?.error?.message || `HTTP ${response.status}`;
-    throw new Error(`GA4 Data APIの取得に失敗しました：${message}`);
+    throw new Error(`${label}の取得に失敗しました：${googleErrorDetail(payload, response.status)}`);
   }
   return payload;
 }
 
 function rowsFromReport(report) {
-  const dimensions = (report.dimensionHeaders || []).map((item) => item.name);
-  const metrics = (report.metricHeaders || []).map((item) => item.name);
-  return (report.rows || []).map((row) => {
+  const dimensions = (report?.dimensionHeaders || []).map((item) => item.name);
+  const metrics = (report?.metricHeaders || []).map((item) => item.name);
+  return (report?.rows || []).map((row) => {
     const result = {};
     dimensions.forEach((name, index) => { result[name] = row.dimensionValues?.[index]?.value || ''; });
     metrics.forEach((name, index) => {
@@ -121,6 +128,17 @@ function overviewFromReport(report) {
     averageSessionDuration: 0,
     engagementRate: 0
   };
+}
+
+function pagesFromReport(report) {
+  return rowsFromReport(report).map((row) => {
+    const activeUsers = Number(row.activeUsers) || 0;
+    const engagementDuration = Number(row.userEngagementDuration) || 0;
+    return {
+      ...row,
+      averageEngagementTime: activeUsers > 0 ? engagementDuration / activeUsers : 0
+    };
+  });
 }
 
 function cacheApi() {
@@ -229,11 +247,48 @@ function serviceAccountFromEnv(env) {
   return { credentials: null, source: raw ? 'invalid-json' : 'missing' };
 }
 
+function normalizePropertyId(rawValue) {
+  const raw = String(rawValue || '').trim();
+  if (!raw) return { propertyId: '', error: 'GA4_PROPERTY_ID が設定されていません。' };
+
+  const propertyPathMatch = raw.match(/(?:^|\/)properties\/(\d+)(?::runReport)?(?:$|[/?#])/i);
+  const propertyId = propertyPathMatch ? propertyPathMatch[1] : raw.replace(/^properties\//i, '').trim();
+
+  if (/^G-[A-Z0-9]+$/i.test(propertyId)) {
+    return {
+      propertyId: '',
+      error: 'GA4_PROPERTY_ID に「G-」で始まる測定IDが設定されています。ここにはGA4の数字だけの「プロパティID」を設定してください。'
+    };
+  }
+  if (!/^\d+$/.test(propertyId)) {
+    return {
+      propertyId: '',
+      error: 'GA4_PROPERTY_ID は数字だけのGA4プロパティIDで設定してください（「G-」で始まる測定IDではありません）。'
+    };
+  }
+  return { propertyId, error: '' };
+}
+
+async function optionalReport(section, task) {
+  try {
+    return { section, report: await task, warning: null };
+  } catch (error) {
+    return {
+      section,
+      report: null,
+      warning: {
+        section,
+        message: error?.message || `${section}の取得に失敗しました。`
+      }
+    };
+  }
+}
+
 export async function onRequestGet({ env, request }) {
-  const propertyId = String(env.GA4_PROPERTY_ID || '').trim();
+  const property = normalizePropertyId(env.GA4_PROPERTY_ID);
   const account = serviceAccountFromEnv(env);
-  if (!propertyId) {
-    return json({ configured: false, message: 'GA4_PROPERTY_ID が設定されていません。' }, 503);
+  if (property.error) {
+    return json({ configured: false, message: property.error }, 503);
   }
   if (!account.credentials) {
     return json({
@@ -249,8 +304,9 @@ export async function onRequestGet({ env, request }) {
     return json({ configured: false, message: 'サービスアカウント情報に client_email または private_key がありません。' }, 503);
   }
 
+  const propertyId = property.propertyId;
   const cache = cacheApi();
-  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-stage5-v2`);
+  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-stage5-v3`);
   if (cache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
@@ -265,12 +321,33 @@ export async function onRequestGet({ env, request }) {
       { name: 'averageSessionDuration' },
       { name: 'engagementRate' }
     ];
-    const [overview7Report, overview30Report, pagesReport, sourcesReport] = await Promise.all([
-      runReport({ token, propertyId, body: { dateRanges: [{ startDate: '6daysAgo', endDate: 'today' }], metrics: commonMetrics } }),
-      runReport({ token, propertyId, body: { dateRanges: [{ startDate: '29daysAgo', endDate: 'today' }], metrics: commonMetrics } }),
-      runReport({
+
+    // 管理画面の主要4指標に使う30日集計だけは必須扱いにする。
+    // それ以外は個別取得にして、1レポートの失敗でGA4全体を502にしない。
+    const overview30Report = await runReport({
+      token,
+      propertyId,
+      label: 'GA4 30日集計',
+      body: {
+        dateRanges: [{ startDate: '29daysAgo', endDate: 'today' }],
+        metrics: commonMetrics
+      }
+    });
+
+    const [overview7Result, pagesResult, sourcesResult] = await Promise.all([
+      optionalReport('overview7', runReport({
         token,
         propertyId,
+        label: 'GA4 7日集計',
+        body: {
+          dateRanges: [{ startDate: '6daysAgo', endDate: 'today' }],
+          metrics: commonMetrics
+        }
+      })),
+      optionalReport('pages30', runReport({
+        token,
+        propertyId,
+        label: 'GA4 ページ別30日集計',
         body: {
           dateRanges: [{ startDate: '29daysAgo', endDate: 'today' }],
           dimensions: [{ name: 'unifiedPagePathScreen' }, { name: 'pageTitle' }],
@@ -278,15 +355,16 @@ export async function onRequestGet({ env, request }) {
             { name: 'screenPageViews' },
             { name: 'activeUsers' },
             { name: 'screenPageViewsPerUser' },
-            { name: 'averageEngagementTime', expression: 'userEngagementDuration/activeUsers' }
+            { name: 'userEngagementDuration' }
           ],
           orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
           limit: 100
         }
-      }),
-      runReport({
+      })),
+      optionalReport('sources30', runReport({
         token,
         propertyId,
+        label: 'GA4 流入元30日集計',
         body: {
           dateRanges: [{ startDate: '29daysAgo', endDate: 'today' }],
           dimensions: [{ name: 'sessionDefaultChannelGroup' }],
@@ -294,17 +372,19 @@ export async function onRequestGet({ env, request }) {
           orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
           limit: 30
         }
-      })
+      }))
     ]);
 
+    const warnings = [overview7Result.warning, pagesResult.warning, sourcesResult.warning].filter(Boolean);
     const payload = {
       configured: true,
       generatedAt: new Date().toISOString(),
       propertyId,
-      overview7: overviewFromReport(overview7Report),
+      overview7: overview7Result.report ? overviewFromReport(overview7Result.report) : null,
       overview30: overviewFromReport(overview30Report),
-      pages30: rowsFromReport(pagesReport),
-      sources30: rowsFromReport(sourcesReport)
+      pages30: pagesResult.report ? pagesFromReport(pagesResult.report) : [],
+      sources30: sourcesResult.report ? rowsFromReport(sourcesResult.report) : [],
+      warnings
     };
     const response = json(payload, 200, `public, max-age=${CACHE_SECONDS}`);
     if (cache) await cache.put(cacheKey, response.clone());
@@ -312,7 +392,7 @@ export async function onRequestGet({ env, request }) {
   } catch (error) {
     return json({
       configured: true,
-      message: error.message || 'GA4のデータ取得に失敗しました。サービスアカウントとGA4の閲覧権限を確認してください。'
+      message: error?.message || 'GA4のデータ取得に失敗しました。サービスアカウントとGA4の閲覧権限を確認してください。'
     }, 502);
   }
 }
