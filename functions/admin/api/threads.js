@@ -26,6 +26,35 @@ function publicMetaError(payload, fallback) {
   };
 }
 
+
+function graphErrorStatus(error) {
+  const httpStatus = Number(error?.status) || 0;
+  const code = Number(error?.meta?.code);
+
+  // Meta often returns HTTP 400 for expired/invalid access tokens (OAuth code 190).
+  if (code === 190 || httpStatus === 401) return 401;
+  if (httpStatus === 403 || code === 10 || code === 200) return 403;
+  if (httpStatus === 429 || [4, 17, 32, 613].includes(code)) return 429;
+  if (httpStatus >= 400 && httpStatus < 500) return httpStatus;
+  return 502;
+}
+
+function graphErrorMessage(error, fallback) {
+  const status = graphErrorStatus(error);
+  const code = Number(error?.meta?.code);
+  if (code === 190 || status === 401) {
+    return 'Threadsのアクセストークンが無効または期限切れです。Cloudflare Pagesの THREADS_ACCESS_TOKEN を有効なトークンへ更新してください。';
+  }
+  if (status === 403) {
+    return 'Threads APIの権限が不足しています。threads_basic など必要な権限を付けたトークンを確認してください。';
+  }
+  if (status === 429) {
+    return 'Threads APIの利用上限に達しています。時間を置いてから再実行してください。';
+  }
+  const detail = String(error?.meta?.message || '').trim();
+  return detail ? `${fallback}（Meta: ${detail}）` : fallback;
+}
+
 async function graphRequest(path, token, params = {}) {
   const url = new URL(path, THREADS_API_BASE);
   Object.entries(params).forEach(([key, value]) => {
@@ -90,7 +119,7 @@ async function fetchPostInsight(post, token) {
   }
 }
 
-async function enrichPosts(posts, token, batchSize = 5) {
+async function enrichPosts(posts, token, batchSize = 10) {
   const enriched = [];
   for (let index = 0; index < posts.length; index += batchSize) {
     const batch = posts.slice(index, index + batchSize);
@@ -134,13 +163,11 @@ export async function onRequestGet({ request, env }) {
   try {
     profile = await graphRequest('/me', token, { fields: PROFILE_FIELDS });
   } catch (error) {
-    const status = error.status === 401 || error.status === 403 ? 401 : 502;
+    const status = graphErrorStatus(error);
     return json({
       configured: true,
       connected: false,
-      message: status === 401
-        ? 'Threadsのアクセストークンが無効・期限切れ、または必要な権限がありません。'
-        : 'Threads APIへ接続できませんでした。',
+      message: graphErrorMessage(error, 'Threads APIへ接続できませんでした。'),
       meta: error.meta || null
     }, status);
   }
@@ -195,15 +222,18 @@ export async function onRequestGet({ request, env }) {
         message: 'Threadsの公開投稿を検索しました。'
       });
     } catch (error) {
+      const status = graphErrorStatus(error);
       return json({
         ...base,
         posts: [],
         query: q,
         searchType,
         searchMode,
-        message: 'Threads話題検索に失敗しました。トークンに threads_keyword_search 権限があるか確認してください。',
+        message: status === 403
+          ? 'Threads話題検索には threads_keyword_search 権限が必要です。権限付きトークンを確認してください。'
+          : graphErrorMessage(error, 'Threads話題検索に失敗しました。'),
         meta: error.meta || null
-      }, error.status === 401 || error.status === 403 ? 403 : 502);
+      }, status);
     }
   }
 
@@ -229,15 +259,16 @@ export async function onRequestGet({ request, env }) {
     });
     posts = (postPayload?.data || []).map(normalizePost).filter((post) => post.id);
   } catch (error) {
+    const status = graphErrorStatus(error);
     return json({
       ...base,
       accountInsights,
       insightsAvailable,
       posts: [],
       warnings,
-      message: 'Threadsの投稿一覧を取得できませんでした。',
+      message: graphErrorMessage(error, 'Threadsの投稿一覧を取得できませんでした。'),
       meta: error.meta || null
-    }, 502);
+    }, status);
   }
 
   const enrichedPosts = await enrichPosts(posts, token);
