@@ -5,11 +5,11 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>お問い合わせ | プロ野球観戦メモ</title>
-<meta content="プロ野球観戦メモへのお問い合わせ先です。" name="description"/>
+<meta content="プロ野球観戦メモへのお問い合わせフォームです。記事・データの修正依頼、Player Lens、広告・掲載などのご連絡を受け付けています。" name="description"/>
 <meta content="telephone=no" name="format-detection"/>
 <meta content="website" property="og:type"/>
 <meta content="お問い合わせ | プロ野球観戦メモ" property="og:title"/>
-<meta content="プロ野球観戦メモへのお問い合わせ先です。" property="og:description"/>
+<meta content="記事・データの修正依頼、Player Lens、広告・掲載などのお問い合わせを受け付けています。" property="og:description"/>
 <meta content="https://pro-baseball-watch-guide.com/assets/images/hotlink-ok/ogp-x-20260814.png" property="og:image"/>
 <meta content="https://pro-baseball-watch-guide.com/assets/images/hotlink-ok/ogp-x-20260814.png" property="og:image:secure_url"/>
 <meta content="image/png" property="og:image:type"/>
@@ -18,7 +18,7 @@
 <meta content="630" property="og:image:height"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="お問い合わせ | プロ野球観戦メモ" name="twitter:title"/>
-<meta content="プロ野球観戦メモへのお問い合わせ先です。" name="twitter:description"/>
+<meta content="記事・データの修正依頼、Player Lens、広告・掲載などのお問い合わせを受け付けています。" name="twitter:description"/>
 <meta content="プロ野球観戦メモ OGP画像" name="twitter:image:alt"/>
 <meta content="https://pro-baseball-watch-guide.com/assets/images/hotlink-ok/ogp-x-20260814.png" name="twitter:image"/>
 <link href="https://pro-baseball-watch-guide.com/contact" rel="canonical"/>
@@ -28,7 +28,7 @@
   "@context": "https://schema.org",
   "@type": "ContactPage",
   "name": "お問い合わせ",
-  "description": "プロ野球観戦メモへのお問い合わせ先です。",
+  "description": "プロ野球観戦メモへのお問い合わせフォームです。記事・データの修正依頼、Player Lens、広告・掲載などのご連絡を受け付けています。",
   "url": "https://pro-baseball-watch-guide.com/contact",
   "isPartOf": {
     "@type": "WebSite",
@@ -40,6 +40,7 @@
   </script>
 <link href="assets/images/favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/contact.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -61,8 +62,80 @@
 </div>
 </header>
 <main>
-<section class="page-heading"><div class="container"><p class="eyebrow">Contact</p><h1>お問い合わせ</h1><p class="lead">内容の修正依頼、掲載情報に関する連絡はXまたはBlueskyからお願いします。</p></div></section>
-<section class="container article narrow"><h2>連絡先</h2><p>Xをご利用の場合は以下のXアカウントまでお願いします。</p><p><a class="button primary" href="https://x.com/soranpb" rel="noopener" target="_blank">Xで連絡する</a></p><p class="microcopy">リンク先：https://x.com/soranpb</p><h2>その他の連絡先</h2><p>X以外をご利用の場合は、以下のBlueskyアカウントまでお願いします。</p><p><a class="button secondary" href="https://bsky.app/profile/sora-baseball.bsky.social" rel="noopener" target="_blank">Blueskyで連絡する</a></p><p class="microcopy">リンク先：https://bsky.app/profile/sora-baseball.bsky.social</p></section>
+<section class="page-heading">
+<div class="container">
+<p class="eyebrow">Contact</p>
+<h1>お問い合わせ</h1>
+<p class="lead">記事やデータの修正依頼、Player Lens、広告・掲載などのご連絡はこちらからお願いします。</p>
+</div>
+</section>
+<section class="container contact-section" aria-labelledby="contact-form-heading">
+<div class="contact-grid">
+<div class="contact-card">
+<div class="contact-card-heading">
+<p class="eyebrow">Contact Form</p>
+<h2 id="contact-form-heading">フォームからのお問い合わせ</h2>
+<p>必要事項を入力して送信してください。返信が必要な場合は、入力いただいたメールアドレスへご連絡します。</p>
+</div>
+<div class="contact-status" data-contact-status role="status" aria-live="polite" tabindex="-1" hidden></div>
+<form action="https://formspree.io/f/mdenwreg" class="contact-form" data-contact-form method="POST">
+<input name="subject" type="hidden" value="【プロ野球観戦メモ】お問い合わせ"/>
+<input name="source" type="hidden" value="プロ野球観戦メモ /contact"/>
+<div class="contact-honeypot" aria-hidden="true">
+<label for="contact-website">この項目は入力しないでください</label>
+<input autocomplete="off" id="contact-website" name="_gotcha" tabindex="-1" type="text"/>
+</div>
+<div class="contact-field">
+<label for="contact-category">お問い合わせ種別 <span class="required-badge">必須</span></label>
+<select id="contact-category" name="category" required>
+<option value="">選択してください</option>
+<option value="記事・掲載内容について">記事・掲載内容について</option>
+<option value="データの誤り・修正について">データの誤り・修正について</option>
+<option value="Player Lensについて">Player Lensについて</option>
+<option value="広告・掲載について">広告・掲載について</option>
+<option value="その他">その他</option>
+</select>
+</div>
+<div class="contact-field">
+<label for="contact-name">お名前 <span class="optional-badge">任意</span></label>
+<input autocomplete="name" id="contact-name" maxlength="80" name="name" type="text"/>
+</div>
+<div class="contact-field">
+<label for="contact-email">メールアドレス <span class="required-badge">必須</span></label>
+<input autocomplete="email" id="contact-email" maxlength="254" name="email" required type="email"/>
+<p class="contact-help">返信が必要な場合の連絡先として使用します。</p>
+</div>
+<div class="contact-field">
+<label for="contact-message">お問い合わせ内容 <span class="required-badge">必須</span></label>
+<textarea id="contact-message" maxlength="3000" name="message" required rows="8"></textarea>
+<p class="contact-help">掲載内容の修正依頼は、対象ページや該当箇所も記載いただけると確認しやすくなります。</p>
+</div>
+<div class="contact-form-footer">
+<p>送信前に<a href="privacy">プライバシーポリシー</a>をご確認ください。</p>
+<button class="button primary contact-submit" data-contact-submit type="submit">送信する</button>
+</div>
+</form>
+<noscript><p class="contact-noscript">JavaScriptが無効でもフォームは送信できます。送信後はFormspreeの完了画面へ移動します。</p></noscript>
+</div>
+<aside class="contact-aside" aria-label="お問い合わせの補足">
+<div class="contact-info-card">
+<h2>お問い合わせ前に</h2>
+<ul class="contact-note-list">
+<li>選手・球団・各サービスの公式窓口ではありません。</li>
+<li>内容によっては返信できない場合があります。</li>
+<li>個人情報や機密情報は必要以上に記載しないでください。</li>
+</ul>
+</div>
+<div class="contact-info-card">
+<p class="eyebrow">X</p>
+<h2>Xからの連絡</h2>
+<p>短いご連絡やSNS上でのやり取りはXでも受け付けています。</p>
+<a class="button ghost contact-x-link" href="https://x.com/soranpb" rel="noopener" target="_blank">Xを開く</a>
+<p class="microcopy">@soranpb</p>
+</div>
+</aside>
+</div>
+</section>
 </main>
 <footer class="site-footer">
 <div class="container footer-grid">
@@ -78,5 +151,6 @@
 </div>
 </footer>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/contact.js"></script>
 </body>
 </html>

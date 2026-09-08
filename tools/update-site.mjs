@@ -259,9 +259,9 @@ function generateSitemap(data) {
     { path: '/watch-notes/', updated: latestNote?.updated || data.updated },
     { path: '/player-lens/', updated: data.updated },
     { path: '/about', updated: '2026-07-02' },
-    { path: '/contact', updated: '2026-06-17' },
+    { path: '/contact', updated: '2026-09-08' },
     { path: '/disclaimer', updated: '2026-06-17' },
-    { path: '/privacy', updated: '2026-06-17' }
+    { path: '/privacy', updated: '2026-09-08' }
   ];
   const entries = [...staticPages, ...data.articles.filter(item => item.sitemap !== false).map(item => ({
     path: item.path,
