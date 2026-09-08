@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-15",
+  "updated": "2026-09-08",
   "articles": [
     {
       "type": "recommendation",
@@ -29,6 +29,33 @@
       "search": true,
       "sitemap": true,
       "order": 1
+    },
+    {
+      "type": "recommendation",
+      "path": "/articles/baseball-watching-scorebook-beginner",
+      "source": "articles/baseball-watching-scorebook-beginner.html",
+      "slug": "baseball-watching-scorebook-beginner",
+      "title": "プロ野球観戦でスコアを付けたい初心者へ｜リング式スコアブック9139を紹介",
+      "listTitle": "プロ野球観戦でスコアを付けたい初心者へ｜リング式スコアブック9139",
+      "description": "プロ野球観戦で初めてスコアを付けたい人向けに、成美堂スポーツ出版のリング式野球スコアブック9139を紹介。球場で役立つ特徴や選ぶポイント、初心者向けの使い方をまとめます。",
+      "listDescription": "球場で初めてスコアを付けたい人向けに、A4判・31試合分・リング式のスコアブック9139の特徴と使い方を紹介します。",
+      "category": "観戦グッズ・おすすめ",
+      "group": "recommendations",
+      "published": "2026-09-08",
+      "updated": "2026-09-08",
+      "keywords": [
+        "プロ野球観戦 スコアブック",
+        "野球スコアブック 初心者",
+        "プロ野球 スコア 付け方",
+        "球場観戦 記録",
+        "野球観戦 グッズ",
+        "スコアブック リング式",
+        "成美堂スポーツ出版 9139"
+      ],
+      "badges": ["観戦グッズ", "Amazon・楽天"],
+      "search": true,
+      "sitemap": true,
+      "order": 0
     }
   ]
 }
