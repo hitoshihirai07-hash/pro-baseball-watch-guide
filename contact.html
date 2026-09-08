@@ -75,10 +75,10 @@
 <div class="contact-card-heading">
 <p class="eyebrow">Contact Form</p>
 <h2 id="contact-form-heading">フォームからのお問い合わせ</h2>
-<p>必要事項を入力して送信してください。返信が必要な場合は、入力いただいたメールアドレスへご連絡します。</p>
+<p>必要事項を入力して送信してください。返信を希望する場合のみ、メールアドレスを入力してください。</p>
 </div>
 <div class="contact-status" data-contact-status role="status" aria-live="polite" tabindex="-1" hidden></div>
-<form action="https://formspree.io/f/mdenwreg" class="contact-form" data-contact-form method="POST">
+<form action="https://formspree.io/f/mdeowreg" class="contact-form" data-contact-form method="POST">
 <input name="subject" type="hidden" value="【プロ野球観戦メモ】お問い合わせ"/>
 <input name="source" type="hidden" value="プロ野球観戦メモ /contact"/>
 <div class="contact-honeypot" aria-hidden="true">
@@ -101,9 +101,9 @@
 <input autocomplete="name" id="contact-name" maxlength="80" name="name" type="text"/>
 </div>
 <div class="contact-field">
-<label for="contact-email">メールアドレス <span class="required-badge">必須</span></label>
-<input autocomplete="email" id="contact-email" maxlength="254" name="email" required type="email"/>
-<p class="contact-help">返信が必要な場合の連絡先として使用します。</p>
+<label for="contact-email">メールアドレス <span class="optional-badge">任意</span></label>
+<input autocomplete="email" id="contact-email" maxlength="254" name="email" type="email"/>
+<p class="contact-help">返信を希望する場合のみ入力してください。未入力でも送信できます。</p>
 </div>
 <div class="contact-field">
 <label for="contact-message">お問い合わせ内容 <span class="required-badge">必須</span></label>
@@ -122,7 +122,7 @@
 <h2>お問い合わせ前に</h2>
 <ul class="contact-note-list">
 <li>選手・球団・各サービスの公式窓口ではありません。</li>
-<li>内容によっては返信できない場合があります。</li>
+<li>返信先が未入力の場合、個別の返信はできません。</li>
 <li>個人情報や機密情報は必要以上に記載しないでください。</li>
 </ul>
 </div>

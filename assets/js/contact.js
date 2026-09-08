@@ -63,7 +63,7 @@
         })
         .then(function () {
           form.reset();
-          showStatus('success', 'お問い合わせを送信しました。内容を確認のうえ、返信が必要な場合はご連絡します。');
+          showStatus('success', 'お問い合わせを送信しました。返信先が入力されている場合は、必要に応じてご連絡します。');
         })
         .catch(function (error) {
           var response = error && error.response ? error.response : { status: 0 };
