@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-08",
+  "updated": "2026-09-10",
   "articles": [
     {
       "type": "watch-note",
@@ -2507,6 +2507,53 @@
         "石塚",
         "泉口",
         "田中瑛斗"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-dragons-2026-09-08-10",
+      "source": "watch-notes/giants-dragons-2026-09-08-10.html",
+      "contentSource": "content/watch-notes/giants-dragons-2026-09-08-10.json",
+      "slug": "giants-dragons-2026-09-08-10",
+      "title": "【カード振り返り】9/8～9/10 巨人対中日3連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】9/8～9/10 巨人対中日3連戦を見て感じたこと",
+      "description": "9月8日～10日の巨人対中日3連戦を振り返り。2試合連続本塁打を放ったダルベックの復調、ライデル・マルティネスの通算250セーブ、泉口友汰や森田駿哉の活躍を中心にまとめました。",
+      "listDescription": "ダルベックの2試合連続本塁打、ライデル・マルティネスの通算250セーブなど、巨人対中日3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-10",
+      "updated": "2026-09-10",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "中日",
+        "ダルベック",
+        "ライデル・マルティネス"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "seriesGameCount": 3,
+      "nextPoints": [
+        "石塚裕惺",
+        "キャベッジ",
+        "森田駿哉"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",
