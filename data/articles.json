@@ -5,6 +5,48 @@
   "articles": [
     {
       "type": "watch-note",
+      "path": "/watch-notes/2026-rookie-of-the-year-prediction",
+      "source": "watch-notes/2026-rookie-of-the-year-prediction.html",
+      "slug": "2026-rookie-of-the-year-prediction",
+      "title": "【2026年9月最新】プロ野球の新人王候補は誰？セ・パの本命・対抗を成績から予想",
+      "listTitle": "【2026年9月最新】プロ野球の新人王候補は誰？セ・パの本命・対抗を成績から予想",
+      "description": "2026年9月時点のプロ野球新人王争いを、セ・パ両リーグの候補者の成績と観戦メモの視点から予想。浦田俊輔、竹丸和幸、工藤泰成、前田悠伍らの現状と残り試合の注目点をまとめます。",
+      "listDescription": "2026年9月時点の新人王争いを予想。セは浦田俊輔、竹丸和幸、工藤泰成、パは前田悠伍らを成績と観戦目線から考えます。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-10",
+      "updated": "2026-09-10",
+      "keywords": [
+        "2026 新人王",
+        "プロ野球 新人王候補",
+        "新人王 予想",
+        "セリーグ 新人王",
+        "パリーグ 新人王",
+        "浦田俊輔",
+        "竹丸和幸",
+        "工藤泰成",
+        "前田悠伍",
+        "平良竜哉",
+        "巨人",
+        "阪神",
+        "ソフトバンク"
+      ],
+      "tags": [
+        "giants",
+        "player-usage",
+        "other"
+      ],
+      "badges": [
+        "新人王",
+        "セ・パ予想",
+        "選手・成績"
+      ],
+      "articleType": "選手について感じたこと",
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
       "path": "/watch-notes/giants-swallows-2026-08-07-09",
       "source": "watch-notes/giants-swallows-2026-08-07-09.html",
       "slug": "giants-swallows-2026-08-07-09",
