@@ -4,6 +4,25 @@ const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
 const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260822-stage3";
 const WATCH_NOTE_BRIDGE_SCRIPT = "/assets/js/player-lens-watch-note-bridge.js?v=20260822-stage3-links";
 
+const PLAYER_LENS_IMOBILE_ADS = {
+  desktop: `
+<section class="pbwg-player-lens-ad" aria-label="広告" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="pc">
+  <p class="pbwg-player-lens-ad-label">広告</p>
+  <div id="im-12cfa34ed43744749a8ad91d362aebab">
+    <script async src="https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104"></script>
+    <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595661,asid:1944356,type:"banner",display:"inline",elementid:"im-12cfa34ed43744749a8ad91d362aebab"})</script>
+  </div>
+</section>`,
+  mobile: `
+<section class="pbwg-player-lens-ad" aria-label="広告" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="sp">
+  <p class="pbwg-player-lens-ad-label">広告</p>
+  <div id="im-54c6e959802e4cb285c3d9e79b3aacbf">
+    <script async src="https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104"></script>
+    <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595759,asid:1944357,type:"banner",display:"inline",elementid:"im-54c6e959802e4cb285c3d9e79b3aacbf"})</script>
+  </div>
+</section>`,
+};
+
 const TEXT_CONTENT_TYPES = [
   "text/html",
   "text/css",
@@ -119,8 +138,32 @@ function removeInternalNewTab(html) {
   });
 }
 
-function integrateHtml(html) {
-  let integrated = addIntegratedBodyClass(html);
+function stripUnusedAdsenseLoader(html) {
+  // Player Lens upstream still contains the old AdSense loader, but no AdSense ad units.
+  // Remove only that loader from the integrated public copy so i-mobile is the sole ad runtime here.
+  return html.replace(
+    /\s*<script\b[^>]*src=(['"])https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-7687416670736373[^>]*><\/script>/gi,
+    "",
+  );
+}
+
+function insertPlayerLensAd(html, device = "desktop", enabled = true) {
+  if (!enabled) return html;
+  if (html.includes('data-ad-position="player-lens-content-end"')) return html;
+
+  const adHtml = device === "mobile" ? PLAYER_LENS_IMOBILE_ADS.mobile : PLAYER_LENS_IMOBILE_ADS.desktop;
+  if (/<footer\b[^>]*class=(['"])[^'"]*\bsite-footer\b[^'"]*\1[^>]*>/i.test(html)) {
+    return html.replace(
+      /<footer\b([^>]*class=(['"])[^'"]*\bsite-footer\b[^'"]*\2[^>]*)>/i,
+      `${adHtml}\n<footer$1>`,
+    );
+  }
+
+  return html.replace(/<\/body>/i, `${adHtml}\n</body>`);
+}
+
+function integrateHtml(html, device = "desktop", adsEnabled = true) {
+  let integrated = stripUnusedAdsenseLoader(addIntegratedBodyClass(html));
 
   if (!integrated.includes("data-pbwg-bridge=\"true\"")) {
     integrated = integrated.replace(/<body([^>]*)>/i, (bodyTag) => `${bodyTag}\n${BRIDGE_HEADER}`);
@@ -133,6 +176,8 @@ function integrateHtml(html) {
     );
   }
 
+  integrated = insertPlayerLensAd(integrated, device, adsEnabled);
+
   if (!integrated.includes(WATCH_NOTE_BRIDGE_SCRIPT)) {
     integrated = integrated.replace(
       /<\/body>/i,
@@ -143,13 +188,30 @@ function integrateHtml(html) {
   return removeInternalNewTab(integrated);
 }
 
-function rewriteTextBody(text, contentType = "") {
+function isMobileRequest(request) {
+  const mobileHint = request.headers.get("sec-ch-ua-mobile");
+  if (mobileHint === "?1") return true;
+  if (mobileHint === "?0") return false;
+
+  const userAgent = request.headers.get("user-agent") || "";
+  return /Android|iPhone|iPad|iPod|Mobile|IEMobile|Opera Mini/i.test(userAgent);
+}
+
+function shouldShowPlayerLensAds(requestUrl, upstreamStatus) {
+  if (upstreamStatus < 200 || upstreamStatus >= 300) return false;
+
+  const pathname = new URL(requestUrl).pathname;
+  const relativePath = pathname.slice(PLAYER_LENS_PREFIX.length) || "/";
+  return !/^\/admin(?:\.html)?\/?$/i.test(relativePath);
+}
+
+function rewriteTextBody(text, contentType = "", device = "desktop", adsEnabled = true) {
   let rewritten = text.replaceAll(
     PLAYER_LENS_ORIGIN,
     `${CANONICAL_ORIGIN}${PLAYER_LENS_PREFIX}`,
   );
 
-  if (isHtmlResponse(contentType)) rewritten = integrateHtml(rewritten);
+  if (isHtmlResponse(contentType)) rewritten = integrateHtml(rewritten, device, adsEnabled);
   return rewritten;
 }
 
@@ -236,13 +298,19 @@ export async function onRequest(context) {
     });
   }
 
-  const body = rewriteTextBody(await upstream.text(), contentType);
+  const device = isMobileRequest(request) ? "mobile" : "desktop";
+  const adsEnabled = shouldShowPlayerLensAds(request.url, upstream.status);
+  const body = rewriteTextBody(await upstream.text(), contentType, device, adsEnabled);
   headers.delete("content-length");
   headers.delete("content-encoding");
   headers.delete("etag");
 
   headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
-  headers.set("x-player-lens-integration-stage", "4-single-source");
+  headers.set("x-player-lens-integration-stage", "5-imobile-content-end");
+  if (isHtmlResponse(contentType)) {
+    headers.append("vary", "Sec-CH-UA-Mobile");
+    headers.append("vary", "User-Agent");
+  }
 
   return new Response(body, {
     status: upstream.status,
