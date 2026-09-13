@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-10",
+  "updated": "2026-09-13",
   "articles": [
     {
       "type": "watch-note",
@@ -90,6 +90,47 @@
       ],
       "search": true,
       "sitemap": true
+    },
+    {
+      "type": "article",
+      "path": "/articles/player-lens-draft-2026-guide",
+      "source": "articles/player-lens-draft-2026-guide.html",
+      "slug": "player-lens-draft-2026-guide",
+      "title": "2026年プロ野球ドラフト候補をPlayer Lensで見る｜Draft Lab 2026の使い方",
+      "listTitle": "2026年プロ野球ドラフト候補をPlayer Lensで見る｜Draft Lab 2026の使い方",
+      "description": "2026年プロ野球ドラフト候補をPlayer Lens Draft Lab 2026で確認。志望届、候補検索、12球団補強Lens、候補×球団Fit、1位指名公言、ドラフト当日の観戦ボードの使い方を紹介します。",
+      "listDescription": "2026年ドラフト候補を、志望届・12球団補強Lens・球団Fit・1位指名公言・当日観戦ボードから見るPlayer Lens案内です。",
+      "category": "Player Lens・データ",
+      "group": "data",
+      "published": "2026-09-13",
+      "updated": "2026-09-13",
+      "keywords": [
+        "2026 ドラフト",
+        "2026年 ドラフト候補",
+        "プロ野球 ドラフト候補",
+        "Player Lens",
+        "Draft Lab 2026",
+        "プロ志望届",
+        "ドラフト 志望届",
+        "12球団 補強",
+        "候補 球団 Fit",
+        "1位指名 公言",
+        "ドラフト 観戦"
+      ],
+      "tags": [
+        "2026ドラフト",
+        "ドラフト候補",
+        "Player Lens",
+        "プロ志望届",
+        "1位指名公言"
+      ],
+      "badges": [
+        "Player Lens・データ",
+        "2026ドラフト"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 0
     },
     {
       "type": "article",
@@ -1860,12 +1901,12 @@
       "slug": "player-lens-guide",
       "title": "Player Lensでできること｜選手成績・直近6試合・バッテリー・データ検索",
       "listTitle": "Player Lensでできること｜選手成績・直近6試合・バッテリー・データ検索",
-      "description": "Player Lensの現在の機能を、ランキング、球団別、選手個人、直近6試合、守備、先発バッテリー、対球団別、登録状況、データ質問に分けて紹介します。",
-      "listDescription": "ランキング、球団別、直近6試合、守備、先発バッテリー、対球団別、登録状況、データ質問まで、現在の機能をまとめています。",
+      "description": "Player Lensの現在の機能を、ランキング、球団別、選手個人、直近6試合、守備、先発バッテリー、対球団別、登録状況、データ質問、Draft Lab 2026に分けて紹介します。",
+      "listDescription": "ランキング、球団別、直近6試合、守備、先発バッテリー、対球団別、登録状況、データ質問、Draft Lab 2026まで、現在の機能をまとめています。",
       "category": "Player Lens・データ",
       "group": "data",
       "published": "2026-06-09",
-      "updated": "2026-08-22",
+      "updated": "2026-09-13",
       "keywords": [
         "Player Lens",
         "選手成績",
@@ -1875,7 +1916,9 @@
         "先発バッテリー",
         "対球団別",
         "登録状況",
-        "データに質問"
+        "データに質問",
+        "Draft Lab 2026",
+        "2026 ドラフト候補"
       ],
       "tags": [],
       "badges": [
