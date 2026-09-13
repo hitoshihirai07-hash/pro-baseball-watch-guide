@@ -207,35 +207,41 @@ body.pbwg-integrated-player-lens .detail-panel {
   }
 }
 
-/* i-mobile: Player Lens content-end ad (injected only on the integrated public copy). */
-.pbwg-player-lens-ad {
-  width: min(1180px, calc(100% - 28px));
-  margin: 28px auto 22px;
-  padding: 14px 12px 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: #fff;
-  text-align: center;
+/* i-mobile: Player Lens content-end ad.
+   Do not reserve space or show a placeholder when i-mobile does not return a creative. */
+.pbwg-player-lens-ad-slot {
+  width: 100%;
+  max-width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: visible;
   box-sizing: border-box;
 }
 
-.pbwg-player-lens-ad-label {
-  margin: 0 0 8px;
-  color: #7b6a52;
-  font-size: 11px;
-  line-height: 1.4;
+.pbwg-player-lens-ad-slot > div {
+  max-width: 100%;
+  min-height: 0;
+  margin: 0 auto;
 }
 
-.pbwg-player-lens-ad > div {
-  display: inline-block;
-  max-width: 100%;
-  vertical-align: top;
+/* Add breathing room only after i-mobile has actually rendered ad content. */
+.pbwg-player-lens-ad-slot:has(iframe),
+.pbwg-player-lens-ad-slot:has(ins),
+.pbwg-player-lens-ad-slot:has(a img) {
+  margin: 24px auto 18px;
 }
 
 @media (max-width: 640px) {
-  .pbwg-player-lens-ad {
-    width: calc(100% - 20px);
-    margin: 20px auto 16px;
-    padding: 12px 8px 14px;
+  .pbwg-player-lens-ad-slot:has(iframe),
+  .pbwg-player-lens-ad-slot:has(ins),
+  .pbwg-player-lens-ad-slot:has(a img) {
+    margin: 18px auto 14px;
   }
 }
+

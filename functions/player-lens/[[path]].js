@@ -1,26 +1,26 @@
 const PLAYER_LENS_ORIGIN = "https://player-lens-pages.pages.dev";
 const PLAYER_LENS_PREFIX = "/player-lens";
 const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
-const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260822-stage3";
+const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260913-imobile-clean";
 const WATCH_NOTE_BRIDGE_SCRIPT = "/assets/js/player-lens-watch-note-bridge.js?v=20260822-stage3-links";
 
 const PLAYER_LENS_IMOBILE_ADS = {
+  // Keep the i-mobile tags themselves exactly as issued. The surrounding slot has no
+  // label, border, padding, or reserved height, so an unfilled ad leaves no blank box.
   desktop: `
-<section class="pbwg-player-lens-ad" aria-label="広告" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="pc">
-  <p class="pbwg-player-lens-ad-label">広告</p>
+<div class="pbwg-player-lens-ad-slot" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="pc">
   <div id="im-12cfa34ed43744749a8ad91d362aebab">
     <script async src="https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104"></script>
     <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595661,asid:1944356,type:"banner",display:"inline",elementid:"im-12cfa34ed43744749a8ad91d362aebab"})</script>
   </div>
-</section>`,
+</div>`,
   mobile: `
-<section class="pbwg-player-lens-ad" aria-label="広告" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="sp">
-  <p class="pbwg-player-lens-ad-label">広告</p>
+<div class="pbwg-player-lens-ad-slot" data-ad-network="i-mobile" data-ad-position="player-lens-content-end" data-ad-device="sp">
   <div id="im-54c6e959802e4cb285c3d9e79b3aacbf">
     <script async src="https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104"></script>
     <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595759,asid:1944357,type:"banner",display:"inline",elementid:"im-54c6e959802e4cb285c3d9e79b3aacbf"})</script>
   </div>
-</section>`,
+</div>`,
 };
 
 const TEXT_CONTENT_TYPES = [
@@ -306,7 +306,7 @@ export async function onRequest(context) {
   headers.delete("etag");
 
   headers.set("x-player-lens-source", "player-lens-pages.pages.dev");
-  headers.set("x-player-lens-integration-stage", "5-imobile-content-end");
+  headers.set("x-player-lens-integration-stage", "6-imobile-clean-slot");
   if (isHtmlResponse(contentType)) {
     headers.append("vary", "Sec-CH-UA-Mobile");
     headers.append("vary", "User-Agent");
