@@ -3,6 +3,20 @@ const PLAYER_LENS_PREFIX = "/player-lens";
 const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
 const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260913-imobile-clean";
 const WATCH_NOTE_BRIDGE_SCRIPT = "/assets/js/player-lens-watch-note-bridge.js?v=20260822-stage3-links";
+const GA4_MEASUREMENT_ID = "G-RKRFYZS2YV";
+
+const GA4_TAG = `
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}"></script>
+<script data-pbwg-ga4="true">
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  if (!window.__pbwgGa4Configured) {
+    window.gtag('js', new Date());
+    window.gtag('config', '${GA4_MEASUREMENT_ID}');
+    window.__pbwgGa4Configured = true;
+  }
+</script>`;
 
 const PLAYER_LENS_IMOBILE_ADS = {
   // Keep the i-mobile tags themselves exactly as issued. The surrounding slot has no
@@ -164,6 +178,13 @@ function insertPlayerLensAd(html, device = "desktop", enabled = true) {
 
 function integrateHtml(html, device = "desktop", adsEnabled = true) {
   let integrated = stripUnusedAdsenseLoader(addIntegratedBodyClass(html));
+
+  if (!integrated.includes(GA4_MEASUREMENT_ID)) {
+    integrated = integrated.replace(
+      /<\/head>/i,
+      `${GA4_TAG}\n</head>`,
+    );
+  }
 
   if (!integrated.includes("data-pbwg-bridge=\"true\"")) {
     integrated = integrated.replace(/<body([^>]*)>/i, (bodyTag) => `${bodyTag}\n${BRIDGE_HEADER}`);
