@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-13",
+  "updated": "2026-09-15",
   "articles": [
     {
       "type": "watch-note",
@@ -2638,6 +2638,53 @@
       "nextPoints": [
         "石塚裕惺",
         "キャベッジ",
+        "森田駿哉"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-baystars-20260915-card-review",
+      "source": "watch-notes/giants-baystars-20260915-card-review.html",
+      "contentSource": "content/watch-notes/giants-baystars-20260915-card-review.json",
+      "slug": "giants-baystars-20260915-card-review",
+      "title": "【カード振り返り】9/13～9/15 巨人対DeNA 3連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】9/13～9/15 巨人対DeNA 3連戦を見て感じたこと",
+      "description": "巨人対DeNA3連戦を振り返り。松本剛の安定した打撃、平山功太の1軍復帰後初打席ホームラン、大城卓三の10号到達を中心に、得点力や守備面で感じたことをまとめました。",
+      "listDescription": "松本剛の安定感、平山功太の復帰弾、大城卓三の10号が印象に残ったDeNA3連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-15",
+      "updated": "2026-09-15",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "DeNA",
+        "松本剛",
+        "平山功太"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "seriesGameCount": 3,
+      "nextPoints": [
+        "松本剛",
+        "石塚裕惺",
         "森田駿哉"
       ],
       "nextPointLabels": [
