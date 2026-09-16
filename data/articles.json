@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-15",
+  "updated": "2026-09-16",
   "articles": [
     {
       "type": "watch-note",
@@ -2692,6 +2692,44 @@
         "状態を確認したい選手",
         "登板状況を見たい投手"
       ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/2026-mvp-best-nine-golden-glove-prediction",
+      "source": "watch-notes/2026-mvp-best-nine-golden-glove-prediction.html",
+      "slug": "2026-mvp-best-nine-golden-glove-prediction",
+      "title": "【2026年9月最新】プロ野球MVP・ベストナイン・ゴールデングラブ予想｜セ・パの受賞候補を成績から考察",
+      "listTitle": "【2026年9月最新】プロ野球MVP・ベストナイン・ゴールデングラブ予想｜セ・パの受賞候補を成績から考察",
+      "description": "2026年9月時点のプロ野球MVP・ベストナイン・ゴールデングラブを、セ・パ両リーグの成績と観戦メモの視点から予想。佐藤輝明、栗原陵矢ら有力候補と接戦のポジションを考察します。",
+      "listDescription": "2026年9月時点のMVP・ベストナイン・ゴールデングラブを予想。セ・パの有力候補を成績と観戦目線から考えます。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-16",
+      "updated": "2026-09-16",
+      "keywords": [
+        "プロ野球 MVP 予想 2026",
+        "ベストナイン 予想 2026",
+        "ゴールデングラブ 予想 2026",
+        "MVP候補",
+        "ベストナイン候補",
+        "ゴールデングラブ候補",
+        "プロ野球 表彰 2026",
+        "佐藤輝明",
+        "栗原陵矢",
+        "山口航輝"
+      ],
+      "tags": [
+        "player-usage",
+        "other"
+      ],
+      "badges": [
+        "MVP・表彰",
+        "セ・パ予想",
+        "選手・成績"
+      ],
+      "articleType": "期間・シーズンの総括",
       "search": true,
       "sitemap": true
     },
