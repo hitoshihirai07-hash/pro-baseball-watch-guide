@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-16",
+  "updated": "2026-09-20",
   "articles": [
     {
       "type": "watch-note",
@@ -2730,6 +2730,53 @@
         "選手・成績"
       ],
       "articleType": "期間・シーズンの総括",
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-games-sep18-20-2026",
+      "source": "watch-notes/giants-games-sep18-20-2026.html",
+      "contentSource": "content/watch-notes/giants-games-sep18-20-2026.json",
+      "slug": "giants-games-sep18-20-2026",
+      "title": "【カード振り返り】9/18～20 巨人3試合まとめ｜田中将大の好投と泉口友汰の勝負強さ",
+      "listTitle": "【カード振り返り】9/18～20 巨人3試合まとめ｜田中将大の好投と泉口友汰の勝負強さ",
+      "description": "9/18～20の巨人3試合を振り返り。田中将大の7回1失点の好投、泉口友汰のサヨナラ弾と逆転打、井上温大の8回無失点、田中瑛斗の最優秀中継ぎ投手確定など、印象に残った場面をまとめました。",
+      "listDescription": "田中将大の好投、泉口友汰の勝負強さが光った9/18～20の巨人3試合を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-20",
+      "updated": "2026-09-20",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "田中将大",
+        "泉口友汰",
+        "井上温大"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "3連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "seriesGameCount": 3,
+      "nextPoints": [
+        "平山功太",
+        "坂本勇人",
+        "則本昂大"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
       "search": true,
       "sitemap": true
     },
