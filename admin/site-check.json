@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-21T11:53:50.587Z",
+  "generatedAt": "2026-09-25T13:27:56.433Z",
   "status": "ok",
   "summary": {
-    "pages": 87,
-    "articles": 75,
-    "watchNotes": 32,
+    "pages": 88,
+    "articles": 76,
+    "watchNotes": 33,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "87ページの参照先を確認しました。",
+      "detail": "88ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "75件の記事データとHTMLを照合しました。",
+      "detail": "76件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "85ページの基本メタ情報を確認しました。",
+      "detail": "86ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "32件の観戦メモを確認しました。",
+      "detail": "33件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "75件の記事URLを確認しました。",
+      "detail": "76件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-games-sep18-20-2026を表示しています。",
+      "detail": "/watch-notes/giants-carp-series-review-20260922-0925を表示しています。",
       "count": 0,
       "samples": []
     },
