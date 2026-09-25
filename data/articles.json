@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-21",
+  "updated": "2026-09-25",
   "articles": [
     {
       "type": "watch-note",
@@ -2771,6 +2771,53 @@
         "平山功太",
         "坂本勇人",
         "則本昂大"
+      ],
+      "nextPointLabels": [
+        "打順・起用などで注目する点",
+        "状態を確認したい選手",
+        "登板状況を見たい投手"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-carp-series-review-20260922-0925",
+      "source": "watch-notes/giants-carp-series-review-20260922-0925.html",
+      "contentSource": "content/watch-notes/giants-carp-series-review-20260922-0925.json",
+      "slug": "giants-carp-series-review-20260922-0925",
+      "title": "【カード振り返り】9/22～9/25 巨人対広島 4連戦を見て感じたこと",
+      "listTitle": "【カード振り返り】9/22～9/25 巨人対広島 4連戦を見て感じたこと",
+      "description": "9/22～25の巨人対広島4連戦を振り返り。竹丸和幸の11勝目、泉口友汰の安定した打撃と最終戦の守備、若手外野手の経験、打線で気になった点をまとめました。",
+      "listDescription": "竹丸和幸の11勝目、泉口友汰の安定した打撃、若手外野手の経験を中心に巨人対広島4連戦を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-25",
+      "updated": "2026-09-25",
+      "keywords": [
+        "観戦メモ",
+        "カード振り返り",
+        "巨人",
+        "広島",
+        "竹丸和幸",
+        "泉口友汰"
+      ],
+      "tags": [
+        "giants",
+        "series",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "4連戦",
+        "選手・起用"
+      ],
+      "articleType": "3連戦・カードの振り返り",
+      "seriesGameCount": 4,
+      "nextPoints": [
+        "松本剛",
+        "石塚裕惺",
+        "田中瑛斗"
       ],
       "nextPointLabels": [
         "打順・起用などで注目する点",
