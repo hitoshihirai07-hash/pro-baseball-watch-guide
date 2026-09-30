@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-29",
+  "updated": "2026-09-30",
   "articles": [
     {
       "type": "watch-note",
@@ -2871,6 +2871,53 @@
         "打線で注目する点",
         "先発陣で注目する点",
         "10月に楽しみにしたい点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/yoshinobu-takahashi-giants-ob-focus",
+      "source": "watch-notes/yoshinobu-takahashi-giants-ob-focus.html",
+      "contentSource": "content/watch-notes/yoshinobu-takahashi-giants-ob-focus.json",
+      "slug": "yoshinobu-takahashi-giants-ob-focus",
+      "title": "【巨人OB】高橋由伸｜今でも一番好きな背番号24、忘れられない打撃フォームとホームラン",
+      "listTitle": "【巨人OB】高橋由伸｜今でも一番好きな背番号24、忘れられない打撃フォームとホームラン",
+      "description": "巨人OBで今でも一番好きな高橋由伸。美しい打撃フォームからのホームラン、安定した外野守備、2007年開幕戦の初球先頭打者本塁打など、背番号24の魅力を振り返ります。",
+      "listDescription": "今でも一番好きな巨人OB・高橋由伸。打撃フォーム、守備、2007年開幕戦の初球先頭打者本塁打など、背番号24の魅力を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-09-30",
+      "updated": "2026-09-30",
+      "keywords": [
+        "観戦メモ",
+        "巨人",
+        "巨人OB",
+        "高橋由伸",
+        "背番号24",
+        "2007年",
+        "初球先頭打者ホームラン"
+      ],
+      "tags": [
+        "giants",
+        "player-usage",
+        "giants-ob"
+      ],
+      "badges": [
+        "巨人",
+        "巨人OB",
+        "高橋由伸"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "残り試合での坂本勇人の起用と打席",
+        "石塚裕惺やリチャードら今後につながる野手の起用",
+        "先発陣の最終調整と投球内容"
+      ],
+      "nextPointLabels": [
+        "ベテランで注目する点",
+        "若手・中堅で注目する点",
+        "投手陣で注目する点"
       ],
       "search": true,
       "sitemap": true

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-29T13:20:21.899Z",
+  "generatedAt": "2026-09-30T10:26:45.622Z",
   "status": "ok",
   "summary": {
-    "pages": 89,
-    "articles": 77,
-    "watchNotes": 34,
+    "pages": 90,
+    "articles": 78,
+    "watchNotes": 35,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "89ページの参照先を確認しました。",
+      "detail": "90ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "77件の記事データとHTMLを照合しました。",
+      "detail": "78件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "87ページの基本メタ情報を確認しました。",
+      "detail": "88ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "34件の観戦メモを確認しました。",
+      "detail": "35件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "77件の記事URLを確認しました。",
+      "detail": "78件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-september-2026-reviewを表示しています。",
+      "detail": "/watch-notes/yoshinobu-takahashi-giants-ob-focusを表示しています。",
       "count": 0,
       "samples": []
     },
