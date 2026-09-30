@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-30T10:35:26.803Z",
+  "generatedAt": "2026-09-30T11:03:21.833Z",
   "status": "ok",
   "summary": {
-    "pages": 90,
-    "articles": 78,
+    "pages": 91,
+    "articles": 79,
     "watchNotes": 35,
     "errors": 0,
     "warnings": 0
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "90ページの参照先を確認しました。",
+      "detail": "91ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "78件の記事データとHTMLを照合しました。",
+      "detail": "79件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,7 +41,7 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "88ページの基本メタ情報を確認しました。",
+      "detail": "89ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -55,7 +55,7 @@
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "78件の記事URLを確認しました。",
+      "detail": "79件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },

@@ -2953,7 +2953,7 @@
       ],
       "search": true,
       "sitemap": true,
-      "order": 1
+      "order": 2
     },
     {
       "type": "recommendation",
@@ -2976,6 +2976,37 @@
         "野球観戦 グッズ",
         "スコアブック リング式",
         "成美堂スポーツ出版 9139"
+      ],
+      "tags": [],
+      "badges": [
+        "観戦グッズ",
+        "Amazon・楽天"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 1
+    },
+    {
+      "type": "recommendation",
+      "path": "/articles/npb-official-ball-baseball-guide-2026",
+      "source": "articles/npb-official-ball-baseball-guide-2026.html",
+      "slug": "npb-official-ball-baseball-guide-2026",
+      "title": "【プロ野球ファン向け】NPB統一試合球と公式記録集｜観戦をもっと楽しめる2つのアイテム",
+      "listTitle": "NPB統一試合球と公式記録集｜観戦をもっと楽しめる2つのアイテム",
+      "description": "プロ野球ファン向けに、ミズノのNPB12球団統一試合球オーセンティックボールとオフィシャルベースボールガイド2026を紹介。触る・調べるという2つの楽しみ方から選び方をまとめます。",
+      "listDescription": "NPB統一試合球と公式記録集を、実物に触れる・記録を調べるという2つの楽しみ方から紹介します。",
+      "category": "観戦グッズ・おすすめ",
+      "group": "recommendations",
+      "published": "2026-09-30",
+      "updated": "2026-09-30",
+      "keywords": [
+        "NPB 統一試合球",
+        "プロ野球 公式球",
+        "オフィシャルベースボールガイド2026",
+        "プロ野球 公式記録集",
+        "プロ野球 グッズ",
+        "NPB グッズ",
+        "ミズノ 統一球"
       ],
       "tags": [],
       "badges": [
