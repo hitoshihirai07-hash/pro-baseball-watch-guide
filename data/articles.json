@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-09-30",
+  "updated": "2026-10-04",
   "articles": [
     {
       "type": "watch-note",
@@ -2918,6 +2918,55 @@
         "ベテランで注目する点",
         "若手・中堅で注目する点",
         "投手陣で注目する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-farm-2026-review",
+      "source": "watch-notes/giants-farm-2026-review.html",
+      "contentSource": "content/watch-notes/giants-farm-2026-review.json",
+      "slug": "giants-farm-2026-review",
+      "title": "【2026年ファーム総括】巨人2軍の1年を振り返る｜又木鉄平・皆川岳飛らの活躍と他球団の注目選手",
+      "listTitle": "【2026年ファーム総括】巨人2軍の1年を振り返る｜又木鉄平・皆川岳飛らの活躍と他球団の注目選手",
+      "description": "2026年のファーム公式戦を巨人2軍中心に総括。又木鉄平、皆川岳飛、平山功太、笹原操希らの成績と1軍へのつながり、他球団で気になった若手、個人的なファームMVPを振り返ります。",
+      "listDescription": "2026年の巨人2軍を総括。又木鉄平、皆川岳飛らの活躍や1軍につながった若手、他球団の注目選手を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-04",
+      "updated": "2026-10-04",
+      "keywords": [
+        "観戦メモ",
+        "ファーム総括",
+        "巨人",
+        "巨人2軍",
+        "又木鉄平",
+        "皆川岳飛",
+        "平山功太",
+        "笹原操希",
+        "園田純規"
+      ],
+      "tags": [
+        "giants",
+        "farm",
+        "season-review"
+      ],
+      "badges": [
+        "巨人",
+        "ファーム総括",
+        "2026年"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "又木鉄平が1軍の先発争いにどこまで入れるか",
+        "浅野翔吾、石塚裕惺、皆川岳飛が1軍でどこまで打席を増やせるか",
+        "園田純規をはじめ、その次の世代がどこまで伸びるか"
+      ],
+      "nextPointLabels": [
+        "2027年の先発争い",
+        "若手野手で見たいこと",
+        "ファームで追いかけたいこと"
       ],
       "search": true,
       "sitemap": true
