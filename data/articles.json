@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-04",
+  "updated": "2026-10-08",
   "articles": [
     {
       "type": "watch-note",
@@ -90,6 +90,46 @@
       ],
       "search": true,
       "sitemap": true
+    },
+    {
+      "type": "article",
+      "path": "/articles/samurai-japan-apbc-2026-player-lens",
+      "source": "articles/samurai-japan-apbc-2026-player-lens.html",
+      "slug": "samurai-japan-apbc-2026-player-lens",
+      "title": "侍ジャパン28選手をPlayer Lensで見る｜アジアプロ野球チャンピオンシップ2026代表メンバー・大会概要",
+      "listTitle": "侍ジャパン28選手をPlayer Lensで見る｜アジアプロ野球チャンピオンシップ2026代表メンバー・大会概要",
+      "description": "アジアプロ野球チャンピオンシップ2026に出場予定の侍ジャパン28選手を紹介。24歳以下・入団3年目まで・オーバーエイジ枠などの大会条件や日程とともに、Player Lensで2026年NPB成績を確認できます。",
+      "listDescription": "APBC 2026の出場条件、侍ジャパン28選手、OA枠、日程を整理。Player Lensで2026年NPB成績と一緒に代表メンバーを見られます。",
+      "category": "Player Lens・データ",
+      "group": "data",
+      "published": "2026-10-08",
+      "updated": "2026-10-08",
+      "keywords": [
+        "侍ジャパン",
+        "アジアプロ野球チャンピオンシップ2026",
+        "APBC 2026",
+        "日本代表",
+        "Player Lens",
+        "代表メンバー",
+        "オーバーエイジ",
+        "竹丸和幸",
+        "森田駿哉",
+        "佐々木俊輔"
+      ],
+      "tags": [
+        "侍ジャパン",
+        "APBC 2026",
+        "日本代表",
+        "Player Lens",
+        "巨人"
+      ],
+      "badges": [
+        "Player Lens・データ",
+        "侍ジャパン"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 0
     },
     {
       "type": "article",
