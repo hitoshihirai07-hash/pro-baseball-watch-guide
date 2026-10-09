@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "articles": [
     {
       "type": "watch-note",
@@ -3007,6 +3007,56 @@
         "2027年の先発争い",
         "若手野手で見たいこと",
         "ファームで追いかけたいこと"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/npb-2026-season-review",
+      "source": "watch-notes/npb-2026-season-review.html",
+      "contentSource": "content/watch-notes/npb-2026-season-review.json",
+      "slug": "npb-2026-season-review",
+      "title": "【2026年シーズン総括】12球団を振り返る｜球団MVPと巨人の1年、10/10開幕CSへ",
+      "listTitle": "【2026年シーズン総括】12球団を振り返る｜球団MVPと巨人の1年、10/10開幕CSへ",
+      "description": "2026年プロ野球レギュラーシーズンを12球団まとめて総括。各球団の個人的MVPを選び、巨人の投打・シーズンMVPを詳しく振り返り、10月10日開幕のクライマックスシリーズと初戦先勝チームの突破率84％も紹介します。",
+      "listDescription": "2026年の12球団と各球団MVPを総括。巨人の1年を詳しく振り返り、10月10日開幕のCSまでまとめます。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-09",
+      "updated": "2026-10-09",
+      "keywords": [
+        "2026年プロ野球総括",
+        "プロ野球シーズン総括",
+        "12球団MVP",
+        "巨人2026",
+        "クライマックスシリーズ2026",
+        "巨人DeNA CS",
+        "佐藤輝明 三冠王",
+        "ライデル・マルティネス",
+        "井上温大",
+        "ダルベック"
+      ],
+      "tags": [
+        "giants",
+        "season-review",
+        "other"
+      ],
+      "badges": [
+        "2026年総括",
+        "12球団",
+        "巨人"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "井上温大と東克樹で始まるDeNAとのCS第1戦",
+        "初戦先勝チームの突破率84％という短期決戦の重み",
+        "竹丸和幸、戸郷翔征らを含めたファーストステージの投手起用"
+      ],
+      "nextPointLabels": [
+        "CS初戦で注目する点",
+        "ファーストステージの鍵",
+        "続く試合で見たいこと"
       ],
       "search": true,
       "sitemap": true
