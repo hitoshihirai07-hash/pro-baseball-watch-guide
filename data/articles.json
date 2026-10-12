@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-09",
+  "updated": "2026-10-12",
   "articles": [
     {
       "type": "watch-note",
@@ -3057,6 +3057,55 @@
         "CS初戦で注目する点",
         "ファーストステージの鍵",
         "続く試合で見たいこと"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/npb-2026-climax-series-first-stage-review",
+      "source": "watch-notes/npb-2026-climax-series-first-stage-review.html",
+      "contentSource": "content/watch-notes/npb-2026-climax-series-first-stage-review.json",
+      "slug": "npb-2026-climax-series-first-stage-review",
+      "title": "【CSファーストステージ総括】DeNAと日本ハムがファイナル進出｜巨人で目立った井上温大・代木大和",
+      "listTitle": "【CSファーストステージ総括】DeNAと日本ハムがファイナル進出｜巨人で目立った井上温大・代木大和",
+      "description": "2026年クライマックスシリーズ・ファーストステージを総括。DeNAと日本ハムの勝ち上がり、目立った選手、巨人で印象に残った井上温大・代木大和らを振り返ります。",
+      "listDescription": "2026年CSファーストステージを総括。DeNA、日本ハムの勝ち上がりと、巨人で目立った井上温大・代木大和らを振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-12",
+      "updated": "2026-10-12",
+      "keywords": [
+        "観戦メモ",
+        "クライマックスシリーズ",
+        "CS",
+        "巨人",
+        "DeNA",
+        "日本ハム",
+        "西武",
+        "井上温大",
+        "代木大和"
+      ],
+      "tags": [
+        "giants",
+        "npb",
+        "climax-series"
+      ],
+      "badges": [
+        "巨人戦",
+        "CS",
+        "12球団"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "DeNAが阪神相手にファーストステージの長打力をつなげられるか",
+        "日本ハムがソフトバンク相手に第2戦・第3戦の形を続けられるか",
+        "井上温大・代木大和ら投手陣の2027年へのつながり"
+      ],
+      "nextPointLabels": [
+        "セ・リーグで次に見るポイント",
+        "パ・リーグで次に見るポイント",
+        "巨人で今後見たいポイント"
       ],
       "search": true,
       "sitemap": true
