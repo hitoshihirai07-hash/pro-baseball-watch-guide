@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-15",
   "articles": [
     {
       "type": "recommendation",
@@ -89,6 +89,38 @@
       "badges": [
         "観戦グッズ",
         "Amazon・楽天"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 0
+    },
+    {
+      "type": "recommendation",
+      "path": "/articles/amazon-prime-appreciation-sale-2026-baseball-goods",
+      "source": "articles/amazon-prime-appreciation-sale-2026-baseball-goods.html",
+      "slug": "amazon-prime-appreciation-sale-2026-baseball-goods",
+      "title": "【Amazonプライム感謝祭2026】プロ野球観戦に使えるおすすめグッズ4選｜充電・雨対策・球団グッズ",
+      "listTitle": "【Amazonプライム感謝祭2026】プロ野球観戦に使えるおすすめグッズ4選",
+      "description": "Amazonプライム感謝祭2026の対象商品の中から、プロ野球観戦や野球ファンの日常で使いやすい4商品を紹介。モバイルバッテリー、レインポンチョ、プロ野球トートバッグ、ジャイアンツ文具ケースを用途別にまとめます。",
+      "listDescription": "プライム感謝祭の対象商品から、充電・雨対策・観戦バッグ・スコア記録や普段使いに役立つ4商品をプロ野球観戦目線で紹介します。",
+      "category": "観戦グッズ・おすすめ",
+      "group": "recommendations",
+      "published": "2026-10-15",
+      "updated": "2026-10-15",
+      "keywords": [
+        "Amazonプライム感謝祭2026",
+        "プライム感謝祭 野球観戦",
+        "プロ野球観戦 グッズ",
+        "野球観戦 モバイルバッテリー",
+        "野球観戦 レインポンチョ",
+        "プロ野球 トートバッグ",
+        "ジャイアンツ 文具ケース",
+        "Amazon セール"
+      ],
+      "tags": [],
+      "badges": [
+        "観戦グッズ",
+        "Amazon"
       ],
       "search": true,
       "sitemap": true,
