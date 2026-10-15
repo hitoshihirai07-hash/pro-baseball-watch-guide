@@ -9,6 +9,7 @@ on:
       - content/watch-notes/*.json
       - data/recommendations.json
       - articles/baseball-watching-useful-goods.html
+      - tools/templates/watch-note.html
       - tools/update-recommendations.mjs
       - package.json
       - .github/workflows/publish-watch-note.yml
