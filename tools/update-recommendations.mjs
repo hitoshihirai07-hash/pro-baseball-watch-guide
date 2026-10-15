@@ -109,7 +109,7 @@ function recommendationSection(items) {
   });
   return `<!-- AUTO:RECOMMENDATIONS:START -->
 <section class="container section article-category-block" id="watch-gear">
-<div class="category-heading"><div><p class="eyebrow">Watching Gear</p><h2>観戦グッズ・おすすめ</h2></div><p>球場観戦で困りやすい、見え方・充電・暑さ・雨・座席の疲れを減らすためのアイテムを紹介します。</p></div>
+<div class="category-heading"><div><p class="eyebrow">Watching Gear</p><h2>観戦グッズ・おすすめ</h2></div><p>球場観戦を快適にするアイテムや、観戦記録・普段使いでも楽しめる野球ファングッズを紹介します。</p></div>
 <div class="category-article-grid">
 ${sorted.map(articleCard).join('\n')}
 </div>
