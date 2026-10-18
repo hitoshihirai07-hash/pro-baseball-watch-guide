@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-15",
+  "updated": "2026-10-18",
   "articles": [
     {
       "type": "watch-note",
@@ -3106,6 +3106,50 @@
         "セ・リーグで次に見るポイント",
         "パ・リーグで次に見るポイント",
         "巨人で今後見たいポイント"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/hiromasa-funabasama-hikeshi-2026",
+      "source": "watch-notes/hiromasa-funabasama-hikeshi-2026.html",
+      "contentSource": "content/watch-notes/hiromasa-funabasama-hikeshi-2026.json",
+      "slug": "hiromasa-funabasama-hikeshi-2026",
+      "title": "【選手フォーカス】船迫大雅｜2026年HIKESHI賞受賞、巨人のピンチを救う背番号58",
+      "listTitle": "【選手フォーカス】船迫大雅｜2026年HIKESHI賞受賞、巨人のピンチを救う背番号58",
+      "description": "2026年HIKESHI賞でセ・リーグ初代受賞者となった巨人・船迫大雅。ドラフト5位入団、2024年新人王、2026年の50試合登板と48HIKESHIポイント、火消しの投球術を観戦メモとして振り返ります。",
+      "listDescription": "2026年HIKESHI賞初代受賞の船迫大雅。新人王から火消し役へ、背番号58の歩みと投球の特徴を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-18",
+      "updated": "2026-10-18",
+      "keywords": [
+        "船迫大雅",
+        "HIKESHI賞",
+        "巨人",
+        "2026年",
+        "中継ぎ",
+        "観戦メモ"
+      ],
+      "tags": [
+        "giants",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "選手・起用"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "スライダーの変化と奪三振率",
+        "走者を残した場面での起用",
+        "2027年も続く火消しの安定感"
+      ],
+      "nextPointLabels": [
+        "投球内容で注目する点",
+        "起用で注目する点",
+        "次のシーズンに期待する点"
       ],
       "search": true,
       "sitemap": true
