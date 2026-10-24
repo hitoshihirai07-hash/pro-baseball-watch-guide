@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-18",
+  "updated": "2026-10-24",
   "articles": [
     {
       "type": "watch-note",
@@ -3150,6 +3150,56 @@
         "投球内容で注目する点",
         "起用で注目する点",
         "次のシーズンに期待する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/hideki-matsui-giants-ob-focus",
+      "source": "watch-notes/hideki-matsui-giants-ob-focus.html",
+      "contentSource": "content/watch-notes/hideki-matsui-giants-ob-focus.json",
+      "slug": "hideki-matsui-giants-ob-focus",
+      "title": "【巨人OB】松井秀喜｜背番号55のゴジラ、日米507本塁打と24年ぶりの巨人復帰",
+      "listTitle": "【巨人OB】松井秀喜｜背番号55のゴジラ、日米507本塁打と24年ぶりの巨人復帰",
+      "description": "巨人の4番を担った松井秀喜。2002年の50本塁打、日米通算507本塁打、2009年ワールドシリーズMVP、2026年10月の背番号90での新監督就任までを振り返ります。",
+      "listDescription": "背番号55のゴジラ・松井秀喜。巨人時代の50本塁打、メジャー世界一、24年ぶりの巨人復帰を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-24",
+      "updated": "2026-10-24",
+      "keywords": [
+        "観戦メモ",
+        "巨人",
+        "巨人OB",
+        "松井秀喜",
+        "ゴジラ",
+        "背番号55",
+        "背番号90",
+        "507本塁打",
+        "新監督",
+        "2026年"
+      ],
+      "tags": [
+        "giants",
+        "player-usage",
+        "giants-ob"
+      ],
+      "badges": [
+        "巨人",
+        "巨人OB",
+        "松井秀喜"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "松井新監督が秋季練習でどのような指導方針を示すのか",
+        "石塚裕惺、藤井健翔、竹下徠空ら若手の成長",
+        "2027年の打線と次の中心打者の育成"
+      ],
+      "nextPointLabels": [
+        "新監督で注目する点",
+        "若手で注目する点",
+        "打線で注目する点"
       ],
       "search": true,
       "sitemap": true
