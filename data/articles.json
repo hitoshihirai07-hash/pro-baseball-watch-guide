@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-24",
+  "updated": "2026-10-28",
   "articles": [
     {
       "type": "watch-note",
@@ -3200,6 +3200,57 @@
         "新監督で注目する点",
         "若手で注目する点",
         "打線で注目する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-phoenix-league-2026-review",
+      "source": "watch-notes/giants-phoenix-league-2026-review.html",
+      "contentSource": "content/watch-notes/giants-phoenix-league-2026-review.json",
+      "slug": "giants-phoenix-league-2026-review",
+      "title": "【2026年フェニックス・リーグ総括】巨人が11勝3敗3分で優勝｜荒巻悠・平山功太ら若手の成長と来季への期待",
+      "listTitle": "【2026年フェニックス・リーグ総括】巨人が11勝3敗3分で優勝｜荒巻悠・平山功太ら若手の成長と来季への期待",
+      "description": "2026年みやざきフェニックス・リーグで巨人が11勝3敗3分で優勝。荒巻悠の打撃改良、平山功太のアピール、三塚琉生・竹下徠空の長打力、京本眞ら投手陣を振り返り、2027年に期待する変化を考えます。",
+      "listDescription": "巨人が11勝3敗3分で優勝した2026年フェニックス・リーグ。荒巻・平山ら若手の変化と投手陣の収穫を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-10-28",
+      "updated": "2026-10-28",
+      "keywords": [
+        "2026年フェニックスリーグ",
+        "みやざきフェニックスリーグ",
+        "巨人",
+        "巨人若手",
+        "荒巻悠",
+        "平山功太",
+        "三塚琉生",
+        "竹下徠空",
+        "京本眞",
+        "2027年",
+        "観戦メモ"
+      ],
+      "tags": [
+        "giants",
+        "season-review",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人",
+        "2026年総括",
+        "若手・育成"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "荒巻悠が打撃フォームの変化を春季キャンプでも継続できるか",
+        "平山功太が2027年の一軍外野手争いで存在感を示せるか",
+        "三塚・竹下の長打力と京本・木下らの復帰が次の段階につながるか"
+      ],
+      "nextPointLabels": [
+        "打撃の変化で注目する点",
+        "一軍争いで注目する選手",
+        "来季まで追いたい成長"
       ],
       "search": true,
       "sitemap": true
