@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-10-28",
+  "updated": "2026-11-03",
   "articles": [
     {
       "type": "watch-note",
@@ -3251,6 +3251,58 @@
         "打撃の変化で注目する点",
         "一軍争いで注目する選手",
         "来季まで追いたい成長"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/npb-career-milestones-2026-for-2027",
+      "source": "watch-notes/npb-career-milestones-2026-for-2027.html",
+      "contentSource": "content/watch-notes/npb-career-milestones-2026-for-2027.json",
+      "slug": "npb-career-milestones-2026-for-2027",
+      "title": "【2026年終了時点】プロ野球の節目の記録が近い選手は？通算成績から2027年の注目選手を考える",
+      "listTitle": "【2026年終了時点】プロ野球の節目の記録が近い選手は？通算成績から2027年の注目選手を考える",
+      "description": "2026年終了時点のNPB通算成績から2027年の節目記録に注目。坂本勇人の2500安打、丸佳浩・菊池涼介の2000安打、山﨑康晃の250セーブなど、残り数と出場機会を考えます。",
+      "listDescription": "坂本の2500安打、丸・菊池の2000安打、山﨑の250セーブなど、節目までの残り数と来季の出場機会を考える観戦メモ。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-03",
+      "updated": "2026-11-03",
+      "keywords": [
+        "2027年 プロ野球 節目の記録",
+        "2026年終了時点 通算成績",
+        "2000安打",
+        "2500安打",
+        "250セーブ",
+        "100勝",
+        "500本塁打",
+        "坂本勇人",
+        "丸佳浩",
+        "菊池涼介",
+        "山﨑康晃",
+        "Player Lens"
+      ],
+      "tags": [
+        "player-usage",
+        "other",
+        "milestone"
+      ],
+      "badges": [
+        "節目の記録",
+        "2027年展望",
+        "Player Lens"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "坂本勇人の2500安打、丸佳浩・菊池涼介の2000安打がどこまで近づくか",
+        "清宮幸太郎の100本塁打、中村剛也の500本塁打への歩みを追う",
+        "山﨑康晃の250セーブ、大瀬良大地の100勝など投手の役割を見ながら記録を追う"
+      ],
+      "nextPointLabels": [
+        "安打の節目",
+        "本塁打の節目",
+        "投手の節目"
       ],
       "search": true,
       "sitemap": true
