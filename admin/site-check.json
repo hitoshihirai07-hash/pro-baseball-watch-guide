@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-03T01:16:04.618Z",
+  "generatedAt": "2026-11-08T00:31:40.995Z",
   "status": "ok",
   "summary": {
-    "pages": 100,
-    "articles": 88,
-    "watchNotes": 42,
+    "pages": 101,
+    "articles": 89,
+    "watchNotes": 43,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "100ページの参照先を確認しました。",
+      "detail": "101ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "88件の記事データとHTMLを照合しました。",
+      "detail": "89件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "98ページの基本メタ情報を確認しました。",
+      "detail": "99ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "42件の観戦メモを確認しました。",
+      "detail": "43件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "88件の記事URLを確認しました。",
+      "detail": "89件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-phoenix-league-2026-reviewを表示しています。",
+      "detail": "/watch-notes/giants-schedule-2027-previewを表示しています。",
       "count": 0,
       "samples": []
     },

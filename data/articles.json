@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-03",
+  "updated": "2026-11-08",
   "articles": [
     {
       "type": "watch-note",
@@ -3303,6 +3303,53 @@
         "安打の節目",
         "本塁打の節目",
         "投手の節目"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-schedule-2027-preview",
+      "source": "watch-notes/giants-schedule-2027-preview.html",
+      "contentSource": "content/watch-notes/giants-schedule-2027-preview.json",
+      "slug": "giants-schedule-2027-preview",
+      "title": "【2027年プロ野球】巨人の試合日程が発表｜開幕戦・交流戦・注目カードから来季を考える",
+      "listTitle": "【2027年プロ野球】巨人の試合日程が発表｜開幕戦・交流戦・注目カードから来季を考える",
+      "description": "2027年巨人戦の日程を観戦目線で整理。3月26日の中日との開幕戦、阪神との序盤カード、交流戦6カード、地方開催と松井新体制の注目点を考えます。",
+      "listDescription": "2027年巨人戦の開幕戦・交流戦・地方開催と、松井新体制で注目したい起用や若手の成長を考えます。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-08",
+      "updated": "2026-11-08",
+      "keywords": [
+        "2027年 巨人 日程",
+        "巨人 開幕戦 2027",
+        "2027年 プロ野球 交流戦",
+        "巨人 2027 試合日程",
+        "松井秀喜 監督",
+        "巨人 地方開催 2027",
+        "2027年 プロ野球"
+      ],
+      "tags": [
+        "giants",
+        "player-usage",
+        "season-preview"
+      ],
+      "badges": [
+        "巨人",
+        "2027年日程",
+        "来季展望"
+      ],
+      "articleType": "チーム・起用・戦い方について感じたこと",
+      "nextPoints": [
+        "開幕3連戦の先発投手、打順、守備位置と松井新体制の特徴",
+        "交流戦のビジター6連戦で見たい打線・継投の組み立て",
+        "浦田・中山・石塚、荒巻・平山ら若手がいつ出場機会を得るか"
+      ],
+      "nextPointLabels": [
+        "開幕戦で注目する点",
+        "交流戦で注目する点",
+        "若手で注目する点"
       ],
       "search": true,
       "sitemap": true
