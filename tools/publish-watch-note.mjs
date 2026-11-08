@@ -112,11 +112,28 @@ function markdownToHtml(markdown) {
     listType = type;
   }
 
-  for (const rawLine of lines) {
-    const line = rawLine.trim();
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+    const line = lines[lineIndex].trim();
     if (!line) {
       flushParagraph();
       closeList();
+      continue;
+    }
+    if (/^\|.*\|$/.test(line) && /^\|[\s:|\-]+\|$/.test((lines[lineIndex + 1] || '').trim())) {
+      flushParagraph();
+      closeList();
+      const cells = (row) => row.trim().slice(1, -1).split('|').map((cell) => cell.trim());
+      const headers = cells(line);
+      const rows = [];
+      let nextIndex = lineIndex + 2;
+      while (nextIndex < lines.length && /^\|.*\|$/.test(lines[nextIndex].trim())) {
+        rows.push(cells(lines[nextIndex]));
+        nextIndex += 1;
+      }
+      const headerHtml = headers.map((cell) => '<th scope="col">' + inlineMarkdown(cell) + '</th>').join('');
+      const bodyHtml = rows.map((row) => '<tr>' + headers.map((_, index) => '<td>' + inlineMarkdown(row[index] || '') + '</td>').join('') + '</tr>').join('');
+      output.push('<div class="table-wrap"><table><thead><tr>' + headerHtml + '</tr></thead><tbody>' + bodyHtml + '</tbody></table></div>');
+      lineIndex = nextIndex - 1;
       continue;
     }
     const h2 = line.match(/^##\s+(.+)$/);
