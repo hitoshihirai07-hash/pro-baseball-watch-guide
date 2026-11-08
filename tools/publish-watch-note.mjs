@@ -119,14 +119,14 @@ function markdownToHtml(markdown) {
       closeList();
       continue;
     }
-    if (/^\\|.*\\|$/.test(line) && /^\\|[\\s:|\\-]+\\|$/.test((lines[lineIndex + 1] || '').trim())) {
+    if (/^\|.*\|$/.test(line) && /^\|[\s:|\-]+\|$/.test((lines[lineIndex + 1] || '').trim())) {
       flushParagraph();
       closeList();
       const cells = (row) => row.trim().slice(1, -1).split('|').map((cell) => cell.trim());
       const headers = cells(line);
       const rows = [];
       let nextIndex = lineIndex + 2;
-      while (nextIndex < lines.length && /^\\|.*\\|$/.test(lines[nextIndex].trim())) {
+      while (nextIndex < lines.length && /^\|.*\|$/.test(lines[nextIndex].trim())) {
         rows.push(cells(lines[nextIndex]));
         nextIndex += 1;
       }
