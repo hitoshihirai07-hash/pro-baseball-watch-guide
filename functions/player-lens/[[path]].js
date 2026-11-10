@@ -274,6 +274,7 @@ export async function onRequest(context) {
         "Accept-Language": request.headers.get("accept-language") || "ja,en;q=0.8",
         "Cache-Control": "no-cache",
         "User-Agent": request.headers.get("user-agent") || "Player-Lens-Proxy",
+        "X-Player-Lens-Proxy": "1",
       },
       cf: {
         cacheTtl: 0,
