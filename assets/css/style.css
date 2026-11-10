@@ -40,15 +40,18 @@
 /* Ensure filtered watch-note cards are never rendered. */
 .watch-note-list .article-card[hidden]{display:none!important}
 
-/* i-mobile: article-middle and article-bottom ad slots */
-.article-ad{margin:34px 0 30px;padding:18px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}
-.article-ad .ad-label{margin:0 auto 12px}
+/* i-mobile: suppress empty ad frames without hiding the ad script itself. */
+.article-ad{margin:0;padding:0;border:0;text-align:center}
+.article-ad .ad-label{display:none;margin:0 auto 12px}
+.article-ad noscript{display:none}
+.article-ad.has-visible-ad{margin:34px 0 30px;padding:18px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.article-ad.has-visible-ad .ad-label{display:block}
 .imobile-unit{max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:visible}
 .imobile-unit>script{display:none}
 .imobile-unit .microcopy{margin:auto}
-.article-ad--mid{margin:34px 0}
-.article-ad--end{margin-top:38px}
-@media (max-width:820px){.article-ad{margin-top:30px;padding-top:16px}}
+.article-ad--mid.has-visible-ad{margin:34px 0}
+.article-ad--end.has-visible-ad{margin-top:38px}
+@media (max-width:820px){.article-ad.has-visible-ad{margin-top:30px;padding-top:16px}}
 
 
 
