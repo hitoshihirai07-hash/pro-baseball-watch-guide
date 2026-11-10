@@ -27,6 +27,61 @@ if (!window.clarity) {
 
 document.documentElement.classList.add('js-enabled');
 
+// Keep i-mobile's scripts running, but show the "広告" label and frame only
+// when the ad service has inserted a visible creative.
+(function () {
+  function hasVisibleCreative(unit) {
+    var creatives = unit.querySelectorAll('iframe, img, picture, video, object, embed, a[href], [style*="background-image"]');
+    for (var i = 0; i < creatives.length; i += 1) {
+      var element = creatives[i];
+      if (element.tagName === 'IMG') {
+        if (!(element.currentSrc || element.getAttribute('src') || element.getAttribute('srcset'))) continue;
+        if (element.complete && element.naturalWidth === 0) continue;
+      }
+      var rect = element.getBoundingClientRect();
+      if (rect.width > 1 && rect.height > 1) return true;
+    }
+    // Some creatives render text or styled HTML without an image or iframe.
+    var visibleText = typeof unit.innerText === 'string' ? unit.innerText.trim() : '';
+    return visibleText.length > 0 && unit.getBoundingClientRect().height > 1;
+  }
+
+  function initializeAdSlots() {
+    document.querySelectorAll('.article-ad[data-ad-network="i-mobile"]').forEach(function (slot) {
+      var unit = slot.querySelector('.imobile-unit');
+      if (!unit) return;
+
+      function refresh() {
+        slot.classList.toggle('has-visible-ad', hasVisibleCreative(unit));
+      }
+
+      refresh();
+      if (window.MutationObserver) {
+        var observer = new window.MutationObserver(refresh);
+        observer.observe(unit, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+          attributes: true,
+          attributeFilter: ['src', 'srcset', 'style', 'class', 'width', 'height', 'href']
+        });
+      }
+      if (window.ResizeObserver) {
+        var resizeObserver = new window.ResizeObserver(refresh);
+        resizeObserver.observe(unit);
+      }
+      unit.addEventListener('load', refresh, true);
+      window.addEventListener('load', refresh, { once: true });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAdSlots);
+  } else {
+    initializeAdSlots();
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.site-footer .footer-grid > div:first-child').forEach(function (footerBlock) {
     if (footerBlock.querySelector('.site-ad-notice')) return;
