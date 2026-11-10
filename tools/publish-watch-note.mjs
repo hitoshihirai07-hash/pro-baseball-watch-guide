@@ -245,7 +245,8 @@ function pageHtml(note) {
     inLanguage: 'ja',
     mainEntityOfPage: canonical,
     isPartOf: { '@type': 'WebSite', name: 'プロ野球観戦メモ', url: SITE_URL + '/' },
-    author: { '@type': 'Organization', name: 'プロ野球観戦メモ' }
+    author: { '@type': 'Person', name: 'プロ野球観戦メモ管理人', url: SITE_URL + '/articles/admin-profile' },
+    publisher: { '@type': 'Organization', name: 'プロ野球観戦メモ', url: SITE_URL + '/' }
   }, null, 2).replaceAll('<', '\\u003c');
   const nextPointLabels = Array.isArray(note.nextPointLabels) && note.nextPointLabels.length === 3
     ? note.nextPointLabels

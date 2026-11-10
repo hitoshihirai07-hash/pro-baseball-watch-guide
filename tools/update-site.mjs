@@ -258,7 +258,7 @@ function generateSitemap(data) {
     { path: '/articles/', updated: data.updated },
     { path: '/watch-notes/', updated: latestNote?.updated || data.updated },
     { path: '/player-lens/', updated: data.updated },
-    { path: '/about', updated: '2026-07-02' },
+    { path: '/about', updated: '2026-11-10' },
     { path: '/contact', updated: '2026-09-08' },
     { path: '/disclaimer', updated: '2026-06-17' },
     { path: '/privacy', updated: '2026-09-08' }
