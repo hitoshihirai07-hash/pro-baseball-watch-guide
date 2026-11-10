@@ -27,23 +27,49 @@ if (!window.clarity) {
 
 document.documentElement.classList.add('js-enabled');
 
-// Keep i-mobile's scripts running, but show the "広告" label and frame only
-// when the ad service has inserted a visible creative.
+// Keep the i-mobile ad code active. Show the frame/label only for a rendered creative.
 (function () {
-  function hasVisibleCreative(unit) {
-    var creatives = unit.querySelectorAll('iframe, img, picture, video, object, embed, a[href], [style*="background-image"]');
-    for (var i = 0; i < creatives.length; i += 1) {
-      var element = creatives[i];
-      if (element.tagName === 'IMG') {
-        if (!(element.currentSrc || element.getAttribute('src') || element.getAttribute('srcset'))) continue;
-        if (element.complete && element.naturalWidth === 0) continue;
+  function isVisible(element) {
+    var rect = element.getBoundingClientRect();
+    if (rect.width < 24 || rect.height < 18) return false;
+    var style = window.getComputedStyle ? window.getComputedStyle(element) : null;
+    return !style || (style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0');
+  }
+
+  function iframeHasCreative(frame) {
+    try {
+      var doc = frame.contentDocument;
+      if (doc && doc.body) {
+        var text = (doc.body.innerText || doc.body.textContent || '').trim();
+        return !!text || !!doc.body.querySelector('img[src], svg, video, canvas, object, embed, iframe, [style*="background-image"]');
       }
-      var rect = element.getBoundingClientRect();
-      if (rect.width > 1 && rect.height > 1) return true;
+    } catch (error) {
+      // Cross-origin ads cannot be inspected; only accept a real iframe URL below.
     }
-    // Some creatives render text or styled HTML without an image or iframe.
-    var visibleText = typeof unit.innerText === 'string' ? unit.innerText.trim() : '';
-    return visibleText.length > 0 && unit.getBoundingClientRect().height > 1;
+    var url = frame.getAttribute('src') || '';
+    return /^https?:\/\//i.test(url) || /^\/\//.test(url);
+  }
+
+  function hasVisibleCreative(unit) {
+    var elements = unit.querySelectorAll('iframe, img, video, canvas, object, embed, svg, a[href], [style*="background-image"]');
+    for (var i = 0; i < elements.length; i += 1) {
+      var element = elements[i];
+      if (!isVisible(element)) continue;
+      if (element.tagName === 'IFRAME') {
+        if (iframeHasCreative(element)) return true;
+      } else if (element.tagName === 'IMG') {
+        if (element.complete && element.naturalWidth > 1) return true;
+      } else if (element.tagName === 'A') {
+        if ((element.innerText || element.textContent || '').trim()) return true;
+      } else {
+        return true;
+      }
+    }
+
+    // Text-only ads are valid; empty labels and tracking placeholders are not.
+    var text = typeof unit.innerText === 'string' ? unit.innerText.replace(/\s+/g, ' ').trim() : '';
+    return !!text && !/^(広告|PR|スポンサーリンク|Advertisement)$/i.test(text) &&
+      unit.getBoundingClientRect().height >= 18;
   }
 
   function initializeAdSlots() {
@@ -72,6 +98,7 @@ document.documentElement.classList.add('js-enabled');
       }
       unit.addEventListener('load', refresh, true);
       window.addEventListener('load', refresh, { once: true });
+      window.addEventListener('pageshow', refresh);
     });
   }
 

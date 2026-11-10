@@ -42,10 +42,10 @@
 
 /* i-mobile: suppress empty ad frames without hiding the ad script itself. */
 .article-ad{margin:0;padding:0;border:0;text-align:center}
-.article-ad .ad-label{display:none;margin:0 auto 12px}
+.article-ad .ad-label{display:none!important;margin:0 auto 12px}
 .article-ad noscript{display:none}
 .article-ad.has-visible-ad{margin:34px 0 30px;padding:18px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.article-ad.has-visible-ad .ad-label{display:block}
+.article-ad.has-visible-ad .ad-label{display:block!important}
 .imobile-unit{max-width:100%;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:visible}
 .imobile-unit>script{display:none}
 .imobile-unit .microcopy{margin:auto}
