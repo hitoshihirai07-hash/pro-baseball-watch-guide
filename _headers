@@ -13,3 +13,9 @@
 
 /content/*
   X-Robots-Tag: noindex, nofollow, noarchive
+
+/assets/css/style.css
+  Cache-Control: no-cache, must-revalidate
+
+/assets/js/main.js
+  Cache-Control: no-cache, must-revalidate
