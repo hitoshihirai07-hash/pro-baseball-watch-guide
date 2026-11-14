@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-12",
+  "updated": "2026-11-14",
   "articles": [
     {
       "type": "watch-note",
@@ -3359,6 +3359,101 @@
       "sitemap": true
     },
     {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-coaching-staff-2027-matsui",
+      "source": "watch-notes/giants-coaching-staff-2027-matsui.html",
+      "contentSource": "content/watch-notes/giants-coaching-staff-2027-matsui.json",
+      "slug": "giants-coaching-staff-2027-matsui",
+      "title": "【2027年巨人】松井秀喜新監督の首脳陣が決定｜高橋由伸・二岡智宏らの役割と新体制への期待",
+      "listTitle": "【2027年巨人】松井秀喜新監督の首脳陣が決定｜高橋由伸・二岡智宏らの役割と新体制への期待",
+      "description": "2027年巨人の首脳陣が決定。松井秀喜監督、高橋由伸ヘッド、二岡智宏打撃コーチら27名の役職一覧と、新ディレクター制度、若手育成への期待をまとめます。",
+      "listDescription": "松井秀喜新監督の一～三軍・巡回首脳陣27名とディレクター体制を整理。打線・守備・投手・若手育成の変化を考察します。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-12",
+      "updated": "2026-11-12",
+      "keywords": [
+        "2027年 巨人 首脳陣",
+        "巨人 コーチ 2027",
+        "松井秀喜 監督",
+        "高橋由伸 ヘッドコーチ",
+        "二岡智宏 打撃コーチ",
+        "巨人 ディレクター制度",
+        "巨人 コーチ一覧",
+        "巨人 2027 新体制"
+      ],
+      "tags": [
+        "giants",
+        "player-usage",
+        "season-preview"
+      ],
+      "badges": [
+        "巨人",
+        "2027年首脳陣",
+        "松井新体制"
+      ],
+      "articleType": "チーム・起用・戦い方について感じたこと",
+      "nextPoints": [
+        "松井監督と由伸ヘッドのもとで、打順と得点の取り方がどう変わるか",
+        "リチャード・中山・石塚らの成長と、一軍での起用",
+        "ディレクター制度を通じた一軍・ファームの指導のつながり"
+      ],
+      "nextPointLabels": [
+        "新体制で注目する点",
+        "打撃・若手で注目する点",
+        "育成で注目する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/giants-autumn-camp-2026-matsui-review",
+      "source": "watch-notes/giants-autumn-camp-2026-matsui-review.html",
+      "contentSource": "content/watch-notes/giants-autumn-camp-2026-matsui-review.json",
+      "slug": "giants-autumn-camp-2026-matsui-review",
+      "title": "【2026年巨人】松井秀喜新監督の秋季キャンプ総括｜若手育成と2027年への期待",
+      "listTitle": "【2026年巨人】松井秀喜新監督の秋季キャンプ総括｜若手育成と2027年への期待",
+      "description": "松井秀喜新監督の初の秋季キャンプを総括。個別練習や複数ポジションへの挑戦、石塚裕惺ら若手の存在感、新首脳陣の育成方針から2027年の巨人への期待を考えます。",
+      "listDescription": "松井秀喜新監督の秋季キャンプを振り返り、石塚裕惺らの取り組み、個別練習、新体制の指導と来春への期待をまとめました。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-14",
+      "updated": "2026-11-14",
+      "keywords": [
+        "巨人 秋季キャンプ 2026",
+        "松井秀喜 監督 秋季キャンプ",
+        "石塚裕惺 秋季キャンプ",
+        "ジャイアンツ 秋季キャンプ 総括",
+        "巨人 2027 若手育成",
+        "高橋由伸 清水隆行 二岡智宏",
+        "松井巨人 2027"
+      ],
+      "tags": [
+        "giants",
+        "season-review",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人",
+        "秋季キャンプ",
+        "総括"
+      ],
+      "articleType": "期間・シーズンの総括",
+      "nextPoints": [
+        "石塚裕惺が春季キャンプと実戦でどんな打撃を見せるか",
+        "中山礼都・リチャードら打線の中心候補が出場機会をどうつかむか",
+        "若手の複数ポジションへの挑戦と投手陣の体づくりの成果"
+      ],
+      "nextPointLabels": [
+        "打撃で注目する点",
+        "一軍の競争で注目する点",
+        "育成で注目する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
       "type": "recommendation",
       "path": "/articles/baseball-watching-useful-goods",
       "source": "articles/baseball-watching-useful-goods.html",
@@ -3484,54 +3579,6 @@
       "search": true,
       "sitemap": true,
       "order": 0
-    },
-    {
-      "type": "watch-note",
-      "path": "/watch-notes/giants-coaching-staff-2027-matsui",
-      "source": "watch-notes/giants-coaching-staff-2027-matsui.html",
-      "contentSource": "content/watch-notes/giants-coaching-staff-2027-matsui.json",
-      "slug": "giants-coaching-staff-2027-matsui",
-      "title": "【2027年巨人】松井秀喜新監督の首脳陣が決定｜高橋由伸・二岡智宏らの役割と新体制への期待",
-      "listTitle": "【2027年巨人】松井秀喜新監督の首脳陣が決定｜高橋由伸・二岡智宏らの役割と新体制への期待",
-      "description": "2027年巨人の首脳陣が決定。松井秀喜監督、高橋由伸ヘッド、二岡智宏打撃コーチら27名の役職一覧と、新ディレクター制度、若手育成への期待をまとめます。",
-      "listDescription": "松井秀喜新監督の一～三軍・巡回首脳陣27名とディレクター体制を整理。打線・守備・投手・若手育成の変化を考察します。",
-      "category": "観戦メモ",
-      "group": "watch-notes",
-      "published": "2026-11-12",
-      "updated": "2026-11-12",
-      "keywords": [
-        "2027年 巨人 首脳陣",
-        "巨人 コーチ 2027",
-        "松井秀喜 監督",
-        "高橋由伸 ヘッドコーチ",
-        "二岡智宏 打撃コーチ",
-        "巨人 ディレクター制度",
-        "巨人 コーチ一覧",
-        "巨人 2027 新体制"
-      ],
-      "tags": [
-        "giants",
-        "player-usage",
-        "season-preview"
-      ],
-      "badges": [
-        "巨人",
-        "2027年首脳陣",
-        "松井新体制"
-      ],
-      "articleType": "チーム・起用・戦い方について感じたこと",
-      "nextPoints": [
-        "松井監督と由伸ヘッドのもとで、打順と得点の取り方がどう変わるか",
-        "リチャード・中山・石塚らの成長と、一軍での起用",
-        "ディレクター制度を通じた一軍・ファームの指導のつながり"
-      ],
-      "nextPointLabels": [
-        "新体制で注目する点",
-        "打撃・若手で注目する点",
-        "育成で注目する点"
-      ],
-      "search": true,
-      "sitemap": true
     }
   ]
 }

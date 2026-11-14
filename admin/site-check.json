@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-10T12:37:38.540Z",
+  "generatedAt": "2026-11-14T10:00:09.440Z",
   "status": "ok",
   "summary": {
-    "pages": 101,
-    "articles": 89,
-    "watchNotes": 43,
+    "pages": 103,
+    "articles": 91,
+    "watchNotes": 45,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "101ページの参照先を確認しました。",
+      "detail": "103ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "89件の記事データとHTMLを照合しました。",
+      "detail": "91件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "99ページの基本メタ情報を確認しました。",
+      "detail": "101ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "43件の観戦メモを確認しました。",
+      "detail": "45件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "89件の記事URLを確認しました。",
+      "detail": "91件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-schedule-2027-previewを表示しています。",
+      "detail": "/watch-notes/giants-autumn-camp-2026-matsui-reviewを表示しています。",
       "count": 0,
       "samples": []
     },
