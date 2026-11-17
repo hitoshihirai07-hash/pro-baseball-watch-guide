@@ -21,24 +21,24 @@ const DEFAULT_NEXT_POINT_LABELS = [
   '登板状況を見たい投手'
 ];
 
-const ARTICLE_MID_AD_HTML = String.raw`<section class="article-ad article-ad--mid" aria-label="広告" data-ad-network="i-mobile" data-ad-position="article-mid">
+const ARTICLE_MID_AD_HTML = String.raw`<section class="article-ad article-ad--mid article-ad--adsense" aria-label="広告" data-ad-network="adsense" data-ad-position="article-mid">
 <p class="ad-label">広告</p>
-<div class="imobile-unit">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-7687416670736373"
+     data-ad-slot="7739664188"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
 <script>
-(function () {
-  var isMobile = navigator.userAgentData
-    ? navigator.userAgentData.mobile
-    : /iPhone|iPod|Android.*Mobile|Windows Phone|Mobi/i.test(navigator.userAgent);
-  document.write(isMobile ? "<div id=\"im-e9aed1a6051f4f2cbafa9c5fd2862842\">\n  <script async src=\"https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104\"><\/script>\n  <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595759,asid:1942266,type:\"banner\",display:\"inline\",elementid:\"im-e9aed1a6051f4f2cbafa9c5fd2862842\"})<\/script>\n</div>" : "<div id=\"im-6fdfa4d0df484b7a986cb00c4d040588\">\n  <script async src=\"https://imp-adedge.i-mobile.co.jp/script/v1/spot.js?20220104\"><\/script>\n  <script>(window.adsbyimobile=window.adsbyimobile||[]).push({pid:85320,mid:595661,asid:1942263,type:\"banner\",display:\"inline\",elementid:\"im-6fdfa4d0df484b7a986cb00c4d040588\"})<\/script>\n</div>");
-}());
+  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-<noscript><p class="microcopy">広告を表示するにはJavaScriptを有効にしてください。</p></noscript>
-</div>
 </section>`;
 
 function insertArticleMidAd(html) {
   const sectionEnds = [...html.matchAll(/<\/section>/g)];
-  if (sectionEnds.length < 2) return html;
+  // Short entries should not be interrupted by ads.
+  const textLength = html.replace(/<[^>]*>/g, '').replace(/\s/g, '').length;
+  if (sectionEnds.length < 4 || textLength < 1000) return html;
   const target = sectionEnds[Math.ceil(sectionEnds.length / 2) - 1];
   const insertAt = target.index + target[0].length;
   return html.slice(0, insertAt) + '\n' + ARTICLE_MID_AD_HTML + '\n' + html.slice(insertAt);
