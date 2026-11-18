@@ -36,13 +36,13 @@ function pemToArrayBuffer(pem) {
   return bytes.buffer;
 }
 
-async function serviceAccountAssertion(credentials, scope = ANALYTICS_SCOPE) {
+async function serviceAccountAssertion(credentials) {
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };
   if (credentials.private_key_id) header.kid = credentials.private_key_id;
   const payload = {
     iss: credentials.client_email,
-    scope,
+    scope: ANALYTICS_SCOPE,
     aud: TOKEN_ENDPOINT,
     iat: now,
     exp: now + 3600
@@ -70,8 +70,8 @@ function googleErrorDetail(payload, status) {
   return apiMessage || `HTTP ${status}`;
 }
 
-async function accessToken(credentials, scope = ANALYTICS_SCOPE) {
-  const assertion = await serviceAccountAssertion(credentials, scope);
+async function accessToken(credentials) {
+  const assertion = await serviceAccountAssertion(credentials);
   const body = new URLSearchParams({
     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
     assertion
@@ -284,12 +284,6 @@ async function optionalReport(section, task) {
   }
 }
 
-export async function accessTokenForScope(env, scope) {
- const service=serviceAccountFromEnv(env);
- if(!service.credentials?.client_email||!service.credentials?.private_key)
-   throw Error('GA4サービスアカウントが未設定です。');
- return accessToken(service.credentials,scope);
-}
 export async function onRequestGet({ env, request }) {
   const property = normalizePropertyId(env.GA4_PROPERTY_ID);
   const account = serviceAccountFromEnv(env);
@@ -312,7 +306,7 @@ export async function onRequestGet({ env, request }) {
 
   const propertyId = property.propertyId;
   const cache = cacheApi();
-  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-stage5-v3`);
+  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-overview-v4`);
   if (cache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
@@ -381,6 +375,73 @@ export async function onRequestGet({ env, request }) {
       }))
     ]);
 
+    // GA4に連携済みの検索・広告指標を、同じサービスアカウントで任意取得する。
+    // 連携レポートが一部非対応でも既存アクセス分析は維持する。
+    const searchMetrics = [
+      {name:'organicGoogleSearchClicks'},
+      {name:'organicGoogleSearchImpressions'},
+      {name:'organicGoogleSearchClickThroughRate'},
+      {name:'organicGoogleSearchAveragePosition'}
+    ];
+    const adMetrics = [
+      {name:'totalAdRevenue'},
+      {name:'publisherAdImpressions'},
+      {name:'publisherAdClicks'}
+    ];
+    const periods = [
+      {key:'7',dateRanges:[{startDate:'6daysAgo',endDate:'today'}]},
+      {key:'30',dateRanges:[{startDate:'29daysAgo',endDate:'today'}]},
+      {key:'90',dateRanges:[{startDate:'89daysAgo',endDate:'today'}]}
+    ];
+    const extraTasks = [];
+    for (const period of periods) {
+      for (const [kind, metrics] of [['search',searchMetrics],['ads',adMetrics]]) {
+        const section = kind+period.key;
+        extraTasks.push(optionalReport(section,runReport({
+          token,propertyId,label:'GA4 '+section,
+          body:{dateRanges:period.dateRanges,metrics}
+        })));
+      }
+    }
+    // 日別推移・自然検索ページは補助的な表としてのみ使用する。
+    extraTasks.push(optionalReport('searchDaily90',runReport({
+      token,propertyId,label:'GA4検索の日別',
+      body:{dateRanges:[{startDate:'89daysAgo',endDate:'today'}],dimensions:[{name:'date'}],metrics:searchMetrics,limit:100}
+    })));
+    extraTasks.push(optionalReport('adsDaily90',runReport({
+      token,propertyId,label:'GA4広告収益の日別',
+      body:{dateRanges:[{startDate:'89daysAgo',endDate:'today'}],dimensions:[{name:'date'}],metrics:adMetrics,limit:100}
+    })));
+    extraTasks.push(optionalReport('organicPages30',runReport({
+      token,propertyId,label:'GA4自然検索ランディングページ',
+      body:{
+        dateRanges:[{startDate:'29daysAgo',endDate:'today'}],
+        dimensions:[{name:'landingPage'}],
+        metrics:[{name:'sessions'},{name:'activeUsers'}],
+        dimensionFilter:{filter:{fieldName:'sessionDefaultChannelGroup',stringFilter:{matchType:'EXACT',value:'Organic Search'}}},
+        orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:15
+      }
+    })));
+    // 既存の3レポート取得後に開始し、同時リクエスト数を抑える。
+    const extra = await Promise.all(extraTasks);
+    const bySection = Object.fromEntries(extra.map(result=>[result.section,result]));
+    const extraRows = name => bySection[name]?.report ? rowsFromReport(bySection[name].report) : [];
+    const extraSummary = name => bySection[name]?.report ? (extraRows(name)[0] || null) : null;
+    const search = {
+      overview7:extraSummary('search7'),
+      overview30:extraSummary('search30'),
+      overview90:extraSummary('search90'),
+      daily90:extraRows('searchDaily90'),
+      pages30:extraRows('organicPages30'),
+      warnings:extra.filter(result=>result.section.startsWith('search') || result.section==='organicPages30').map(result=>result.warning).filter(Boolean)
+    };
+    const ads = {
+      overview7:extraSummary('ads7'),
+      overview30:extraSummary('ads30'),
+      overview90:extraSummary('ads90'),
+      daily90:extraRows('adsDaily90'),
+      warnings:extra.filter(result=>result.section.startsWith('ads')).map(result=>result.warning).filter(Boolean)
+    };
     const warnings = [overview7Result.warning, pagesResult.warning, sourcesResult.warning].filter(Boolean);
     const payload = {
       configured: true,
@@ -390,6 +451,8 @@ export async function onRequestGet({ env, request }) {
       overview30: overviewFromReport(overview30Report),
       pages30: pagesResult.report ? pagesFromReport(pagesResult.report) : [],
       sources30: sourcesResult.report ? rowsFromReport(sourcesResult.report) : [],
+      search,
+      ads,
       warnings
     };
     const response = json(payload, 200, `public, max-age=${CACHE_SECONDS}`);

@@ -53,7 +53,7 @@
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
-  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast","lastChecked","statusCf","statusGa","statusClarity","cfPeriod","gaPeriod","gaPeriodInfo","chartPeriod","cfPagesPeriod","articleSort","articleReset","evaluationSort","evaluationCount","evaluationDetail","evaluationTable","plErrorsOnly","plCount","gscDays","gscStatus","gscClicks","gscImpressions","gscCtr","gscPosition","gscDateRange","gscTrend","gscPages","adsDays","adsStatus","adsEarnings","adsViews","adsRpm","adsSite","adsTrend"].map((id)=>[id,document.getElementById(id)]));
+  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast","lastChecked","statusCf","statusGa","statusClarity","cfPeriod","gaPeriod","gaPeriodInfo","chartPeriod","cfPagesPeriod","articleSort","articleReset","evaluationSort","evaluationCount","evaluationDetail","evaluationTable","plErrorsOnly","plCount","gscDays","gscStatus","gscClicksLabel","gscClicks","gscImpressions","gscCtr","gscPosition","gscDateRange","gscTrend","gscPages","adsDays","adsStatus","adsEarnings","adsViews","adsRpm","adsSite","adsTrend"].map((id)=>[id,document.getElementById(id)]));
 
   let toastTimer = null;
 
@@ -164,57 +164,89 @@
     el.lastChecked.textContent='最終確認 '+new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'}).format(new Date());
   }
 
-  function jpMoney(amount,currency){
-    if(!currency||!Number.isFinite(Number(amount)))return '--';
-    try{return new Intl.NumberFormat('ja-JP',{style:'currency',currency,maximumFractionDigits:2}).format(Number(amount));}catch{return '--';}
+  function adMoney(value) {
+    if (value === null || value === undefined || !Number.isFinite(Number(value))) return '--';
+    return Number(value).toLocaleString('ja-JP',{maximumFractionDigits:2});
   }
-  function fillRows(target,items,toCells,cols){
+  function fillRows(target,items,toCells,cols) {
     target.replaceChildren();
-    if(!items.length){
+    if (!items.length) {
       const tr=document.createElement('tr'),td=document.createElement('td');
-      td.colSpan=cols;td.textContent='データがありません。';tr.append(td);target.append(tr);return;
+      td.colSpan=cols;td.textContent='表示できるデータがありません。';tr.append(td);target.append(tr);return;
     }
     items.forEach(item=>{
       const tr=document.createElement('tr');
-      toCells(item).forEach(cell=>{const td=document.createElement('td');td.textContent=String(cell);tr.append(td);});
+      toCells(item).forEach(cell=>{
+        const td=document.createElement('td');td.textContent=String(cell);tr.append(td);
+      });
       target.append(tr);
     });
   }
-  function googleFailure(prefix,message){
-    const ids=prefix==='gsc'?['gscClicks','gscImpressions','gscCtr','gscPosition']:['adsEarnings','adsViews','adsRpm'];
-    ids.forEach(id=>{el[id].textContent='--';});
-    el[prefix+'Status'].textContent=message;
-    el[prefix+'Status'].classList.add('is-error');
-    (prefix==='gsc'?['gscTrend','gscPages']:['adsTrend']).forEach(id=>el[id].replaceChildren());
+  function shortGaWarning(messages) {
+    if(!messages?.length) return '';
+    return '一部の指標はGA4から取得できませんでした。';
   }
-  async function loadGsc(){
-    el.gscStatus.textContent='検索分析を読み込み中';el.gscStatus.classList.remove('is-error');
-    try{
-      const data=await fetchJson('api/search-console?days='+encodeURIComponent(el.gscDays.value));
-      state.gsc=data;
-      el.gscStatus.textContent='Search Console：取得済み';
-      const s=data.summary;
-      el.gscClicks.textContent=s?formatNumber(s.clicks):'0';
-      el.gscImpressions.textContent=s?formatNumber(s.impressions):'0';
-      el.gscCtr.textContent=s?formatPercent(s.ctr):'--';
-      el.gscPosition.textContent=s?Number(s.position).toFixed(1):'--';
-      el.gscDateRange.textContent='対象期間：'+data.startDate+' ～ '+data.endDate+'（反映の遅延を考慮）';
-      fillRows(el.gscTrend,data.trend||[],x=>[x.date,formatNumber(x.clicks),formatNumber(x.impressions)],3);
-      fillRows(el.gscPages,data.pages||[],x=>[x.url,formatNumber(x.clicks),formatNumber(x.impressions),formatPercent(x.ctr)],4);
-    }catch(e){state.gsc=null;googleFailure('gsc','Search Console：'+e.message);}
+  function recentRows(items,days) {
+    // GA4のdateディメンションは YYYYMMDD 形式。空白日は除外して期間内のみ表示。
+    const now=new Date(); now.setUTCHours(0,0,0,0);now.setUTCDate(now.getUTCDate()-(days-1));
+    const cutoff=now.toISOString().slice(0,10).replace(/-/g,'');
+    return (items||[]).filter(item=>String(item.date||'')>=cutoff).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
   }
-  async function loadAdsense(){
-    el.adsStatus.textContent='広告収益を読み込み中';el.adsStatus.classList.remove('is-error');
-    try{
-      const data=await fetchJson('api/adsense?days='+encodeURIComponent(el.adsDays.value));
-      state.adsense=data;
-      el.adsStatus.textContent='AdSense：取得済み（野球サイト限定）';
-      el.adsEarnings.textContent=jpMoney(data.summary.earnings,data.currency);
-      el.adsViews.textContent=formatNumber(data.summary.views);
-      el.adsRpm.textContent=data.summary.rpm===null?'--':jpMoney(data.summary.rpm,data.currency);
-      el.adsSite.textContent='対象サイト：'+data.domain+' / 通貨：'+data.currency+' / 過去'+data.days+'日';
-      fillRows(el.adsTrend,data.trend||[],x=>[x.date,jpMoney(x.earnings,data.currency),formatNumber(x.views),jpMoney(x.rpm,data.currency)],4);
-    }catch(e){state.adsense=null;googleFailure('ads','AdSense：'+e.message);}
+  function renderGsc() {
+    const days=Number(el.gscDays.value),data=state.ga4;
+    const report=data?.search;
+    const s=report?.['overview'+days];
+    const organic=(data?.sources30||[]).find(row=>row.sessionDefaultChannelGroup==='Organic Search');
+    el.gscClicksLabel.textContent='検索クリック';
+    el.gscStatus.classList.remove('is-error');
+    el.gscClicks.textContent='--';
+    el.gscImpressions.textContent='--';
+    el.gscCtr.textContent='--';
+    el.gscPosition.textContent='--';
+    if(!data) {
+      el.gscStatus.textContent='GA4データを取得できていません。';
+      el.gscStatus.classList.add('is-error');
+    } else if(s) {
+      el.gscStatus.textContent='GA4のSearch Console連携指標を表示中';
+      el.gscClicks.textContent=formatNumber(s.organicGoogleSearchClicks);
+      el.gscImpressions.textContent=formatNumber(s.organicGoogleSearchImpressions);
+      el.gscCtr.textContent=formatPercent(s.organicGoogleSearchClickThroughRate);
+      el.gscPosition.textContent=Number(s.organicGoogleSearchAveragePosition).toFixed(1);
+    } else if(days===30&&organic) {
+      el.gscClicksLabel.textContent='自然検索セッション';
+      el.gscClicks.textContent=formatNumber(organic.sessions);
+      el.gscStatus.textContent='Search Console指標は未取得。GA4の自然検索流入を代わりに表示中';
+    } else {
+      el.gscStatus.textContent='検索指標を取得できませんでした。GA4との連携状況を公式画面で確認できます。';
+      el.gscStatus.classList.add('is-error');
+    }
+    const dates=recentRows(report?.daily90||[],days);
+    el.gscDateRange.textContent='GA4集計・過去'+days+'日。'+(shortGaWarning(report?.warnings)||'日別・ページ別の表示は取得可能な範囲です。');
+    fillRows(el.gscTrend,dates,x=>[String(x.date).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1/$2/$3'),formatNumber(x.organicGoogleSearchClicks),formatNumber(x.organicGoogleSearchImpressions)],3);
+    fillRows(el.gscPages,report?.pages30||[],x=>[x.landingPage||'/',formatNumber(x.sessions),formatNumber(x.activeUsers)],3);
+  }
+  function renderAdsense() {
+    const days=Number(el.adsDays.value),data=state.ga4,report=data?.ads;
+    const s=report?.['overview'+days];
+    el.adsStatus.classList.remove('is-error');
+    el.adsEarnings.textContent='--';
+    el.adsViews.textContent='--';
+    el.adsRpm.textContent='--';
+    if(!data) {
+      el.adsStatus.textContent='GA4データを取得できていません。';
+      el.adsStatus.classList.add('is-error');
+    } else if(s) {
+      el.adsStatus.textContent='GA4の広告指標を表示中';
+      el.adsEarnings.textContent=adMoney(s.totalAdRevenue);
+      el.adsViews.textContent=formatNumber(s.publisherAdImpressions);
+      el.adsRpm.textContent=formatNumber(s.publisherAdClicks);
+    } else {
+      el.adsStatus.textContent='GA4から広告収益指標を取得できませんでした。';
+      el.adsStatus.classList.add('is-error');
+    }
+    el.adsSite.textContent='GA4集計・過去'+days+'日／GA4設定通貨で表示（AdSense確定額ではありません）。'+shortGaWarning(report?.warnings);
+    const dates=recentRows(report?.daily90||[],days);
+    fillRows(el.adsTrend,dates,x=>[String(x.date).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1/$2/$3'),adMoney(x.totalAdRevenue),formatNumber(x.publisherAdImpressions),formatNumber(x.publisherAdClicks)],4);
   }
   function setupTabs() {
     $$('.workspace-tab').forEach(button => button.addEventListener('click', () => {
@@ -318,6 +350,8 @@
     try {
       state.ga4 = await fetchJson('api/ga4');
       renderGa4();
+      renderGsc();
+      renderAdsense();
     } catch (error) {
       state.ga4 = null;
       el.summaryGa4Users.textContent = '--';
@@ -325,6 +359,8 @@
       ['ga4Users','ga4Sessions','ga4Views','ga4EngagementRate'].forEach((id) => el[id].textContent = '--');
       renderTableMessage(el.ga4TopPages, 3, error.message);
       renderTableMessage(el.ga4Sources, 3, error.message);
+      renderGsc();
+      renderAdsense();
     }
   }
   function ga4Warning(section) {
@@ -812,7 +848,7 @@
       el.refreshAllButton.disabled = true;
       setNotice('データを取得しています。');
       try {
-        await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks(),loadGsc(),loadAdsense()]);
+        await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks()]);
         renderTodayActions();
         updateStatuses();
         showToast('取得状況を更新しました。');
@@ -822,8 +858,8 @@
       }
     });
     el.rerunHealthButton.addEventListener('click',runHealthChecks);
-    el.gscDays.addEventListener('change',loadGsc);
-    el.adsDays.addEventListener('change',loadAdsense);
+    el.gscDays.addEventListener('change',renderGsc);
+    el.adsDays.addEventListener('change',renderAdsense);
     el.cfPeriod.addEventListener('change',()=>{state.cfDays=Number(el.cfPeriod.value);if(state.cloudflare)renderCloudflare();});
     el.gaPeriod.addEventListener('change',()=>{state.gaDays=Number(el.gaPeriod.value);if(state.ga4)renderGa4();});
     $$('[data-content]').forEach(button=>button.addEventListener('click',()=>switchContent(button.dataset.content)));
@@ -844,7 +880,7 @@
   async function init() {
     setupTabs(); setupEvents();
     if(getLocalRecordsCount()>0) el.summaryLatestArticle.title=`端末内の保存記録 ${getLocalRecordsCount()}件`;
-    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks(),loadGsc(),loadAdsense()]);
+    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks()]);
     renderTodayActions();
     updateStatuses();
   }

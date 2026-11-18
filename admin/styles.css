@@ -255,3 +255,8 @@ body { min-width: 1100px; background: var(--bg); }
 .google-report td{overflow-wrap:anywhere;}
 .google-report>h3{margin-top:20px;}
 @media(max-width:1250px){.google-report-grid{grid-template-columns:1fr;}}
+
+/* GA4を共通取得元とする検索・収益概要 */
+.google-report .google-status {line-height:1.55;}
+.google-report .metric-grid strong {overflow-wrap:anywhere;}
+.google-report .small-note {line-height:1.6;}
