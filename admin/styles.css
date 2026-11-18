@@ -227,3 +227,26 @@ textarea { resize: vertical; line-height: 1.65; }
   .threads-search-results { grid-template-columns: 1fr; }
   .compact-control { width: 100%; justify-content: space-between; }
 }
+
+/* PC専用運営ダッシュボード */
+body { min-width: 1100px; background: var(--bg); }
+.admin-shell { display: grid; grid-template-columns: 230px minmax(0,1fr); max-width: 1680px; min-height: 100vh; margin: 0 auto; }
+.admin-sidebar { padding: 25px 14px; min-width: 0; background: #fffdfa; border-right: 1px solid var(--line); }
+.sidebar-brand { padding: 0 8px 18px; border-bottom: 1px solid var(--line); }
+.sidebar-label { margin: 25px 12px 10px; font-size: 12px; color: var(--muted); font-weight: 800; }
+.workspace-tabs { position: static; top: auto; display: flex; flex-direction: column; gap: 5px; margin: 0; padding: 0; border: 0; overflow: visible; border-radius: 0; background: transparent; backdrop-filter: none; }
+.workspace-tab { flex: none; padding: 12px 13px; text-align: left; border: 1px solid transparent; border-left: 3px solid transparent; font-size: 14px; font-weight: 750; color: #475569; background: transparent; }
+.workspace-tab:hover { background: var(--accent-soft); }
+.workspace-tab.is-active { color: #995010; background: var(--accent-soft); border-color: #f3dfca; border-left-color: var(--accent); box-shadow: none; }
+.sidebar-links a { display: block; padding: 10px 13px; text-decoration: none; color: #a45412; font-size: 13px; font-weight: 750; border-radius: 9px; }
+.sidebar-links a:hover { background: var(--accent-soft); }
+.page-shell { min-width: 0; max-width: none; margin: 0; padding: 26px 28px 48px; }
+.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.page-heading h1 { margin: 2px 0 5px; font-size: 25px; }
+.page-heading p:not(.eyebrow) { margin: 0; font-size: 13px; color: var(--muted); }
+.summary-strip { grid-template-columns: repeat(5,minmax(0,1fr)); margin: 0 0 14px; }
+.home-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.home-grid > .panel:last-child { grid-column: 1 / -1; }
+.content-stack { display: grid; gap: 14px; }
+.dashboard-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+@media(max-width:1250px) { .summary-strip { grid-template-columns:repeat(3,minmax(0,1fr)); } }

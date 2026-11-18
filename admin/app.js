@@ -15,19 +15,6 @@
     '期間・シーズン総括'
   ];
 
-  const TEAM_INFO = [
-    ['巨人', '読売ジャイアンツ', 'giants'], ['阪神', '阪神タイガース', 'tigers'], ['DeNA', '横浜DeNAベイスターズ', 'baystars'],
-    ['広島', '広島東洋カープ', 'carp'], ['ヤクルト', '東京ヤクルトスワローズ', 'swallows'], ['中日', '中日ドラゴンズ', 'dragons'],
-    ['ソフトバンク', '福岡ソフトバンクホークス', 'hawks'], ['日本ハム', '北海道日本ハムファイターズ', 'fighters'], ['オリックス', 'オリックス・バファローズ', 'buffaloes'],
-    ['ロッテ', '千葉ロッテマリーンズ', 'marines'], ['楽天', '東北楽天ゴールデンイーグルス', 'eagles'], ['西武', '埼玉西武ライオンズ', 'lions']
-  ];
-  const TEAM_ALIAS = new Map();
-  const TEAM_SLUG = new Map();
-  TEAM_INFO.forEach(([short, official, slug]) => {
-    [short, official].forEach((name) => TEAM_ALIAS.set(name, short));
-    TEAM_SLUG.set(short, slug);
-  });
-
   const PLAYER_LENS_FILES = [
     { label: '打者成績', path: '2026stats_batter.csv' },
     { label: '投手成績', path: '2026stats_pitcher.csv', dateFields: ['更新日'] },
@@ -57,22 +44,12 @@
     articles: [],
     playerLens: new Map(),
     playerLensReports: [],
-    articlePage: 1,
-    snsRows: [],
-    threads: null
+    articlePage: 1
   };
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
-  const el = Object.fromEntries([
-    'refreshAllButton','summaryCfPv','summaryCfVisits','summaryGa4Users','summaryGa4Sessions','summaryClaritySessions','summaryClarityIssues','summaryArticleCount','summaryLatestArticle','summaryPlayerLens','summaryPlayerLensDetail','pageNotice',
-    'cfPageViews','cfVisits','ga4Users','ga4Sessions','ga4Views','ga4EngagementRate','trafficChart','todayActions','siteHealth','rerunHealthButton','cfTopPages','ga4TopPages','ga4Sources','claritySessions','clarityRage','clarityDead','clarityScriptError','clarityStatus','recentArticles',
-    'evaluationSearch','evaluationFilter','evaluationSummary','evaluationRows',
-    'reloadPlayerLensButton','playerLensDataRows','playerLensHealth',
-    'xTeam','xTheme','xCount','xOutput','buildXButton','copyXButton','openXButton','xMessage','xImageCanvas','drawXImageButton','downloadXImageButton','xCandidates','snsDropZone','snsCsvFile','snsFileStatus','snsAnalysisPanel','clearSnsButton','snsSummary','snsCategoryRows','snsTopPosts','snsRecommendations',
-    'threadsTestButton','reloadThreadsButton','threadsLimit','threadsConnection','threadsStatusMessage','threadsSummary','threadsMetricNote','threadsTopPosts','threadsRankingMetric','threadsAccountMetrics','threadsWeekdayRows','threadsTimeRows','downloadThreadsCsvButton','downloadThreadsJsonButton','threadsSearchQuery','threadsSearchType','threadsSearchMode','threadsSearchButton','threadsSearchStatus','threadsSearchResults','threadsPostCount','threadsPostRows','summaryThreads','summaryThreadsDetail',
-    'watchNoteKinds','articleSearch','articleGroupFilter','articleStatusFilter','filteredCount','articleTableBody','paginationLabel','paginationButtons','toast'
-  ].map((id) => [id, document.getElementById(id)]));
+  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast"].map((id)=>[id,document.getElementById(id)]));
 
   let toastTimer = null;
 
@@ -109,10 +86,6 @@
   function setNotice(message = '') {
     el.pageNotice.hidden = !message;
     el.pageNotice.textContent = message;
-  }
-  function normalizeTeam(value) {
-    const text = String(value || '').trim();
-    return TEAM_ALIAS.get(text) || text;
   }
   function normalizePath(value) {
     if (!value) return '/';
@@ -163,18 +136,21 @@
   }
 
   function setupTabs() {
-    $$('.workspace-tab').forEach((button) => button.addEventListener('click', () => {
+    $('.workspace-tab').forEach(button => button.addEventListener('click', () => {
       const target = button.dataset.tab;
-      $$('.workspace-tab').forEach((item) => {
+      $('.workspace-tab').forEach(item => {
         const active = item === button;
         item.classList.toggle('is-active', active);
         item.setAttribute('aria-pressed', String(active));
       });
-      $$('.tab-panel').forEach((panel) => {
+      $('.tab-panel').forEach(panel => {
         const active = panel.dataset.panel === target;
         panel.hidden = !active;
         panel.classList.toggle('is-active', active);
       });
+      el.sectionTitle.textContent = button.dataset.title || button.textContent;
+      el.sectionDesc.textContent = button.dataset.desc || '';
+      window.scrollTo(0, 0);
     }));
   }
 
@@ -644,8 +620,6 @@
     }));
     state.playerLensReports = reports;
     renderPlayerLensReports();
-    renderXTeamOptions();
-    renderXCandidates();
   }
   function latestDate(rows, fields) {
     let latest='';
@@ -704,768 +678,37 @@
     });
   }
 
-  function renderXTeamOptions() {
-    const current=el.xTeam.value;
-    el.xTeam.innerHTML='<option value="all">全体</option>' + TEAM_INFO.map(([short])=>`<option value="${short}">${short}</option>`).join('');
-    if ([...el.xTeam.options].some((option)=>option.value===current)) el.xTeam.value=current;
-  }
-  function playerRows(path, team='all') {
-    const rows=state.playerLens.get(path)||[];
-    if(team==='all') return rows;
-    return rows.filter((row)=>normalizeTeam(pick(row,['チーム','球団名','球団']))===team);
-  }
-  function validPlayerName(row) { return String(pick(row,['選手名','選手'])||'').trim(); }
-  function buildXText() {
-    const team=el.xTeam.value, theme=el.xTheme.value, count=Number(el.xCount.value)||5;
-    let rows=[], title='', lines=[];
-    if(theme==='batter') {
-      rows=playerRows('2026stats_batter.csv',team).filter((row)=>validPlayerName(row) && numberValue(row['打席'])>=20).sort((a,b)=>numberValue(b.OPS)-numberValue(a.OPS)).slice(0,count);
-      title=`${team==='all'?'NPB':team} 打者OPS`; lines=rows.map((row,i)=>`${i+1}. ${validPlayerName(row)} OPS ${pick(row,['OPS'])||'-'} / 打率 ${pick(row,['打率'])||'-'} / ${pick(row,['本塁打'])||0}HR`);
-    } else if(theme==='pitcher') {
-      rows=playerRows('2026stats_pitcher.csv',team).filter((row)=>validPlayerName(row) && numberValue(row['投球回(アウト)'])>=15).sort((a,b)=>numberValue(a['防御率'])-numberValue(b['防御率'])).slice(0,count);
-      title=`${team==='all'?'NPB':team} 投手防御率`; lines=rows.map((row,i)=>`${i+1}. ${validPlayerName(row)} 防御率 ${pick(row,['防御率'])||'-'} / ${pick(row,['勝'])||0}勝 / ${pick(row,['奪三振'])||0}K`);
-    } else if(theme==='recent-batter') {
-      rows=playerRows('recent_batter_6days.csv',team).filter((row)=>validPlayerName(row) && numberValue(row['打席'])>=8).sort((a,b)=>numberValue(b['打率'])-numberValue(a['打率'])).slice(0,count);
-      title=`${team==='all'?'NPB':team} 直近6試合 野手`; lines=rows.map((row,i)=>`${i+1}. ${validPlayerName(row)} 打率 ${pick(row,['打率'])||'-'} / ${pick(row,['安打'])||0}安打 / ${pick(row,['本塁打'])||0}HR`);
-    } else if(theme==='recent-pitcher') {
-      rows=playerRows('recent_pitcher_6days.csv',team).filter((row)=>validPlayerName(row) && numberValue(row['登板'])>0).sort((a,b)=>numberValue(a['防御率'])-numberValue(b['防御率'])).slice(0,count);
-      title=`${team==='all'?'NPB':team} 直近6試合 投手`; lines=rows.map((row,i)=>`${i+1}. ${validPlayerName(row)} 防御率 ${pick(row,['防御率'])||'-'} / ${pick(row,['登板'])||0}登板 / ${pick(row,['奪三振'])||0}K`);
-    } else {
-      rows=playerRows('npb_standings.csv',team).sort((a,b)=>numberValue(a['順位'])-numberValue(b['順位']));
-      if(team==='all') rows=(state.playerLens.get('npb_standings.csv')||[]).sort((a,b)=>String(a['リーグ']).localeCompare(String(b['リーグ']))||numberValue(a['順位'])-numberValue(b['順位']));
-      title=`${team==='all'?'NPB':team} 順位・残り試合`; lines=rows.slice(0,team==='all'?12:1).map((row)=>`${pick(row,['リーグ'])||''} ${pick(row,['順位'])||'-'}位 ${pick(row,['球団'])||'-'} ${pick(row,['勝利'])||0}勝${pick(row,['敗戦'])||0}敗 残り${pick(row,['残り試合'])||0}`);
-    }
-    if(!lines.length) return '条件に合うデータがありません。';
-    const slug=team!=='all'?TEAM_SLUG.get(team):'';
-    const link=slug?`https://pro-baseball-watch-guide.com/player-lens/teams/${slug}`:'https://pro-baseball-watch-guide.com/player-lens/';
-    return `【Player Lens｜${title}】\n${lines.join('\n')}\n\n${link}\n#プロ野球`;
-  }
-  function renderXCandidates() {
-    const standings=state.playerLens.get('npb_standings.csv')||[];
-    const giants=standings.find((row)=>normalizeTeam(row['球団'])==='巨人');
-    const batters=playerRows('recent_batter_6days.csv','巨人').filter((row)=>numberValue(row['打席'])>=8).sort((a,b)=>numberValue(b['打率'])-numberValue(a['打率'])).slice(0,2);
-    const pitchers=playerRows('recent_pitcher_6days.csv','巨人').filter((row)=>numberValue(row['登板'])>0).sort((a,b)=>numberValue(a['防御率'])-numberValue(b['防御率'])).slice(0,2);
-    const candidates=[];
-    if(giants) candidates.push(['順位・残り試合',`巨人 ${giants['順位']}位・残り${giants['残り試合']}試合`,'standings']);
-    batters.forEach((row)=>candidates.push(['直近好調野手',`${row['選手名']} 打率${row['打率']}`,'recent-batter']));
-    pitchers.forEach((row)=>candidates.push(['直近投手',`${row['選手名']} 防御率${row['防御率']}`,'recent-pitcher']));
-    el.xCandidates.replaceChildren();
-    if(!candidates.length){el.xCandidates.innerHTML='<p class="loading-row">候補を作れるデータがありません。</p>';return;}
-    candidates.slice(0,5).forEach(([label,detail,theme])=>{
-      const button=document.createElement('button'); button.type='button'; button.className='compact-item'; button.innerHTML='<span><strong></strong><small></small></span><b>使う</b>'; button.querySelector('strong').textContent=label; button.querySelector('small').textContent=detail;
-      button.addEventListener('click',()=>{el.xTeam.value='巨人';el.xTheme.value=theme;el.xOutput.value=buildXText();updateXMessage();}); el.xCandidates.append(button);
-    });
-  }
-  function updateXMessage(message='') {
-    const length=[...el.xOutput.value].length;
-    el.xMessage.textContent=message || `${length}文字${length>280?'（280文字を超えています。編集してください）':''}`;
-    el.xMessage.classList.toggle('error-note',length>280);
-  }
-
-  function drawXImage() {
-    const canvas = el.xImageCanvas;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const lines = el.xOutput.value.split(/\r?\n/).map((line)=>line.trim()).filter(Boolean);
-    const title = lines[0] || 'Player Lens';
-    const body = lines.filter((line)=>!/^https?:\/\//.test(line) && !/^#/.test(line)).slice(1,7);
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = '#fffaf4'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = '#f08a24'; ctx.fillRect(0,0,canvas.width,18);
-    ctx.fillStyle = '#1f2937'; ctx.font = '700 34px sans-serif'; ctx.fillText('Player Lens',64,86);
-    ctx.fillStyle = '#687386'; ctx.font = '500 22px sans-serif'; ctx.fillText('プロ野球観戦メモ / データ投稿',64,122);
-    ctx.fillStyle = '#1f2937'; ctx.font = '800 40px sans-serif';
-    wrapCanvasText(ctx,title,64,196,1060,52,2);
-    let y = 315;
-    ctx.font = '700 30px sans-serif';
-    body.forEach((line,index)=>{
-      ctx.fillStyle = index % 2 === 0 ? '#ffffff' : '#fff3e6';
-      ctx.beginPath(); ctx.roundRect(64,y-36,1072,60,12); ctx.fill();
-      ctx.fillStyle = '#263142'; ctx.fillText(line.slice(0,58),88,y+3); y += 72;
-    });
-    ctx.fillStyle = '#f08a24'; ctx.fillRect(64,610,1072,2);
-    ctx.fillStyle = '#687386'; ctx.font = '600 20px sans-serif'; ctx.fillText('pro-baseball-watch-guide.com/player-lens/',64,646);
-  }
-
-  function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines=2) {
-    const chars = [...String(text || '')];
-    let line = '', count = 0;
-    for (const char of chars) {
-      const test = line + char;
-      if (ctx.measureText(test).width > maxWidth && line) {
-        ctx.fillText(line,x,y + count*lineHeight); count += 1; line = char;
-        if (count >= maxLines) return;
-      } else line = test;
-    }
-    if (line && count < maxLines) ctx.fillText(line,x,y + count*lineHeight);
-  }
-
-  function downloadXImage() {
-    drawXImage();
-    const link = document.createElement('a');
-    link.download = `player-lens-x-${new Date().toISOString().slice(0,10)}.png`;
-    link.href = el.xImageCanvas.toDataURL('image/png');
-    link.click();
-  }
-
-  function classifyPost(text) {
-    const value=String(text||'');
-    if(/おはよう|こんにちは|こんばんは/.test(value)) return '朝・挨拶';
-    if(/Player Lens|プロ野球観戦メモ|サイト|ブログ|記事|プロフのリンク/i.test(value)) return 'サイト紹介';
-    if(/予想|見込み|先発予想|スタメン予想|明日|カード/.test(value)) return '予想・展望';
-    if(/試合終了|うさほー|勝ち越し|連勝|連敗|振り返り|総括|勝利|敗戦/.test(value)) return '試合結果・振り返り';
-    if(/退場|登録抹消|昇格|降格|公示|速報|途中経過|同点|逆転/.test(value)) return '試合中・速報';
-    if(/打率|防御率|OPS|得点圏|QS|HQS|連続|打席|投球|本塁打|HR|盗塁|順位|首位|勝率|データ/i.test(value)) return 'データ・記録';
-    return 'その他';
-  }
-  function median(values) {
-    const sorted=values.filter(Number.isFinite).sort((a,b)=>a-b); if(!sorted.length)return 0; const m=Math.floor(sorted.length/2); return sorted.length%2?sorted[m]:(sorted[m-1]+sorted[m])/2;
-  }
-  function analyzeSnsRows(rows) {
-    return rows.map((row,index)=>{
-      const impressions=numberValue(row['インプレッション数']); const engagement=numberValue(row['エンゲージメント']);
-      const url=numberValue(row['URLのクリック数']); const profile=numberValue(row['プロフィールへのアクセス数']);
-      return {index,date:String(row['日付']||''),body:String(row['ポスト本文']||'').trim(),link:String(row['ポストのリンク']||''),category:classifyPost(row['ポスト本文']),impressions,engagement,url,profile,engagementRate:impressions?engagement/impressions*100:0};
-    }).filter((row)=>row.body);
-  }
-  function renderSnsAnalysis() {
-    const rows=state.snsRows; if(!rows.length){el.snsAnalysisPanel.hidden=true;return;}
-    el.snsAnalysisPanel.hidden=false;
-    const sum=(key)=>rows.reduce((total,row)=>total+(row[key]||0),0); const impressions=sum('impressions'), engagement=sum('engagement');
-    const cards=[['投稿数',rows.length],['総imp',impressions],['中央値imp',median(rows.map((row)=>row.impressions))],['反応率',impressions?`${(engagement/impressions*100).toFixed(1)}%`:'0%'],['URLクリック',sum('url')],['プロフィール',sum('profile')]];
-    el.snsSummary.innerHTML=cards.map(([label,value])=>`<article><span>${label}</span><strong>${typeof value==='number'?formatNumber(value):value}</strong></article>`).join('');
-    const groups=new Map(); rows.forEach((row)=>{if(!groups.has(row.category))groups.set(row.category,[]);groups.get(row.category).push(row);});
-    el.snsCategoryRows.replaceChildren();
-    [...groups.entries()].sort((a,b)=>b[1].length-a[1].length).forEach(([category,items])=>{
-      const imp=items.reduce((s,r)=>s+r.impressions,0), eng=items.reduce((s,r)=>s+r.engagement,0), url=items.reduce((s,r)=>s+r.url,0);
-      const tr=document.createElement('tr'); tr.innerHTML=`<td></td><td>${items.length}</td><td>${formatNumber(median(items.map((r)=>r.impressions)))}</td><td>${imp?(eng/imp*100).toFixed(1):'0.0'}%</td><td>${formatNumber(url)}</td>`; tr.children[0].textContent=category; el.snsCategoryRows.append(tr);
-    });
-    el.snsTopPosts.replaceChildren();
-    [...rows].sort((a,b)=>b.impressions-a.impressions).slice(0,5).forEach((row,index)=>{
-      const div=document.createElement('article');div.className='post-item';div.innerHTML=`<header><strong>#${index+1} ${formatNumber(row.impressions)} imp</strong><small></small></header><p></p>`;div.querySelector('small').textContent=`${row.category} / 反応率${row.engagementRate.toFixed(1)}%`;div.querySelector('p').textContent=row.body;el.snsTopPosts.append(div);
-    });
-    const groupStats=[...groups.entries()].filter(([,items])=>items.length>=2).map(([category,items])=>({category,items,median:median(items.map((r)=>r.impressions)),rate:items.reduce((s,r)=>s+r.impressions,0)?items.reduce((s,r)=>s+r.engagement,0)/items.reduce((s,r)=>s+r.impressions,0)*100:0,url:items.reduce((s,r)=>s+r.url,0)}));
-    el.snsRecommendations.replaceChildren();
-    if(groupStats.length){
-      const reach=[...groupStats].sort((a,b)=>b.median-a.median)[0], reaction=[...groupStats].sort((a,b)=>b.rate-a.rate)[0], traffic=[...groupStats].sort((a,b)=>b.url-a.url)[0];
-      [['リーチを狙うなら',`${reach.category}：中央値${formatNumber(reach.median)}imp`],['反応を狙うなら',`${reaction.category}：反応率${reaction.rate.toFixed(1)}%`],['サイト誘導',traffic.url?`${traffic.category}：URLクリック${formatNumber(traffic.url)}件`:'URLクリック実績を増やして比較']].forEach(([title,body])=>{const div=document.createElement('article');div.className='recommendation';div.innerHTML='<strong></strong><p></p>';div.querySelector('strong').textContent=title;div.querySelector('p').textContent=body;el.snsRecommendations.append(div);});
-    }
-  }
-  async function handleSnsFile(file) {
-    if(!file) return;
-    try {
-      const text=await file.text(); const rows=parseCsv(text); const headers=Object.keys(rows[0]||{}); const required=['日付','ポスト本文','インプレッション数','エンゲージメント']; const missing=required.filter((key)=>!headers.includes(key));
-      if(missing.length) throw new Error(`必要な列がありません：${missing.join('、')}`);
-      state.snsRows=analyzeSnsRows(rows); el.snsFileStatus.textContent=`${file.name} / ${state.snsRows.length}投稿を読み込みました。`; renderSnsAnalysis();
-    } catch(error){state.snsRows=[];el.snsFileStatus.textContent=error.message;el.snsFileStatus.classList.add('error-note');renderSnsAnalysis();}
-  }
-
-  function threadsDateParts(value) {
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return null;
-    const formatter = new Intl.DateTimeFormat('ja-JP', {
-      timeZone: 'Asia/Tokyo',
-      year: 'numeric', month: '2-digit', day: '2-digit',
-      weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
-    });
-    const parts = Object.fromEntries(formatter.formatToParts(date).map((part) => [part.type, part.value]));
-    return {
-      date,
-      year: parts.year || '',
-      month: parts.month || '',
-      day: parts.day || '',
-      weekday: parts.weekday || '',
-      hour: Number(parts.hour),
-      minute: Number(parts.minute),
-      dateText: `${parts.year || ''}-${parts.month || ''}-${parts.day || ''}`,
-      dateTimeText: `${parts.year || ''}-${parts.month || ''}-${parts.day || ''} ${parts.hour || ''}:${parts.minute || ''}`
-    };
-  }
-
-  function formatThreadsDate(value) {
-    const parts = threadsDateParts(value);
-    return parts ? `${Number(parts.month)}/${Number(parts.day)} ${String(parts.hour).padStart(2,'0')}:${String(parts.minute).padStart(2,'0')}` : String(value || '--');
-  }
-
-  function threadTimeBand(hour) {
-    if (!Number.isFinite(hour)) return '不明';
-    if (hour <= 5) return '深夜 0–5時';
-    if (hour <= 10) return '朝 6–10時';
-    if (hour <= 14) return '昼 11–14時';
-    if (hour <= 18) return '夕方 15–18時';
-    return '夜 19–23時';
-  }
-
-  function threadInsight(post, name) {
-    const value = Number(post?.insights?.[name]);
-    return Number.isFinite(value) ? value : null;
-  }
-
-  function threadTotalReactions(post) {
-    if (!post?.insights) return null;
-    return ['likes','replies','reposts','quotes','shares'].reduce((sum, name) => sum + (threadInsight(post, name) || 0), 0);
-  }
-
-  function threadReactionRate(post) {
-    const views = threadInsight(post, 'views');
-    const reactions = threadTotalReactions(post);
-    if (!views || reactions === null) return null;
-    return reactions / views * 100;
-  }
-
-  function threadAnalysisRow(post) {
-    const parts = threadsDateParts(post.timestamp);
-    const views = threadInsight(post, 'views');
-    const likes = threadInsight(post, 'likes');
-    const replies = threadInsight(post, 'replies');
-    const reposts = threadInsight(post, 'reposts');
-    const quotes = threadInsight(post, 'quotes');
-    const shares = threadInsight(post, 'shares');
-    const reactions = threadTotalReactions(post);
-    const rate = threadReactionRate(post);
-    return {
-      post,
-      dateTime: parts?.dateTimeText || String(post.timestamp || ''),
-      weekday: parts?.weekday || '不明',
-      hour: Number.isFinite(parts?.hour) ? parts.hour : null,
-      timeBand: threadTimeBand(parts?.hour),
-      views, likes, replies, reposts, quotes, shares, reactions, rate,
-      textLength: [...String(post.text || '')].length
-    };
-  }
-
-  function summarizeThreadRows(rows) {
-    const safeRows = rows.filter((row) => row.views !== null);
-    const total = (key) => safeRows.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
-    const views = total('views');
-    const reactions = total('reactions');
-    const count = safeRows.length;
-    return {
-      count,
-      views,
-      likes: total('likes'),
-      replies: total('replies'),
-      reposts: total('reposts'),
-      quotes: total('quotes'),
-      shares: total('shares'),
-      reactions,
-      avgViews: count ? views / count : 0,
-      avgLikes: count ? total('likes') / count : 0,
-      avgReplies: count ? total('replies') / count : 0,
-      avgReactions: count ? reactions / count : 0,
-      rate: views ? reactions / views * 100 : null
-    };
-  }
-
-  function groupThreadRows(rows, key, order = []) {
-    const map = new Map();
-    rows.filter((row) => row.views !== null).forEach((row) => {
-      const value = row[key] || '不明';
-      if (!map.has(value)) map.set(value, []);
-      map.get(value).push(row);
-    });
-    const keys = [...map.keys()].sort((a, b) => {
-      const ai = order.indexOf(a);
-      const bi = order.indexOf(b);
-      if (ai !== -1 || bi !== -1) return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-      return String(a).localeCompare(String(b), 'ja');
-    });
-    return keys.map((label) => ({ label, ...summarizeThreadRows(map.get(label)) }));
-  }
-
-  function buildThreadsAnalysis(posts) {
-    const rows = posts.map(threadAnalysisRow);
-    const analyzable = rows.filter((row) => row.views !== null);
-    const summary = summarizeThreadRows(analyzable);
-    const weekdays = groupThreadRows(analyzable, 'weekday', ['月','火','水','木','金','土','日']);
-    const timeBands = groupThreadRows(analyzable, 'timeBand', ['深夜 0–5時','朝 6–10時','昼 11–14時','夕方 15–18時','夜 19–23時']);
-    const top = {
-      views: [...analyzable].sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,5),
-      likes: [...analyzable].sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,5),
-      replies: [...analyzable].sort((a,b)=>(b.replies||0)-(a.replies||0)).slice(0,5),
-      rate: [...analyzable].filter((row)=>(row.views||0)>=100 && row.rate !== null).sort((a,b)=>(b.rate||0)-(a.rate||0)).slice(0,5)
-    };
-    return { rows, analyzable, summary, weekdays, timeBands, top };
-  }
-
-  function setThreadsConnectionCards(cards) {
-    el.threadsConnection.replaceChildren();
-    cards.forEach(({ label, value, note }) => {
-      const article = document.createElement('article');
-      const span = document.createElement('span');
-      const strong = document.createElement('strong');
-      const small = document.createElement('small');
-      span.textContent = label;
-      strong.textContent = value;
-      small.textContent = note;
-      article.append(span, strong, small);
-      el.threadsConnection.append(article);
-    });
-  }
-
-  function renderThreadsConnection(data, statusOnly = false) {
-    const profile = data?.profile || {};
-    const insightLabel = statusOnly
-      ? '未確認'
-      : (data?.insightsAvailable === false ? '一部取得不可' : '利用可能');
-    const insightNote = statusOnly
-      ? '投稿分析は「データ更新」で確認'
-      : (data?.insightsAvailable === false ? 'threads_manage_insights 権限を確認' : '投稿ごとのインサイト取得成功');
-    setThreadsConnectionCards([
-      { label: '接続状態', value: '接続済み', note: 'Cloudflare経由でThreads APIへ接続' },
-      { label: 'アカウント', value: profile.username ? `@${profile.username}` : (profile.name || '--'), note: profile.name || 'プロフィール取得成功' },
-      { label: '分析権限', value: insightLabel, note: insightNote }
-    ]);
-    el.threadsStatusMessage.classList.remove('error-note');
-    const warnings = Array.isArray(data?.warnings) ? data.warnings.filter(Boolean) : [];
-    el.threadsStatusMessage.textContent = warnings.length ? warnings.join(' ') : (data?.message || 'Threads APIへ接続できました。');
-    el.summaryThreads.textContent = profile.username ? `@${profile.username}` : '接続済み';
-    el.summaryThreadsDetail.textContent = statusOnly ? 'API接続OK' : `${data?.posts?.length || 0}投稿を取得`;
-  }
-
-  function clearThreadsAnalysis(message = '投稿分析を取得できません。') {
-    el.threadsSummary.innerHTML = [
-      ['平均表示','--','1投稿あたり'],['平均いいね','--','1投稿あたり'],['平均返信','--','1投稿あたり'],
-      ['総反応','--','取得投稿'],['全体反応率','--','総反応÷総表示'],['分析投稿','--','取得件数']
-    ].map(([label,value,note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join('');
-    el.threadsMetricNote.textContent = message;
-    el.threadsTopPosts.innerHTML = '<p class="loading-row">投稿分析を取得できません。</p>';
-    el.threadsAccountMetrics.innerHTML = '<p class="loading-row">アカウント指標を取得できません。</p>';
-    el.threadsWeekdayRows.innerHTML = '<tr><td colspan="5" class="empty-state">分析データがありません。</td></tr>';
-    el.threadsTimeRows.innerHTML = '<tr><td colspan="5" class="empty-state">分析データがありません。</td></tr>';
-    el.downloadThreadsCsvButton.disabled = true;
-    el.downloadThreadsJsonButton.disabled = true;
-  }
-
-  function renderThreadsError(error) {
-    const message = error?.message || 'Threads APIを取得できませんでした。';
-    const needsSecret = message.includes('THREADS_ACCESS_TOKEN');
-    state.threads = null;
-    setThreadsConnectionCards([
-      { label: '接続状態', value: needsSecret ? '未設定' : 'エラー', note: needsSecret ? 'Cloudflareにシークレットを登録してください' : 'アクセストークンまたはAPI状態を確認' },
-      { label: 'アカウント', value: '--', note: 'プロフィールを取得できません' },
-      { label: '分析権限', value: '--', note: '接続後に確認します' }
-    ]);
-    el.threadsStatusMessage.textContent = message;
-    el.threadsStatusMessage.classList.add('error-note');
-    el.summaryThreads.textContent = needsSecret ? '未設定' : 'エラー';
-    el.summaryThreadsDetail.textContent = needsSecret ? 'Secret設定が必要' : '接続を確認';
-    clearThreadsAnalysis('Threads APIへ接続できると投稿分析を表示します。');
-    el.threadsPostCount.textContent = '0件';
-    el.threadsPostRows.innerHTML = '<tr><td colspan="10" class="empty-state">THREADS_ACCESS_TOKEN を設定後、「データ更新」を押してください。</td></tr>';
-  }
-
-  function renderThreadsSummary(analysis, totalPosts) {
-    const { summary } = analysis;
-    const cards = [
-      ['平均表示', summary.count ? formatNumber(Math.round(summary.avgViews)) : '--', `${summary.count}投稿`],
-      ['平均いいね', summary.count ? summary.avgLikes.toFixed(1) : '--', '1投稿あたり'],
-      ['平均返信', summary.count ? summary.avgReplies.toFixed(1) : '--', '1投稿あたり'],
-      ['総反応', summary.count ? formatNumber(summary.reactions) : '--', 'いいね等の合計'],
-      ['全体反応率', summary.rate === null ? '--' : `${summary.rate.toFixed(1)}%`, '総反応÷総表示'],
-      ['分析投稿', `${summary.count}/${totalPosts}`, '分析値取得済み']
-    ];
-    el.threadsSummary.replaceChildren();
-    cards.forEach(([label, value, note]) => {
-      const article = document.createElement('article');
-      article.innerHTML = `<span>${label}</span><strong>${value}</strong><small>${note}</small>`;
-      el.threadsSummary.append(article);
-    });
-    el.threadsMetricNote.textContent = `${totalPosts}投稿取得 / ${summary.count}投稿で分析値を取得 / 総表示 ${formatNumber(summary.views)}`;
-  }
-
-  function renderThreadsTopPosts(analysis) {
-    const metric = el.threadsRankingMetric?.value || 'views';
-    const rows = analysis?.top?.[metric] || [];
-    const labels = { views:'表示', likes:'いいね', replies:'返信', rate:'反応率' };
-    el.threadsTopPosts.replaceChildren();
-    if (!rows.length) {
-      const note = metric === 'rate' ? '100表示以上で反応率を比較できる投稿がありません。' : `${labels[metric] || '指標'}を取得できる投稿がありません。`;
-      el.threadsTopPosts.innerHTML = `<p class="loading-row">${note}</p>`;
-      return;
-    }
-    rows.forEach((row, index) => {
-      const post = row.post;
-      const item = document.createElement('article');
-      item.className = 'post-item';
-      const header = document.createElement('header');
-      const strong = document.createElement('strong');
-      const small = document.createElement('small');
-      const body = document.createElement('p');
-      const primary = metric === 'rate'
-        ? `${row.rate?.toFixed(1) || '0.0'}%`
-        : formatNumber(row[metric] || 0);
-      strong.textContent = `#${index + 1} ${primary} ${labels[metric] || ''}`;
-      small.textContent = `${formatThreadsDate(post.timestamp)} / ${formatNumber(row.views || 0)}表示 / 総反応${formatNumber(row.reactions || 0)}`;
-      body.textContent = post.text || '（本文なし）';
-      header.append(strong, small);
-      item.append(header, body);
-      el.threadsTopPosts.append(item);
-    });
-  }
-
-  function renderThreadsAccountMetrics(insights) {
-    el.threadsAccountMetrics.replaceChildren();
-    if (!insights) {
-      el.threadsAccountMetrics.innerHTML = '<p class="loading-row">アカウント分析を取得できません。threads_manage_insights 権限を確認してください。</p>';
-      return;
-    }
-    const rows = [
-      ['フォロワー', insights.followers_count],
-      ['プロフィール表示', insights.views],
-      ['いいね', insights.likes],
-      ['返信', insights.replies],
-      ['リポスト', insights.reposts],
-      ['引用', insights.quotes],
-      ['リンククリック', insights.clicks]
-    ].filter(([,value]) => value !== undefined && value !== null);
-    rows.forEach(([label, value]) => {
-      const item = document.createElement('div');
-      item.className = 'compact-item';
-      const span = document.createElement('span');
-      const strong = document.createElement('strong');
-      const small = document.createElement('small');
-      strong.textContent = label;
-      small.textContent = 'Threads API';
-      span.append(strong, small);
-      const count = document.createElement('b');
-      count.textContent = formatNumber(value);
-      item.append(span, count);
-      el.threadsAccountMetrics.append(item);
-    });
-  }
-
-  function renderThreadsGroupRows(target, groups) {
-    target.replaceChildren();
-    if (!groups.length) {
-      target.innerHTML = '<tr><td colspan="5" class="empty-state">比較できるデータがありません。</td></tr>';
-      return;
-    }
-    groups.forEach((group) => {
-      const tr = document.createElement('tr');
-      const values = [
-        group.label,
-        group.count,
-        formatNumber(Math.round(group.avgViews)),
-        group.avgReactions.toFixed(1),
-        group.rate === null ? '--' : `${group.rate.toFixed(1)}%`
-      ];
-      values.forEach((value) => {
-        const td = document.createElement('td');
-        td.textContent = String(value);
-        tr.append(td);
-      });
-      target.append(tr);
-    });
-  }
-
-  function renderThreadsPosts(posts) {
-    el.threadsPostRows.replaceChildren();
-    el.threadsPostCount.textContent = `${posts.length}件`;
-    if (!posts.length) {
-      el.threadsPostRows.innerHTML = '<tr><td colspan="10" class="empty-state">投稿が見つかりませんでした。</td></tr>';
-      return;
-    }
-    posts.forEach((post) => {
-      const tr = document.createElement('tr');
-      const dateCell = document.createElement('td');
-      dateCell.textContent = formatThreadsDate(post.timestamp);
-      const postCell = document.createElement('td');
-      postCell.className = 'thread-post-cell';
-      const title = document.createElement('strong');
-      const note = document.createElement('small');
-      title.textContent = post.text || '（本文なし）';
-      note.textContent = [post.mediaType || '投稿', post.isQuotePost ? '引用投稿' : ''].filter(Boolean).join(' / ');
-      postCell.append(title, note);
-      tr.append(dateCell, postCell);
-      ['views','likes','replies','reposts','quotes','shares'].forEach((name) => {
-        const td = document.createElement('td');
-        const value = threadInsight(post, name);
-        td.textContent = value === null ? '--' : formatNumber(value);
-        if (value === null) td.className = 'thread-metric-missing';
-        tr.append(td);
-      });
-      const rateCell = document.createElement('td');
-      const rate = threadReactionRate(post);
-      rateCell.textContent = rate === null ? '--' : `${rate.toFixed(1)}%`;
-      tr.append(rateCell);
-      const linkCell = document.createElement('td');
-      if (post.permalink) {
-        const link = document.createElement('a');
-        link.className = 'open-link';
-        link.href = post.permalink;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.textContent = '開く';
-        linkCell.append(link);
-      } else {
-        linkCell.textContent = '--';
-      }
-      tr.append(linkCell);
-      el.threadsPostRows.append(tr);
-    });
-  }
-
-  function renderThreads(data) {
-    state.threads = data;
-    renderThreadsConnection(data);
-    const posts = Array.isArray(data?.posts) ? data.posts : [];
-    const analysis = buildThreadsAnalysis(posts);
-    state.threads.analysis = analysis;
-    renderThreadsSummary(analysis, posts.length);
-    renderThreadsTopPosts(analysis);
-    renderThreadsAccountMetrics(data?.accountInsights || null);
-    renderThreadsGroupRows(el.threadsWeekdayRows, analysis.weekdays);
-    renderThreadsGroupRows(el.threadsTimeRows, analysis.timeBands);
-    renderThreadsPosts(posts);
-    el.downloadThreadsCsvButton.disabled = !posts.length;
-    el.downloadThreadsJsonButton.disabled = !posts.length;
-  }
-
-  function downloadTextFile(filename, text, type = 'text/plain;charset=utf-8') {
-    const blob = new Blob([text], { type });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = filename;
-    document.body.append(anchor);
-    anchor.click();
-    anchor.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }
-
-  function csvCell(value) {
-    const text = value === null || value === undefined ? '' : String(value);
-    return `"${text.replace(/"/g, '""')}"`;
-  }
-
-  function threadsExportRows() {
-    const posts = Array.isArray(state.threads?.posts) ? state.threads.posts : [];
-    const username = state.threads?.profile?.username || '';
-    return posts.map((post) => {
-      const row = threadAnalysisRow(post);
-      return {
-        '取得日時': state.threads?.fetchedAt || '',
-        'アカウント': username ? `@${username}` : '',
-        '投稿ID': post.id || '',
-        '投稿日時（日本時間）': row.dateTime,
-        '曜日': row.weekday,
-        '時間帯': row.timeBand,
-        '投稿形式': post.mediaType || '',
-        '引用投稿': post.isQuotePost ? 'はい' : 'いいえ',
-        '本文': post.text || '',
-        '本文文字数': row.textLength,
-        'URL': post.permalink || '',
-        '表示': row.views,
-        'いいね': row.likes,
-        '返信': row.replies,
-        'リポスト': row.reposts,
-        '引用': row.quotes,
-        'シェア': row.shares,
-        '総反応': row.reactions,
-        '反応率（%）': row.rate === null ? '' : row.rate.toFixed(3)
-      };
-    });
-  }
-
-  function downloadThreadsCsv() {
-    const rows = threadsExportRows();
-    if (!rows.length) return;
-    const headers = Object.keys(rows[0]);
-    const body = [headers.map(csvCell).join(','), ...rows.map((row) => headers.map((key) => csvCell(row[key])).join(','))].join('\r\n');
-    const date = new Date().toISOString().slice(0,10);
-    downloadTextFile(`threads-analysis-${date}.csv`, `\ufeff${body}`, 'text/csv;charset=utf-8');
-    showToast('Threads分析CSVを作成しました');
-  }
-
-  function compactAnalysisForExport(analysis) {
-    const normalizeGroup = (rows) => rows.map(({ label,count,views,likes,replies,reposts,quotes,shares,reactions,avgViews,avgLikes,avgReplies,avgReactions,rate }) => ({
-      label,count,views,likes,replies,reposts,quotes,shares,reactions,
-      avgViews:Number(avgViews.toFixed(2)),
-      avgLikes:Number(avgLikes.toFixed(2)),
-      avgReplies:Number(avgReplies.toFixed(2)),
-      avgReactions:Number(avgReactions.toFixed(2)),
-      reactionRatePercent:rate === null ? null : Number(rate.toFixed(3))
-    }));
-    const topRows = (rows) => rows.map((row) => ({
-      postId: row.post.id,
-      timestamp: row.post.timestamp,
-      text: row.post.text,
-      permalink: row.post.permalink,
-      views: row.views,
-      likes: row.likes,
-      replies: row.replies,
-      totalReactions: row.reactions,
-      reactionRatePercent: row.rate === null ? null : Number(row.rate.toFixed(3))
-    }));
-    return {
-      summary: {
-        ...analysis.summary,
-        avgViews:Number(analysis.summary.avgViews.toFixed(2)),
-        avgLikes:Number(analysis.summary.avgLikes.toFixed(2)),
-        avgReplies:Number(analysis.summary.avgReplies.toFixed(2)),
-        avgReactions:Number(analysis.summary.avgReactions.toFixed(2)),
-        reactionRatePercent:analysis.summary.rate === null ? null : Number(analysis.summary.rate.toFixed(3)),
-        rate:undefined
-      },
-      byWeekday: normalizeGroup(analysis.weekdays),
-      byTimeBand: normalizeGroup(analysis.timeBands),
-      topPosts: {
-        byViews: topRows(analysis.top.views),
-        byLikes: topRows(analysis.top.likes),
-        byReplies: topRows(analysis.top.replies),
-        byReactionRateMin100Views: topRows(analysis.top.rate)
-      }
-    };
-  }
-
-  function downloadThreadsJson() {
-    if (!state.threads?.posts?.length) return;
-    const analysis = state.threads.analysis || buildThreadsAnalysis(state.threads.posts);
-    const payload = {
-      schemaVersion: 1,
-      purpose: 'プロ野球観戦メモ Threads投稿分析・共有用',
-      note: 'アクセストークンなどの認証情報は含まれていません。',
-      source: 'Threads API',
-      fetchedAt: state.threads.fetchedAt,
-      profile: state.threads.profile,
-      accountInsights: state.threads.accountInsights,
-      analysis: compactAnalysisForExport(analysis),
-      posts: threadsExportRows()
-    };
-    const date = new Date().toISOString().slice(0,10);
-    downloadTextFile(`threads-analysis-share-${date}.json`, JSON.stringify(payload, null, 2), 'application/json;charset=utf-8');
-    showToast('共有用JSONを作成しました');
-  }
-
-  async function loadThreads() {
-    el.reloadThreadsButton.disabled = true;
-    const requested = Number(el.threadsLimit?.value || 30);
-    const limit = [20,30,50].includes(requested) ? requested : 30;
-    try {
-      const data = await fetchJson(`api/threads?mode=dashboard&limit=${limit}`);
-      renderThreads(data);
-    } catch (error) {
-      renderThreadsError(error);
-    } finally {
-      el.reloadThreadsButton.disabled = false;
-    }
-  }
-
-  async function testThreadsConnection() {
-    el.threadsTestButton.disabled = true;
-    try {
-      const data = await fetchJson('api/threads?mode=status');
-      renderThreadsConnection(data, true);
-      showToast('Threads APIへ接続できました');
-    } catch (error) {
-      renderThreadsError(error);
-    } finally {
-      el.threadsTestButton.disabled = false;
-    }
-  }
-
-  function renderThreadsSearchResults(rows) {
-    el.threadsSearchResults.replaceChildren();
-    if (!rows.length) {
-      el.threadsSearchResults.innerHTML = '<p class="empty-state">該当する公開投稿が見つかりませんでした。</p>';
-      return;
-    }
-    rows.forEach((post) => {
-      const article = document.createElement('article');
-      article.className = 'thread-search-item';
-      const header = document.createElement('header');
-      const account = document.createElement('strong');
-      const date = document.createElement('small');
-      const body = document.createElement('p');
-      account.textContent = post.username ? `@${post.username}` : 'Threads投稿';
-      date.textContent = formatThreadsDate(post.timestamp);
-      body.textContent = post.text || '（本文なし）';
-      header.append(account, date);
-      article.append(header, body);
-      if (post.permalink) {
-        const link = document.createElement('a');
-        link.href = post.permalink;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.className = 'open-link';
-        link.textContent = 'Threadsで開く';
-        article.append(link);
-      }
-      el.threadsSearchResults.append(article);
-    });
-  }
-
-  async function searchThreads() {
-    const q = String(el.threadsSearchQuery.value || '').trim();
-    if (!q) {
-      el.threadsSearchStatus.textContent = '検索語を入力してください。';
-      el.threadsSearchStatus.classList.add('error-note');
-      return;
-    }
-    el.threadsSearchButton.disabled = true;
-    el.threadsSearchStatus.classList.remove('error-note');
-    el.threadsSearchStatus.textContent = 'Threadsを検索しています。';
-    try {
-      const params = new URLSearchParams({
-        mode: 'search',
-        q,
-        search_type: el.threadsSearchType.value || 'RECENT',
-        search_mode: el.threadsSearchMode.value || 'KEYWORD',
-        limit: '20'
-      });
-      const data = await fetchJson(`api/threads?${params.toString()}`);
-      const rows = Array.isArray(data?.posts) ? data.posts : [];
-      el.threadsSearchStatus.textContent = `「${q}」：${rows.length}件取得 / ${data.searchType === 'TOP' ? '上位' : '新着'}順`;
-      renderThreadsSearchResults(rows);
-    } catch (error) {
-      const missingPermission = String(error.message || '').includes('threads_keyword_search');
-      el.threadsSearchStatus.textContent = missingPermission
-        ? '検索には threads_keyword_search 権限が必要です。Threadsのアクセストークンをこの権限付きで再認証してください。'
-        : (error.message || 'Threads検索に失敗しました。');
-      el.threadsSearchStatus.classList.add('error-note');
-      el.threadsSearchResults.innerHTML = '<p class="empty-state">検索結果を取得できませんでした。</p>';
-    } finally {
-      el.threadsSearchButton.disabled = false;
-    }
-  }
-
   function getLocalRecordsCount() {
     const records=safeJson(localStorage.getItem(RECORDS_KEY),[]); const draft=safeJson(localStorage.getItem(DRAFT_KEY),null); let count=Array.isArray(records)?records.length:0; if(draft&&typeof draft==='object') count+=1; return count;
   }
 
   function setupEvents() {
-    el.refreshAllButton.addEventListener('click', async()=>{ setNotice('全体を更新しています。'); await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),loadThreads(),runHealthChecks()]); setNotice(''); showToast('全体を更新しました'); });
+    el.refreshAllButton.addEventListener('click', async () => {
+      el.refreshAllButton.disabled = true;
+      setNotice('データを取得しています。');
+      try {
+        await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks()]);
+        renderTodayActions();
+        showToast('データ取得処理が完了しました。');
+      } finally {
+        setNotice('');
+        el.refreshAllButton.disabled = false;
+      }
+    });
     el.rerunHealthButton.addEventListener('click',runHealthChecks);
     el.reloadPlayerLensButton.addEventListener('click',()=>loadPlayerLens(true));
-    el.evaluationSearch.addEventListener('input',renderPageEvaluation); el.evaluationFilter.addEventListener('change',renderPageEvaluation);
-    [el.articleSearch,el.articleGroupFilter,el.articleStatusFilter].forEach((control)=>{control.addEventListener('input',()=>{state.articlePage=1;renderArticleTable();});control.addEventListener('change',()=>{state.articlePage=1;renderArticleTable();});});
-    el.buildXButton.addEventListener('click',()=>{el.xOutput.value=buildXText();updateXMessage();drawXImage();});
-    el.xOutput.addEventListener('input',()=>updateXMessage());
-    el.copyXButton.addEventListener('click',async()=>{if(!el.xOutput.value.trim())return;await navigator.clipboard.writeText(el.xOutput.value);updateXMessage('コピーしました。');showToast('投稿文をコピーしました');});
-    el.openXButton.addEventListener('click',()=>{const text=el.xOutput.value.trim();if(!text){updateXMessage('先に投稿文を作成してください。');return;}window.open(`https://x.com/intent/post?text=${encodeURIComponent(text)}`,'_blank','noopener');});
-    el.drawXImageButton.addEventListener('click',drawXImage);
-    el.downloadXImageButton.addEventListener('click',downloadXImage);
-    el.snsCsvFile.addEventListener('change',()=>handleSnsFile(el.snsCsvFile.files?.[0]));
-    ['dragenter','dragover'].forEach((name)=>el.snsDropZone.addEventListener(name,(event)=>{event.preventDefault();el.snsDropZone.classList.add('is-dragging');}));
-    ['dragleave','drop'].forEach((name)=>el.snsDropZone.addEventListener(name,(event)=>{event.preventDefault();el.snsDropZone.classList.remove('is-dragging');}));
-    el.snsDropZone.addEventListener('drop',(event)=>handleSnsFile(event.dataTransfer?.files?.[0]));
-    el.clearSnsButton.addEventListener('click',()=>{state.snsRows=[];el.snsCsvFile.value='';el.snsFileStatus.textContent='CSVはまだ読み込まれていません。';el.snsAnalysisPanel.hidden=true;});
-    el.threadsTestButton.addEventListener('click',testThreadsConnection);
-    el.reloadThreadsButton.addEventListener('click',loadThreads);
-    el.threadsLimit.addEventListener('change',loadThreads);
-    el.threadsRankingMetric.addEventListener('change',()=>{ if(state.threads?.analysis) renderThreadsTopPosts(state.threads.analysis); });
-    el.downloadThreadsCsvButton.addEventListener('click',downloadThreadsCsv);
-    el.downloadThreadsJsonButton.addEventListener('click',downloadThreadsJson);
-    el.threadsSearchButton.addEventListener('click',searchThreads);
-    el.threadsSearchQuery.addEventListener('keydown',(event)=>{ if(event.key==='Enter'){ event.preventDefault(); searchThreads(); } });
+    el.evaluationSearch.addEventListener('input',renderPageEvaluation);
+    el.evaluationFilter.addEventListener('change',renderPageEvaluation);
+    [el.articleSearch,el.articleGroupFilter,el.articleStatusFilter].forEach(control => {
+      control.addEventListener('input',()=>{state.articlePage=1;renderArticleTable();});
+      control.addEventListener('change',()=>{state.articlePage=1;renderArticleTable();});
+    });
   }
 
   async function init() {
-    setupTabs(); setupEvents(); renderXTeamOptions();
+    setupTabs(); setupEvents();
     if(getLocalRecordsCount()>0) el.summaryLatestArticle.title=`端末内の保存記録 ${getLocalRecordsCount()}件`;
-    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),loadThreads(),runHealthChecks()]);
-    drawXImage();
+    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks()]);
     renderTodayActions();
   }
 
