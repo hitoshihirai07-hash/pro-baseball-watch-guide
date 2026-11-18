@@ -46,12 +46,14 @@
     playerLensReports: [],
     articlePage: 1,
     cfDays: 7,
-    gaDays: 30
+    gaDays: 30,
+    gsc: null,
+    adsense: null
   };
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
-  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast","lastChecked","statusCf","statusGa","statusClarity","cfPeriod","gaPeriod","gaPeriodInfo","chartPeriod","cfPagesPeriod","articleSort","articleReset","evaluationSort","evaluationCount","evaluationDetail","evaluationTable","plErrorsOnly","plCount"].map((id)=>[id,document.getElementById(id)]));
+  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast","lastChecked","statusCf","statusGa","statusClarity","cfPeriod","gaPeriod","gaPeriodInfo","chartPeriod","cfPagesPeriod","articleSort","articleReset","evaluationSort","evaluationCount","evaluationDetail","evaluationTable","plErrorsOnly","plCount","gscDays","gscStatus","gscClicks","gscImpressions","gscCtr","gscPosition","gscDateRange","gscTrend","gscPages","adsDays","adsStatus","adsEarnings","adsViews","adsRpm","adsSite","adsTrend"].map((id)=>[id,document.getElementById(id)]));
 
   let toastTimer = null;
 
@@ -161,6 +163,59 @@
     }
     el.lastChecked.textContent='最終確認 '+new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'}).format(new Date());
   }
+
+  function jpMoney(amount,currency){
+    if(!currency||!Number.isFinite(Number(amount)))return '--';
+    try{return new Intl.NumberFormat('ja-JP',{style:'currency',currency,maximumFractionDigits:2}).format(Number(amount));}catch{return '--';}
+  }
+  function fillRows(target,items,toCells,cols){
+    target.replaceChildren();
+    if(!items.length){
+      const tr=document.createElement('tr'),td=document.createElement('td');
+      td.colSpan=cols;td.textContent='データがありません。';tr.append(td);target.append(tr);return;
+    }
+    items.forEach(item=>{
+      const tr=document.createElement('tr');
+      toCells(item).forEach(cell=>{const td=document.createElement('td');td.textContent=String(cell);tr.append(td);});
+      target.append(tr);
+    });
+  }
+  function googleFailure(prefix,message){
+    const ids=prefix==='gsc'?['gscClicks','gscImpressions','gscCtr','gscPosition']:['adsEarnings','adsViews','adsRpm'];
+    ids.forEach(id=>{el[id].textContent='--';});
+    el[prefix+'Status'].textContent=message;
+    el[prefix+'Status'].classList.add('is-error');
+    (prefix==='gsc'?['gscTrend','gscPages']:['adsTrend']).forEach(id=>el[id].replaceChildren());
+  }
+  async function loadGsc(){
+    el.gscStatus.textContent='検索分析を読み込み中';el.gscStatus.classList.remove('is-error');
+    try{
+      const data=await fetchJson('api/search-console?days='+encodeURIComponent(el.gscDays.value));
+      state.gsc=data;
+      el.gscStatus.textContent='Search Console：取得済み';
+      const s=data.summary;
+      el.gscClicks.textContent=s?formatNumber(s.clicks):'0';
+      el.gscImpressions.textContent=s?formatNumber(s.impressions):'0';
+      el.gscCtr.textContent=s?formatPercent(s.ctr):'--';
+      el.gscPosition.textContent=s?Number(s.position).toFixed(1):'--';
+      el.gscDateRange.textContent='対象期間：'+data.startDate+' ～ '+data.endDate+'（反映の遅延を考慮）';
+      fillRows(el.gscTrend,data.trend||[],x=>[x.date,formatNumber(x.clicks),formatNumber(x.impressions)],3);
+      fillRows(el.gscPages,data.pages||[],x=>[x.url,formatNumber(x.clicks),formatNumber(x.impressions),formatPercent(x.ctr)],4);
+    }catch(e){state.gsc=null;googleFailure('gsc','Search Console：'+e.message);}
+  }
+  async function loadAdsense(){
+    el.adsStatus.textContent='広告収益を読み込み中';el.adsStatus.classList.remove('is-error');
+    try{
+      const data=await fetchJson('api/adsense?days='+encodeURIComponent(el.adsDays.value));
+      state.adsense=data;
+      el.adsStatus.textContent='AdSense：取得済み（野球サイト限定）';
+      el.adsEarnings.textContent=jpMoney(data.summary.earnings,data.currency);
+      el.adsViews.textContent=formatNumber(data.summary.views);
+      el.adsRpm.textContent=data.summary.rpm===null?'--':jpMoney(data.summary.rpm,data.currency);
+      el.adsSite.textContent='対象サイト：'+data.domain+' / 通貨：'+data.currency+' / 過去'+data.days+'日';
+      fillRows(el.adsTrend,data.trend||[],x=>[x.date,jpMoney(x.earnings,data.currency),formatNumber(x.views),jpMoney(x.rpm,data.currency)],4);
+    }catch(e){state.adsense=null;googleFailure('ads','AdSense：'+e.message);}
+  }
   function setupTabs() {
     $$('.workspace-tab').forEach(button => button.addEventListener('click', () => {
       const target = button.dataset.tab;
@@ -183,7 +238,7 @@
   async function fetchJson(url) {
     const response = await fetch(url, { cache: 'no-store' });
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(payload.message || `${url} の取得に失敗しました（${response.status}）`);
+    if (!response.ok) { const error=new Error(payload.message || `${url} の取得に失敗しました（${response.status}）`);error.status=response.status;throw error; }
     return payload;
   }
 
@@ -757,7 +812,7 @@
       el.refreshAllButton.disabled = true;
       setNotice('データを取得しています。');
       try {
-        await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks()]);
+        await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks(),loadGsc(),loadAdsense()]);
         renderTodayActions();
         updateStatuses();
         showToast('取得状況を更新しました。');
@@ -767,6 +822,8 @@
       }
     });
     el.rerunHealthButton.addEventListener('click',runHealthChecks);
+    el.gscDays.addEventListener('change',loadGsc);
+    el.adsDays.addEventListener('change',loadAdsense);
     el.cfPeriod.addEventListener('change',()=>{state.cfDays=Number(el.cfPeriod.value);if(state.cloudflare)renderCloudflare();});
     el.gaPeriod.addEventListener('change',()=>{state.gaDays=Number(el.gaPeriod.value);if(state.ga4)renderGa4();});
     $$('[data-content]').forEach(button=>button.addEventListener('click',()=>switchContent(button.dataset.content)));
@@ -787,7 +844,7 @@
   async function init() {
     setupTabs(); setupEvents();
     if(getLocalRecordsCount()>0) el.summaryLatestArticle.title=`端末内の保存記録 ${getLocalRecordsCount()}件`;
-    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks()]);
+    await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks(),loadGsc(),loadAdsense()]);
     renderTodayActions();
     updateStatuses();
   }

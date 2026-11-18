@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261118-pc2">
+  <link rel="stylesheet" href="styles.css?v=20261118-google2">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
@@ -19,6 +19,8 @@
     <nav class="workspace-tabs" aria-label="管理機能">
       <button type="button" class="workspace-tab is-active" data-tab="overview" data-title="運営ホーム" data-desc="サイトの状態と確認事項" aria-pressed="true">ホーム</button>
       <button type="button" class="workspace-tab" data-tab="traffic" data-title="アクセス分析" data-desc="GA4・Cloudflare・Clarity" aria-pressed="false">アクセス分析</button>
+      <button type="button" class="workspace-tab" data-tab="search" data-title="検索分析" data-desc="Google Search Consoleの検索パフォーマンス" aria-pressed="false">検索分析</button>
+      <button type="button" class="workspace-tab" data-tab="revenue" data-title="広告収益" data-desc="AdSenseのサイト別推定収益" aria-pressed="false">広告収益</button>
       <button type="button" class="workspace-tab" data-tab="articles" data-title="記事管理・改善" data-desc="公開記事の確認とページ評価" aria-pressed="false">記事管理・改善</button>
       <button type="button" class="workspace-tab" data-tab="player-lens" data-title="データ・公開確認" data-desc="Player Lensと主要ページの状態" aria-pressed="false">データ・公開確認</button>
     </nav>
@@ -90,6 +92,38 @@
           </div>
         </section></div>
     </section>
+
+    <section class="tab-panel" data-panel="search" hidden>
+      <section class="panel google-report">
+        <div class="panel-heading"><div><p class="eyebrow">SEARCH CONSOLE</p><h2>検索分析</h2><p>検索クリック・表示回数・平均掲載順位を確認できます。</p></div><label class="period-picker"><span>期間</span><select id="gscDays"><option value="30">30日</option><option value="7">7日</option><option value="90">90日</option></select></label></div>
+        <p id="gscStatus" class="google-status" role="status">Search Consoleを確認中</p>
+        <div class="metric-grid metric-grid-4">
+          <article><span>クリック</span><strong id="gscClicks">--</strong></article>
+          <article><span>表示回数</span><strong id="gscImpressions">--</strong></article>
+          <article><span>CTR</span><strong id="gscCtr">--</strong></article>
+          <article><span>掲載順位</span><strong id="gscPosition">--</strong></article>
+        </div>
+        <p id="gscDateRange" class="small-note"></p>
+        <div class="google-report-grid">
+          <section><h3>日別検索クリック</h3><div class="table-scroll"><table><thead><tr><th>日付</th><th>クリック</th><th>表示回数</th></tr></thead><tbody id="gscTrend"></tbody></table></div></section>
+          <section><h3>検索流入が多いページ</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>クリック</th><th>表示回数</th><th>CTR</th></tr></thead><tbody id="gscPages"></tbody></table></div></section>
+        </div>
+      </section>
+    </section>
+    <section class="tab-panel" data-panel="revenue" hidden>
+      <section class="panel google-report">
+        <div class="panel-heading"><div><p class="eyebrow">ADSENSE</p><h2>広告収益</h2><p>野球サイト限定の推定収益です。他のサイトは含めません。</p></div><label class="period-picker"><span>期間</span><select id="adsDays"><option value="30">30日</option><option value="7">7日</option><option value="90">90日</option></select></label></div>
+        <p id="adsStatus" class="google-status" role="status">AdSenseを確認中</p>
+        <div class="metric-grid metric-grid-3">
+          <article><span>推定収益</span><strong id="adsEarnings">--</strong></article>
+          <article><span>広告のページビュー</span><strong id="adsViews">--</strong></article>
+          <article><span>ページRPM</span><strong id="adsRpm">--</strong></article>
+        </div>
+        <p id="adsSite" class="small-note">pro-baseball-watch-guide.com</p>
+        <h3>日別推定収益</h3>
+        <div class="table-scroll"><table><thead><tr><th>日付</th><th>推定収益</th><th>広告ページビュー</th><th>RPM</th></tr></thead><tbody id="adsTrend"></tbody></table></div>
+      </section>
+    </section>
     <section class="tab-panel" data-panel="articles" hidden>
       <div class="content-stack"><div class="content-switch"><button type="button" class="content-button is-active" data-content="list" aria-pressed="true">記事一覧</button><button type="button" class="content-button" data-content="evaluation" aria-pressed="false">ページ評価</button></div><div class="content-view" data-content-view="list"><section class="panel">
         <div class="panel-heading article-heading">
@@ -147,5 +181,5 @@
   </main>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20261118-pc2" defer></script>
+<script src="app.js?v=20261118-google2" defer></script>
 </body></html>

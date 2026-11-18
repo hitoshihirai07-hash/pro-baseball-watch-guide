@@ -36,13 +36,13 @@ function pemToArrayBuffer(pem) {
   return bytes.buffer;
 }
 
-async function serviceAccountAssertion(credentials) {
+async function serviceAccountAssertion(credentials, scope = ANALYTICS_SCOPE) {
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };
   if (credentials.private_key_id) header.kid = credentials.private_key_id;
   const payload = {
     iss: credentials.client_email,
-    scope: ANALYTICS_SCOPE,
+    scope,
     aud: TOKEN_ENDPOINT,
     iat: now,
     exp: now + 3600
@@ -70,8 +70,8 @@ function googleErrorDetail(payload, status) {
   return apiMessage || `HTTP ${status}`;
 }
 
-async function accessToken(credentials) {
-  const assertion = await serviceAccountAssertion(credentials);
+async function accessToken(credentials, scope = ANALYTICS_SCOPE) {
+  const assertion = await serviceAccountAssertion(credentials, scope);
   const body = new URLSearchParams({
     grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
     assertion
@@ -284,6 +284,12 @@ async function optionalReport(section, task) {
   }
 }
 
+export async function accessTokenForScope(env, scope) {
+ const service=serviceAccountFromEnv(env);
+ if(!service.credentials?.client_email||!service.credentials?.private_key)
+   throw Error('GA4サービスアカウントが未設定です。');
+ return accessToken(service.credentials,scope);
+}
 export async function onRequestGet({ env, request }) {
   const property = normalizePropertyId(env.GA4_PROPERTY_ID);
   const account = serviceAccountFromEnv(env);

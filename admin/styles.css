@@ -242,3 +242,16 @@ body { min-width: 1100px; background: var(--bg); }
 .action-link { width:100%; text-align:left; cursor:pointer; font:inherit; }
 .action-link:hover { background:#fff8ef; border-color:#ecc395; }
 @media(max-width:1400px) { .article-tools { grid-template-columns:minmax(220px,1fr) repeat(3,minmax(130px,1fr)); } .article-tools .button { grid-column:1/-1; justify-self:end; } }
+
+.google-report {min-height:480px;}
+.google-report .metric-grid{margin:14px 0;}
+.metric-grid-3 {grid-template-columns:repeat(3,minmax(0,1fr));}
+.google-report .metric-grid article {background:#fff9f0;}
+.google-report .metric-grid strong{font-size:23px;}
+.google-status{padding:12px 15px;border-radius:9px;background:#eff9f2;color:#177047;font-weight:700;}
+.google-status.is-error{background:#fff1e5;color:#98460e;}
+.google-report-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;margin-top:18px;}
+.google-report .table-scroll{max-height:500px;}
+.google-report td{overflow-wrap:anywhere;}
+.google-report>h3{margin-top:20px;}
+@media(max-width:1250px){.google-report-grid{grid-template-columns:1fr;}}
