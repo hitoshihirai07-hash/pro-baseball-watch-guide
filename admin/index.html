@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261118-ga4hub">
+  <link rel="stylesheet" href="styles.css?v=20261118-searchfix">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <nav class="workspace-tabs" aria-label="管理機能">
       <button type="button" class="workspace-tab is-active" data-tab="overview" data-title="運営ホーム" data-desc="サイトの状態と確認事項" aria-pressed="true">ホーム</button>
       <button type="button" class="workspace-tab" data-tab="traffic" data-title="アクセス分析" data-desc="GA4・Cloudflare・Clarity" aria-pressed="false">アクセス分析</button>
-      <button type="button" class="workspace-tab" data-tab="search" data-title="検索分析" data-desc="GA4で確認するGoogle検索の状況" aria-pressed="false">検索分析</button>
+      <button type="button" class="workspace-tab" data-tab="search" data-title="検索分析" data-desc="GA4の自然検索流入を確認" aria-pressed="false">検索分析</button>
       <button type="button" class="workspace-tab" data-tab="revenue" data-title="広告収益" data-desc="GA4の広告収益をざっと確認" aria-pressed="false">広告収益</button>
       <button type="button" class="workspace-tab" data-tab="articles" data-title="記事管理・改善" data-desc="公開記事の確認とページ評価" aria-pressed="false">記事管理・改善</button>
       <button type="button" class="workspace-tab" data-tab="player-lens" data-title="データ・公開確認" data-desc="Player Lensと主要ページの状態" aria-pressed="false">データ・公開確認</button>
@@ -95,18 +95,18 @@
 
     <section class="tab-panel" data-panel="search" hidden>
       <section class="panel google-report">
-        <div class="panel-heading"><div><p class="eyebrow">GA4 × SEARCH CONSOLE</p><h2>検索分析</h2><p>GA4に連携されたGoogle検索データをざっと確認します。</p></div><label class="period-picker"><span>期間</span><select id="gscDays"><option value="30">30日</option><option value="7">7日</option><option value="90">90日</option></select></label></div>
+        <div class="panel-heading"><div><p class="eyebrow">GA4 / ORGANIC SEARCH</p><h2>検索分析</h2><p>自然検索からのアクセス状況をGA4でまとめて確認します。</p></div><label class="period-picker"><span>期間</span><select id="gscDays"><option value="30">30日</option><option value="7">7日</option><option value="90">90日</option></select></label></div>
         <p id="gscStatus" class="google-status" role="status">GA4から検索データを取得中</p>
         <div class="metric-grid metric-grid-4">
-          <article><span id="gscClicksLabel">検索クリック</span><strong id="gscClicks">--</strong></article>
-          <article><span>表示回数</span><strong id="gscImpressions">--</strong></article>
-          <article><span>CTR</span><strong id="gscCtr">--</strong></article>
-          <article><span>掲載順位</span><strong id="gscPosition">--</strong></article>
+          <article><span id="gscClicksLabel">自然検索セッション</span><strong id="gscClicks">--</strong></article>
+          <article><span>自然検索ユーザー</span><strong id="gscImpressions">--</strong></article>
+          <article><span>検索流入の割合</span><strong id="gscCtr">--</strong></article>
+          <article><span>全体セッション</span><strong id="gscPosition">--</strong></article>
         </div>
         <p id="gscDateRange" class="small-note"></p>
         <div class="google-report-grid">
-          <section><h3>日別の検索状況</h3><div class="table-scroll"><table><thead><tr><th>日付</th><th>クリック</th><th>表示回数</th></tr></thead><tbody id="gscTrend"></tbody></table></div></section>
-          <section><h3>自然検索の流入先（GA4・30日）</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>セッション</th><th>ユーザー</th></tr></thead><tbody id="gscPages"></tbody></table></div></section>
+          <section><h3>日別の検索状況</h3><div class="table-scroll"><table><thead><tr><th>日付</th><th>検索セッション</th><th>検索ユーザー</th></tr></thead><tbody id="gscTrend"></tbody></table></div></section>
+          <section><h3>自然検索の流入先（過去30日）</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>セッション</th><th>ユーザー</th></tr></thead><tbody id="gscPages"></tbody></table></div></section>
         </div>
       </section>
     </section>
@@ -181,5 +181,5 @@
   </main>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20261118-ga4hub" defer></script>
+<script src="app.js?v=20261118-searchfix" defer></script>
 </body></html>

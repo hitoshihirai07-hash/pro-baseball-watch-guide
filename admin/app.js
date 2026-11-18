@@ -182,48 +182,54 @@
       target.append(tr);
     });
   }
-  function shortGaWarning(messages) {
-    if(!messages?.length) return '';
-    return '一部の指標はGA4から取得できませんでした。';
-  }
   function recentRows(items,days) {
-    // GA4のdateディメンションは YYYYMMDD 形式。空白日は除外して期間内のみ表示。
-    const now=new Date(); now.setUTCHours(0,0,0,0);now.setUTCDate(now.getUTCDate()-(days-1));
-    const cutoff=now.toISOString().slice(0,10).replace(/-/g,'');
-    return (items||[]).filter(item=>String(item.date||'')>=cutoff).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    // GA4のdateはYYYYMMDD。サイト管理者の日本時間で期間を合わせる。
+    const today=new Intl.DateTimeFormat('en-CA',{
+      timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'
+    }).format(new Date());
+    const [year,month,day]=today.split('-').map(Number);
+    const cutoffDate=new Date(Date.UTC(year,month-1,day-(days-1)));
+    const cutoff=cutoffDate.toISOString().slice(0,10).replace(/-/g,'');
+    return (items||[]).filter(item=>String(item.date||'')>=cutoff)
+      .sort((a,b)=>String(b.date).localeCompare(String(a.date)));
   }
   function renderGsc() {
-    const days=Number(el.gscDays.value),data=state.ga4;
-    const report=data?.search;
-    const s=report?.['overview'+days];
-    const organic=(data?.sources30||[]).find(row=>row.sessionDefaultChannelGroup==='Organic Search');
-    el.gscClicksLabel.textContent='検索クリック';
+    const days=Number(el.gscDays.value),data=state.ga4,report=data?.search;
+    const summary=report?.['overview'+days];
     el.gscStatus.classList.remove('is-error');
+    el.gscClicksLabel.textContent='自然検索セッション';
     el.gscClicks.textContent='--';
     el.gscImpressions.textContent='--';
     el.gscCtr.textContent='--';
     el.gscPosition.textContent='--';
     if(!data) {
-      el.gscStatus.textContent='GA4データを取得できていません。';
+      el.gscStatus.textContent='GA4のデータを確認できません。';
       el.gscStatus.classList.add('is-error');
-    } else if(s) {
-      el.gscStatus.textContent='GA4のSearch Console連携指標を表示中';
-      el.gscClicks.textContent=formatNumber(s.organicGoogleSearchClicks);
-      el.gscImpressions.textContent=formatNumber(s.organicGoogleSearchImpressions);
-      el.gscCtr.textContent=formatPercent(s.organicGoogleSearchClickThroughRate);
-      el.gscPosition.textContent=Number(s.organicGoogleSearchAveragePosition).toFixed(1);
-    } else if(days===30&&organic) {
-      el.gscClicksLabel.textContent='自然検索セッション';
-      el.gscClicks.textContent=formatNumber(organic.sessions);
-      el.gscStatus.textContent='Search Console指標は未取得。GA4の自然検索流入を代わりに表示中';
+    } else if(summary) {
+      el.gscStatus.textContent='GA4の自然検索流入を表示中';
+      el.gscClicks.textContent=formatNumber(summary.sessions);
+      el.gscImpressions.textContent=formatNumber(summary.activeUsers);
+      el.gscCtr.textContent=formatPercent(summary.share);
+      el.gscPosition.textContent=formatNumber(summary.totalSessions);
     } else {
-      el.gscStatus.textContent='検索指標を取得できませんでした。GA4との連携状況を公式画面で確認できます。';
-      el.gscStatus.classList.add('is-error');
+      // チャネル別集計が一時的に使えない場合も、GA4の日別集計から流入数を表示する。
+      const daily=recentRows(report?.daily90||[],days);
+      if(daily.length) {
+        el.gscStatus.textContent='GA4の自然検索流入（日別合計・目安）';
+        el.gscClicks.textContent=formatNumber(daily.reduce((n,x)=>n+(Number(x.sessions)||0),0));
+        el.gscImpressions.textContent='--'; // 日別のユーザーを足すと重複するため非表示
+      } else {
+        el.gscStatus.textContent='この期間の検索流入データはありません。';
+      }
     }
-    const dates=recentRows(report?.daily90||[],days);
-    el.gscDateRange.textContent='GA4集計・過去'+days+'日。'+(shortGaWarning(report?.warnings)||'日別・ページ別の表示は取得可能な範囲です。');
-    fillRows(el.gscTrend,dates,x=>[String(x.date).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1/$2/$3'),formatNumber(x.organicGoogleSearchClicks),formatNumber(x.organicGoogleSearchImpressions)],3);
-    fillRows(el.gscPages,report?.pages30||[],x=>[x.landingPage||'/',formatNumber(x.sessions),formatNumber(x.activeUsers)],3);
+    el.gscDateRange.textContent='GA4の自然検索流入・過去'+days+'日。流入ページ一覧は30日間です。';
+    fillRows(el.gscTrend,recentRows(report?.daily90||[],days),x=>[
+      String(x.date).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1/$2/$3'),
+      formatNumber(x.sessions),formatNumber(x.activeUsers)
+    ],3);
+    fillRows(el.gscPages,report?.pages30||[],x=>[
+      x.landingPage||'/',formatNumber(x.sessions),formatNumber(x.activeUsers)
+    ],3);
   }
   function renderAdsense() {
     const days=Number(el.adsDays.value),data=state.ga4,report=data?.ads;
@@ -244,7 +250,7 @@
       el.adsStatus.textContent='GA4から広告収益指標を取得できませんでした。';
       el.adsStatus.classList.add('is-error');
     }
-    el.adsSite.textContent='GA4集計・過去'+days+'日／GA4設定通貨で表示（AdSense確定額ではありません）。'+shortGaWarning(report?.warnings);
+    el.adsSite.textContent='GA4集計・過去'+days+'日／GA4設定通貨で表示（AdSense確定額ではありません）。';
     const dates=recentRows(report?.daily90||[],days);
     fillRows(el.adsTrend,dates,x=>[String(x.date).replace(/^(\d{4})(\d{2})(\d{2})$/,'$1/$2/$3'),adMoney(x.totalAdRevenue),formatNumber(x.publisherAdImpressions),formatNumber(x.publisherAdClicks)],4);
   }

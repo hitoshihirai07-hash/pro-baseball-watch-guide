@@ -306,7 +306,7 @@ export async function onRequestGet({ env, request }) {
 
   const propertyId = property.propertyId;
   const cache = cacheApi();
-  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-overview-v4`);
+  const cacheKey = new Request(`${new URL(request.url).origin}/__admin_cache__/ga4-overview-v5`);
   if (cache) {
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
@@ -375,70 +375,94 @@ export async function onRequestGet({ env, request }) {
       }))
     ]);
 
-    // GA4に連携済みの検索・広告指標を、同じサービスアカウントで任意取得する。
-    // 連携レポートが一部非対応でも既存アクセス分析は維持する。
-    const searchMetrics = [
-      {name:'organicGoogleSearchClicks'},
-      {name:'organicGoogleSearchImpressions'},
-      {name:'organicGoogleSearchClickThroughRate'},
-      {name:'organicGoogleSearchAveragePosition'}
+    // 検索の概要は、GA4で通常取得できる流入チャネルを使う。
+    // Search Console専用指標とdateの非互換な組み合わせを呼び出さない。
+    const periods = [
+      {key:'7',dateRanges:[{startDate:'6daysAgo',endDate:'today'}]},
+      {key:'30',dateRanges:[{startDate:'29daysAgo',endDate:'today'}]},
+      {key:'90',dateRanges:[{startDate:'89daysAgo',endDate:'today'}]}
     ];
     const adMetrics = [
       {name:'totalAdRevenue'},
       {name:'publisherAdImpressions'},
       {name:'publisherAdClicks'}
     ];
-    const periods = [
-      {key:'7',dateRanges:[{startDate:'6daysAgo',endDate:'today'}]},
-      {key:'30',dateRanges:[{startDate:'29daysAgo',endDate:'today'}]},
-      {key:'90',dateRanges:[{startDate:'89daysAgo',endDate:'today'}]}
-    ];
+    const channelMetrics = [{name:'sessions'},{name:'activeUsers'}];
     const extraTasks = [];
     for (const period of periods) {
-      for (const [kind, metrics] of [['search',searchMetrics],['ads',adMetrics]]) {
-        const section = kind+period.key;
-        extraTasks.push(optionalReport(section,runReport({
-          token,propertyId,label:'GA4 '+section,
-          body:{dateRanges:period.dateRanges,metrics}
+      extraTasks.push(optionalReport('ads'+period.key,runReport({
+        token,propertyId,label:'GA4広告 '+period.key+'日',
+        body:{dateRanges:period.dateRanges,metrics:adMetrics}
+      })));
+      if (period.key!=='30') {
+        extraTasks.push(optionalReport('organic'+period.key,runReport({
+          token,propertyId,label:'GA4自然検索 '+period.key+'日',
+          body:{
+            dateRanges:period.dateRanges,
+            dimensions:[{name:'sessionDefaultChannelGroup'}],
+            metrics:channelMetrics,
+            orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:30
+          }
         })));
       }
     }
-    // 日別推移・自然検索ページは補助的な表としてのみ使用する。
-    extraTasks.push(optionalReport('searchDaily90',runReport({
-      token,propertyId,label:'GA4検索の日別',
-      body:{dateRanges:[{startDate:'89daysAgo',endDate:'today'}],dimensions:[{name:'date'}],metrics:searchMetrics,limit:100}
+    // 日別の検索状況はGA4標準の「セッション」を使う。
+    // フィルタするチャネルもdimensionsに含め、対応関係を明確にする。
+    const organicFilter = {filter:{
+      fieldName:'sessionDefaultChannelGroup',
+      stringFilter:{matchType:'EXACT',value:'Organic Search'}
+    }};
+    extraTasks.push(optionalReport('organicDaily90',runReport({
+      token,propertyId,label:'GA4自然検索の日別',
+      body:{
+        dateRanges:[{startDate:'89daysAgo',endDate:'today'}],
+        dimensions:[{name:'date'},{name:'sessionDefaultChannelGroup'}],
+        metrics:channelMetrics,dimensionFilter:organicFilter,
+        orderBys:[{dimension:{dimensionName:'date'},desc:true}],limit:100
+      }
     })));
     extraTasks.push(optionalReport('adsDaily90',runReport({
       token,propertyId,label:'GA4広告収益の日別',
       body:{dateRanges:[{startDate:'89daysAgo',endDate:'today'}],dimensions:[{name:'date'}],metrics:adMetrics,limit:100}
     })));
     extraTasks.push(optionalReport('organicPages30',runReport({
-      token,propertyId,label:'GA4自然検索ランディングページ',
+      token,propertyId,label:'GA4自然検索の流入ページ',
       body:{
         dateRanges:[{startDate:'29daysAgo',endDate:'today'}],
-        dimensions:[{name:'landingPage'}],
-        metrics:[{name:'sessions'},{name:'activeUsers'}],
-        dimensionFilter:{filter:{fieldName:'sessionDefaultChannelGroup',stringFilter:{matchType:'EXACT',value:'Organic Search'}}},
+        dimensions:[{name:'landingPage'},{name:'sessionDefaultChannelGroup'}],
+        metrics:channelMetrics,dimensionFilter:organicFilter,
         orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:15
       }
     })));
-    // 既存の3レポート取得後に開始し、同時リクエスト数を抑える。
     const extra = await Promise.all(extraTasks);
     const bySection = Object.fromEntries(extra.map(result=>[result.section,result]));
     const extraRows = name => bySection[name]?.report ? rowsFromReport(bySection[name].report) : [];
-    const extraSummary = name => bySection[name]?.report ? (extraRows(name)[0] || null) : null;
-    const search = {
-      overview7:extraSummary('search7'),
-      overview30:extraSummary('search30'),
-      overview90:extraSummary('search90'),
-      daily90:extraRows('searchDaily90'),
-      pages30:extraRows('organicPages30'),
-      warnings:extra.filter(result=>result.section.startsWith('search') || result.section==='organicPages30').map(result=>result.warning).filter(Boolean)
+    const summarizeSearch = report => {
+      if (!report) return null;
+      const rows = rowsFromReport(report);
+      const organic = rows.find(row=>row.sessionDefaultChannelGroup==='Organic Search');
+      const totalSessions=rows.reduce((sum,row)=>sum+(Number(row.sessions)||0),0);
+      const sessions=Number(organic?.sessions)||0;
+      return {
+        sessions,activeUsers:Number(organic?.activeUsers)||0,
+        totalSessions,share:totalSessions>0?sessions/totalSessions:0
+      };
     };
+    const search = {
+      overview7:summarizeSearch(bySection.organic7?.report),
+      overview30:summarizeSearch(sourcesResult.report),
+      overview90:summarizeSearch(bySection.organic90?.report),
+      daily90:extraRows('organicDaily90'),
+      pages30:extraRows('organicPages30'),
+      warnings:extra.filter(result=>result.section.startsWith('organic')).map(result=>result.warning).filter(Boolean)
+    };
+    const adsSummary = name => bySection[name]?.report
+      ? (extraRows(name)[0] || {totalAdRevenue:0,publisherAdImpressions:0,publisherAdClicks:0})
+      : null;
     const ads = {
-      overview7:extraSummary('ads7'),
-      overview30:extraSummary('ads30'),
-      overview90:extraSummary('ads90'),
+      overview7:adsSummary('ads7'),
+      overview30:adsSummary('ads30'),
+      overview90:adsSummary('ads90'),
       daily90:extraRows('adsDaily90'),
       warnings:extra.filter(result=>result.section.startsWith('ads')).map(result=>result.warning).filter(Boolean)
     };
