@@ -136,14 +136,14 @@
   }
 
   function setupTabs() {
-    $('.workspace-tab').forEach(button => button.addEventListener('click', () => {
+    $$('.workspace-tab').forEach(button => button.addEventListener('click', () => {
       const target = button.dataset.tab;
-      $('.workspace-tab').forEach(item => {
+      $$('.workspace-tab').forEach(item => {
         const active = item === button;
         item.classList.toggle('is-active', active);
         item.setAttribute('aria-pressed', String(active));
       });
-      $('.tab-panel').forEach(panel => {
+      $$('.tab-panel').forEach(panel => {
         const active = panel.dataset.panel === target;
         panel.hidden = !active;
         panel.classList.toggle('is-active', active);
