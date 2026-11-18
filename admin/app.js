@@ -44,12 +44,14 @@
     articles: [],
     playerLens: new Map(),
     playerLensReports: [],
-    articlePage: 1
+    articlePage: 1,
+    cfDays: 7,
+    gaDays: 30
   };
 
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
-  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast"].map((id)=>[id,document.getElementById(id)]));
+  const el = Object.fromEntries(["refreshAllButton","sectionTitle","sectionDesc","summaryCfPv","summaryCfVisits","summaryGa4Users","summaryGa4Sessions","summaryClaritySessions","summaryClarityIssues","summaryArticleCount","summaryLatestArticle","summaryPlayerLens","summaryPlayerLensDetail","pageNotice","cfPageViews","cfVisits","ga4Users","ga4Sessions","ga4Views","ga4EngagementRate","trafficChart","todayActions","siteHealth","rerunHealthButton","cfTopPages","ga4TopPages","ga4Sources","claritySessions","clarityRage","clarityDead","clarityScriptError","clarityStatus","recentArticles","evaluationSearch","evaluationFilter","evaluationSummary","evaluationRows","reloadPlayerLensButton","playerLensDataRows","playerLensHealth","watchNoteKinds","articleSearch","articleGroupFilter","articleStatusFilter","filteredCount","articleTableBody","paginationLabel","paginationButtons","toast","lastChecked","statusCf","statusGa","statusClarity","cfPeriod","gaPeriod","gaPeriodInfo","chartPeriod","cfPagesPeriod","articleSort","articleReset","evaluationSort","evaluationCount","evaluationDetail","evaluationTable","plErrorsOnly","plCount"].map((id)=>[id,document.getElementById(id)]));
 
   let toastTimer = null;
 
@@ -135,6 +137,30 @@
     return matrix.map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])));
   }
 
+  function switchContent(name) {
+    $$('[data-content]').forEach(button=>{
+      const active=button.dataset.content===name;
+      button.classList.toggle('is-active',active);
+      button.setAttribute('aria-pressed',String(active));
+    });
+    $$('[data-content-view]').forEach(view=>{view.hidden=view.dataset.contentView!==name;});
+  }
+  function openPanel(name,content) {
+    const tab=$$('.workspace-tab').find(button=>button.dataset.tab===name);
+    if(tab)tab.click();
+    if(content)switchContent(content);
+  }
+  function updateStatuses() {
+    for(const [id,label,available] of [
+      ['statusCf','Cloudflare',Boolean(state.cloudflare)],
+      ['statusGa','GA4',Boolean(state.ga4)],
+      ['statusClarity','Clarity',Boolean(state.clarity)]
+    ]){
+      el[id].textContent=label+'：'+(available?'取得済み':'未取得');
+      el[id].classList.toggle('status-error',!available);
+    }
+    el.lastChecked.textContent='最終確認 '+new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit'}).format(new Date());
+  }
   function setupTabs() {
     $$('.workspace-tab').forEach(button => button.addEventListener('click', () => {
       const target = button.dataset.tab;
@@ -180,15 +206,18 @@
   }
   function sumRows(rows, key) { return rows.reduce((sum, row) => sum + (Number(row[key]) || 0), 0); }
   function renderCloudflare() {
-    const rows = seriesSlice(7);
-    const pv = sumRows(rows, 'pageviews');
-    const visits = sumRows(rows, 'visits');
-    el.summaryCfPv.textContent = formatNumber(pv);
-    el.summaryCfVisits.textContent = `${formatNumber(visits)} 訪問`;
-    el.cfPageViews.textContent = formatNumber(pv);
-    el.cfVisits.textContent = formatNumber(visits);
+    const homeRows=seriesSlice(7);
+    el.summaryCfPv.textContent=formatNumber(sumRows(homeRows,'pageviews'));
+    el.summaryCfVisits.textContent=`${formatNumber(sumRows(homeRows,'visits'))} 訪問`;
+    const rows=seriesSlice(state.cfDays);
+    el.cfPageViews.textContent=formatNumber(sumRows(rows,'pageviews'));
+    el.cfVisits.textContent=formatNumber(sumRows(rows,'visits'));
+    $$('.cfPeriodLabel').forEach(label=>{label.textContent=`過去${state.cfDays}日`;});
+    el.chartPeriod.textContent=`Cloudflare推移（過去${state.cfDays}日）`;
+    const rankingDays=state.cfDays===7?7:30;
+    el.cfPagesPeriod.textContent=`Cloudflare / 過去${rankingDays}日`;
     renderTrafficChart(rows);
-    renderSimplePages(el.cfTopPages, state.cloudflare?.topPages7 || [], ['pageviews','visits']);
+    renderSimplePages(el.cfTopPages,rankingDays===7?(state.cloudflare?.topPages7||[]):(state.cloudflare?.topPages30||[]),['pageviews','visits']);
     renderPageEvaluation();
     renderTodayActions();
   }
@@ -222,7 +251,7 @@
     svg.append(make('path', { d:area, class:'chart-area' }));
     svg.append(make('polyline', { points:points.map(([x,y]) => `${x},${y}`).join(' '), class:'chart-line' }));
     points.forEach(([x,,row],index) => {
-      if (index === 0 || index === points.length-1 || points.length <= 7) {
+      if (index === 0 || index === points.length-1 || index % Math.max(1,Math.ceil(points.length/6)) === 0) {
         const label = make('text', { x, y:height-7, 'text-anchor':'middle', class:'chart-label' });
         label.textContent = String(row.date || '').slice(5).replace('-', '/');
         svg.append(label);
@@ -247,13 +276,19 @@
     return (state.ga4?.warnings || []).find((item) => item?.section === section)?.message || '';
   }
   function renderGa4() {
-    const overview = state.ga4?.overview30 || {};
-    el.summaryGa4Users.textContent = formatNumber(overview.activeUsers);
-    el.summaryGa4Sessions.textContent = `${formatNumber(overview.sessions)} セッション`;
-    el.ga4Users.textContent = formatNumber(overview.activeUsers);
-    el.ga4Sessions.textContent = formatNumber(overview.sessions);
-    el.ga4Views.textContent = formatNumber(overview.screenPageViews);
-    el.ga4EngagementRate.textContent = formatPercent(overview.engagementRate);
+    const home=state.ga4?.overview30||{};
+    el.summaryGa4Users.textContent=formatNumber(home.activeUsers);
+    el.summaryGa4Sessions.textContent=`${formatNumber(home.sessions)} セッション`;
+    const overview=state.gaDays===7?state.ga4?.overview7:state.ga4?.overview30;
+    $$('.gaPeriodLabel').forEach(label=>{label.textContent=`過去${state.gaDays}日`;});
+    ['ga4Users','ga4Sessions','ga4Views','ga4EngagementRate'].forEach(id=>{el[id].textContent='--';});
+    if(overview){
+      el.ga4Users.textContent=formatNumber(overview.activeUsers);
+      el.ga4Sessions.textContent=formatNumber(overview.sessions);
+      el.ga4Views.textContent=formatNumber(overview.screenPageViews);
+      el.ga4EngagementRate.textContent=formatPercent(overview.engagementRate);
+    }
+    el.gaPeriodInfo.textContent=overview?'※ 記事別と流入元の集計は30日固定です。':'選択期間のGA4データを取得できませんでした。';
     const pagesWarning = ga4Warning('pages30');
     if (pagesWarning) renderTableMessage(el.ga4TopPages, 3, pagesWarning);
     else renderSimplePages(el.ga4TopPages, state.ga4?.pages30 || [], ['screenPageViews','activeUsers']);
@@ -426,7 +461,15 @@
       .filter((item) => group === 'all' || item.type === group)
       .filter((item) => status === 'all' || (status === 'warning' ? Boolean(articleIssue(item)) : !articleIssue(item)))
       .filter((item) => !search || [item.title,item.listTitle,item.description,...(item.badges||[]),...(item.keywords||[])].join(' ').toLowerCase().includes(search))
-      .sort((a,b) => String(b.published).localeCompare(String(a.published)));
+      .sort((a,b)=>{
+        const sort=el.articleSort.value;
+        if(sort==='title')return String(a.title||'').localeCompare(String(b.title||''),'ja');
+        if(sort==='warning'){
+          const diff=Number(Boolean(articleIssue(b)))-Number(Boolean(articleIssue(a)));
+          if(diff)return diff;
+        }
+        return sort==='old'?String(a.published).localeCompare(String(b.published)):String(b.published).localeCompare(String(a.published));
+      });
   }
   function renderArticleTable() {
     const articles = filteredArticles();
@@ -573,23 +616,38 @@
     return { key:'watch', label:'様子見', tone:'warn', reasons };
   }
   function renderPageEvaluation() {
-    if (!el.evaluationRows) return;
-    const all = evaluationData();
-    const query = el.evaluationSearch.value.trim().toLowerCase();
-    const filter = el.evaluationFilter.value;
-    const visible = all.filter((item) => (filter==='all' || item.evaluation.key===filter) && (!query || `${item.title} ${item.path}`.toLowerCase().includes(query)));
-    const counts = all.reduce((acc,item) => { acc[item.evaluation.key]=(acc[item.evaluation.key]||0)+1; return acc; },{});
-    el.evaluationSummary.innerHTML = [
-      ['改善優先',counts.improve||0],['良好',counts.good||0],['様子見',counts.watch||0],['データ少',counts['low-data']||0]
-    ].map(([label,count]) => `<span class="evaluation-pill"><span>${label}</span><b>${count}</b></span>`).join('');
+    const all=evaluationData();
+    const filter=el.evaluationFilter.value;
+    const query=el.evaluationSearch.value.trim().toLowerCase();
+    const rows=all.filter(item=>(filter==='all'||item.evaluation.key===filter)&&(!query||`${item.title} ${item.path}`.toLowerCase().includes(query)));
+    const priorities={improve:0,watch:1,'low-data':2,good:3};
+    rows.sort((a,b)=>{
+      const sort=el.evaluationSort.value;
+      if(sort==='ga4')return b.ga4Views-a.ga4Views;
+      if(sort==='cf')return b.cfPv-a.cfPv;
+      return (priorities[a.evaluation.key]??4)-(priorities[b.evaluation.key]??4)||b.ga4Views-a.ga4Views;
+    });
+    const counts=all.reduce((result,item)=>{result[item.evaluation.key]=(result[item.evaluation.key]||0)+1;return result;},{});
+    el.evaluationSummary.replaceChildren();
+    for(const [key,label,n] of [['all','全体',all.length],['improve','改善優先',counts.improve||0],['good','良好',counts.good||0],['watch','様子見',counts.watch||0],['low-data','データ少',counts['low-data']||0]]){
+      const button=document.createElement('button');button.type='button';
+      button.className='evaluation-pill'+(filter===key?' is-active':'');
+      button.textContent=`${label} ${n}件`;
+      button.addEventListener('click',()=>{el.evaluationFilter.value=key;renderPageEvaluation();});
+      el.evaluationSummary.append(button);
+    }
+    el.evaluationCount.textContent=`${rows.length}件（最大100件表示）`;
     el.evaluationRows.replaceChildren();
-    if (!visible.length) return renderTableMessage(el.evaluationRows, 10, '条件に合うページがありません。');
-    visible.slice(0,100).forEach((item) => {
+    if(!rows.length)return renderTableMessage(el.evaluationRows,10,'条件に合うページがありません。');
+    rows.slice(0,100).forEach(item=>{
       const tr=document.createElement('tr');
-      tr.innerHTML = `<td class="page-name"><strong></strong><small></small></td><td>${formatNumber(item.cfPv)}</td><td>${formatNumber(item.ga4Views)}</td><td>${formatNumber(item.ga4Users)}</td><td>${formatSeconds(item.avgSession)}</td><td>${item.viewsPerUser?item.viewsPerUser.toFixed(2):'--'}</td><td>${item.scroll?formatPercent(item.scroll):'--'}</td><td>${formatNumber(item.rage)}</td><td>${formatNumber(item.dead)}</td><td><span class="status-badge ${item.evaluation.tone}"></span></td>`;
+      tr.innerHTML=`<td class="page-name"><strong></strong><small></small></td><td>${formatNumber(item.cfPv)}</td><td>${formatNumber(item.ga4Views)}</td><td>${formatNumber(item.ga4Users)}</td><td>${formatSeconds(item.avgSession)}</td><td>${item.viewsPerUser?item.viewsPerUser.toFixed(2):'--'}</td><td>${item.scroll?formatPercent(item.scroll):'--'}</td><td>${formatNumber(item.rage)}</td><td>${formatNumber(item.dead)}</td><td><span class="status-badge ${item.evaluation.tone}"></span><small class="evaluation-reason"></small></td>`;
       tr.querySelector('.page-name strong').textContent=item.title;
       tr.querySelector('.page-name small').textContent=item.path;
-      const badge=tr.querySelector('.status-badge'); badge.textContent=item.evaluation.label; if(item.evaluation.reasons.length) badge.title=item.evaluation.reasons.join(' / ');
+      const badge=tr.querySelector('.status-badge');
+      badge.textContent=item.evaluation.label;
+      badge.title=item.evaluation.reasons.join('・');
+      tr.querySelector('.evaluation-reason').textContent=item.evaluation.reasons.join('・');
       el.evaluationRows.append(tr);
     });
   }
@@ -631,19 +689,24 @@
     return latest;
   }
   function renderPlayerLensReports() {
-    const ok=state.playerLensReports.filter((item)=>item.ok).length;
-    const bad=state.playerLensReports.length-ok;
-    el.summaryPlayerLens.textContent = bad ? `${ok}/${state.playerLensReports.length}` : '正常';
-    el.summaryPlayerLensDetail.textContent = bad ? `${bad}件 要確認` : `${ok}データ取得成功`;
+    const all=state.playerLensReports;
+    const good=all.filter(item=>item.ok).length;
+    const bad=all.length-good;
+    el.summaryPlayerLens.textContent=bad?`${good}/${all.length}`:'正常';
+    el.summaryPlayerLensDetail.textContent=bad?`${bad}件 要確認`:`${good}データ取得成功`;
+    el.plCount.textContent=`全${all.length}件 / 正常${good}件 / 要確認${bad}件`;
+    const visible=all.filter(item=>!el.plErrorsOnly.checked||!item.ok).sort((a,b)=>Number(a.ok)-Number(b.ok));
     el.playerLensDataRows.replaceChildren();
-    state.playerLensReports.forEach((report) => {
+    if(!visible.length)renderTableMessage(el.playerLensDataRows,4,all.length?'要確認のデータはありません。':'データがありません。');
+    visible.forEach(report=>{
       const tr=document.createElement('tr');
       tr.innerHTML=`<td></td><td>${report.count===null?'—':formatNumber(report.count)}</td><td>${report.latest?formatDate(report.latest):'—'}</td><td><span class="status-badge ${report.ok?'good':'bad'}">${report.ok?'正常':'エラー'}</span></td>`;
-      tr.children[0].textContent=report.label; el.playerLensDataRows.append(tr);
+      tr.children[0].textContent=report.label;
+      if(!report.ok)tr.title=report.error||'取得エラー';
+      el.playerLensDataRows.append(tr);
     });
     renderTodayActions();
   }
-
   async function checkPages(target, pages) {
     target.replaceChildren();
     const results = await Promise.all(pages.map(async ([label,url]) => {
@@ -666,15 +729,22 @@
     const actions=[];
     const evals=evaluationData();
     const improve=evals.filter((item)=>item.evaluation.key==='improve').slice(0,2);
-    improve.forEach((item)=>actions.push({title:`改善優先：${item.title}`,detail:item.evaluation.reasons.join('・')||item.path,tone:'bad',badge:'確認'}));
+    improve.forEach((item)=>actions.push({title:`改善優先：${item.title}`,detail:item.evaluation.reasons.join('・')||item.path,tone:'bad',badge:'確認',section:'articles',content:'evaluation'}));
     const failed=state.playerLensReports.filter((item)=>!item.ok);
-    if (failed.length) actions.push({title:'Player Lensデータ要確認',detail:`${failed.length}件を取得できません`,tone:'bad',badge:'エラー'});
+    if (failed.length) actions.push({title:'Player Lensデータ要確認',detail:`${failed.length}件を取得できません`,tone:'bad',badge:'エラー',section:'player-lens'});
     const rage=clarityTotal(/Rage Click/i,/rage|click/i);
-    if (rage>0) actions.push({title:'Rage Clickを確認',detail:`直近3日で${formatNumber(rage)}件`,tone:'warn',badge:'Clarity'});
+    if (rage>0) actions.push({title:'Rage Clickを確認',detail:`直近3日で${formatNumber(rage)}件`,tone:'warn',badge:'Clarity',section:'traffic'});
     if (!actions.length && (state.cloudflare || state.ga4 || state.clarity)) actions.push({title:'大きな異常は見つかっていません',detail:'ページ評価・Player Lensとも致命的な警告なし',tone:'good',badge:'OK'});
     el.todayActions.replaceChildren();
     (actions.length?actions:[{title:'分析データを読み込み中',detail:'少し待ってから自動更新されます',tone:'muted',badge:'待機'}]).forEach((item)=>{
-      const div=document.createElement('div'); div.className='action-item'; div.innerHTML=`<span><strong></strong><small></small></span><span class="action-badge ${item.tone}"></span>`; div.querySelector('strong').textContent=item.title; div.querySelector('small').textContent=item.detail; div.querySelector('.action-badge').textContent=item.badge; el.todayActions.append(div);
+      const div=document.createElement(item.section?'button':'div');
+      div.className='action-item'+(item.section?' action-link':'');
+      if(item.section){div.type='button';div.addEventListener('click',()=>openPanel(item.section,item.content));}
+      div.innerHTML=`<span><strong></strong><small></small></span><span class="action-badge ${item.tone}"></span>`;
+      div.querySelector('strong').textContent=item.title;
+      div.querySelector('small').textContent=item.detail;
+      div.querySelector('.action-badge').textContent=item.badge;
+      el.todayActions.append(div);
     });
   }
 
@@ -689,13 +759,22 @@
       try {
         await Promise.allSettled([loadCloudflare(),loadGa4(),loadClarity(),loadArticles(),loadPlayerLens(true),runHealthChecks()]);
         renderTodayActions();
-        showToast('データ取得処理が完了しました。');
+        updateStatuses();
+        showToast('取得状況を更新しました。');
       } finally {
         setNotice('');
         el.refreshAllButton.disabled = false;
       }
     });
     el.rerunHealthButton.addEventListener('click',runHealthChecks);
+    el.cfPeriod.addEventListener('change',()=>{state.cfDays=Number(el.cfPeriod.value);if(state.cloudflare)renderCloudflare();});
+    el.gaPeriod.addEventListener('change',()=>{state.gaDays=Number(el.gaPeriod.value);if(state.ga4)renderGa4();});
+    $$('[data-content]').forEach(button=>button.addEventListener('click',()=>switchContent(button.dataset.content)));
+    el.articleSort.addEventListener('change',()=>{state.articlePage=1;renderArticleTable();});
+    el.articleReset.addEventListener('click',()=>{el.articleSearch.value='';el.articleGroupFilter.value='all';el.articleStatusFilter.value='all';el.articleSort.value='new';state.articlePage=1;renderArticleTable();});
+    el.evaluationSort.addEventListener('change',renderPageEvaluation);
+    el.evaluationDetail.addEventListener('click',()=>{const active=el.evaluationTable.classList.toggle('show-details');el.evaluationDetail.textContent=active?'簡易表示に戻す':'詳細指標を表示';el.evaluationDetail.setAttribute('aria-pressed',String(active));});
+    el.plErrorsOnly.addEventListener('change',renderPlayerLensReports);
     el.reloadPlayerLensButton.addEventListener('click',()=>loadPlayerLens(true));
     el.evaluationSearch.addEventListener('input',renderPageEvaluation);
     el.evaluationFilter.addEventListener('change',renderPageEvaluation);
@@ -710,6 +789,7 @@
     if(getLocalRecordsCount()>0) el.summaryLatestArticle.title=`端末内の保存記録 ${getLocalRecordsCount()}件`;
     await Promise.allSettled([loadArticles(),loadCloudflare(),loadGa4(),loadClarity(),loadPlayerLens(),runHealthChecks()]);
     renderTodayActions();
+    updateStatuses();
   }
 
   init();

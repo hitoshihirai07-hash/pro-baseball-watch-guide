@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="description" content="プロ野球観戦メモの管理者専用運用ダッシュボード。">
   <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261118-pc1">
+  <link rel="stylesheet" href="styles.css?v=20261118-pc2">
   <title>運営ダッシュボード｜プロ野球観戦メモ</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
   <main id="main" class="page-shell">
     <header class="page-heading">
       <div><p class="eyebrow">プロ野球観戦メモ / 管理</p><h1 id="sectionTitle">運営ホーム</h1><p id="sectionDesc">サイトの状態と確認事項</p></div>
-      <button id="refreshAllButton" class="button button-primary" type="button">↻ データを更新</button>
+      <div class="page-actions"><span id="lastChecked" class="small-note">取得状況を確認中</span><button id="refreshAllButton" class="button button-primary" type="button">↻ データを更新</button></div>
     </header>
     <div id="pageNotice" class="page-notice" role="status" hidden></div>
     <section class="tab-panel is-active" data-panel="overview">
@@ -42,9 +42,9 @@
       <article class="summary-item"><span>Clarity / 3日</span><strong id="summaryClaritySessions">--</strong><small id="summaryClarityIssues">読込中</small></article>
       <article class="summary-item"><span>記事</span><strong id="summaryArticleCount">--</strong><small id="summaryLatestArticle">読込中</small></article>
       <article class="summary-item"><span>Player Lens</span><strong id="summaryPlayerLens">確認中</strong><small id="summaryPlayerLensDetail">データ確認中</small></article>
-    </section>
+    </section><div class="source-health"><strong>取得状況</strong><span id="statusCf">Cloudflare：確認中</span><span id="statusGa">GA4：確認中</span><span id="statusClarity">Clarity：確認中</span></div>
       <div class="home-grid"><section class="panel">
-          <div class="panel-heading compact"><div><p class="eyebrow">NEXT ACTION</p><h2>今日見るべきこと</h2></div></div>
+          <div class="panel-heading compact"><div><p class="eyebrow">CHECK FIRST</p><h2>優先して確認すること</h2></div></div>
           <div id="todayActions" class="action-list"><p class="loading-row">分析中です。</p></div>
         </section><section class="panel">
           <div class="panel-heading compact"><div><p class="eyebrow">HEALTH</p><h2>公開ページ状態</h2></div></div>
@@ -59,17 +59,17 @@
     <section class="tab-panel" data-panel="traffic" hidden>
       <div class="dashboard-grid"><section class="panel span-2">
           <div class="panel-heading">
-            <div><p class="eyebrow">TRAFFIC</p><h2>サイト閲覧状況</h2><p>Cloudflareは過去7日、GA4は過去30日の主要指標です。</p></div>
+            <div><p class="eyebrow">TRAFFIC</p><h2>アクセス分析</h2><p>取得元ごとに、利用できる集計期間を選択できます。</p></div><label class="period-picker"><span>Cloudflare</span><select id="cfPeriod"><option value="7">過去7日</option><option value="30">過去30日</option><option value="60">過去60日</option></select></label>
           </div>
           <div class="metric-grid metric-grid-6">
-            <article><span>CF ページビュー</span><strong id="cfPageViews">--</strong><small>過去7日</small></article>
-            <article><span>CF 訪問</span><strong id="cfVisits">--</strong><small>過去7日</small></article>
-            <article><span>GA4 ユーザー</span><strong id="ga4Users">--</strong><small>過去30日</small></article>
-            <article><span>GA4 セッション</span><strong id="ga4Sessions">--</strong><small>過去30日</small></article>
-            <article><span>GA4 表示回数</span><strong id="ga4Views">--</strong><small>過去30日</small></article>
-            <article><span>GA4 エンゲージメント率</span><strong id="ga4EngagementRate">--</strong><small>過去30日</small></article>
+            <article><span>CF ページビュー</span><strong id="cfPageViews">--</strong><small class="cfPeriodLabel">過去7日</small></article>
+            <article><span>CF 訪問</span><strong id="cfVisits">--</strong><small class="cfPeriodLabel">過去7日</small></article>
+            <article><span>GA4 ユーザー</span><strong id="ga4Users">--</strong><small class="gaPeriodLabel">過去30日</small></article>
+            <article><span>GA4 セッション</span><strong id="ga4Sessions">--</strong><small class="gaPeriodLabel">過去30日</small></article>
+            <article><span>GA4 表示回数</span><strong id="ga4Views">--</strong><small class="gaPeriodLabel">過去30日</small></article>
+            <article><span>GA4 エンゲージメント率</span><strong id="ga4EngagementRate">--</strong><small class="gaPeriodLabel">過去30日</small></article>
           </div>
-          <div class="chart-wrap">
+          <div class="chart-wrap"><div class="chart-controls"><strong id="chartPeriod">Cloudflare推移（7日）</strong><label class="period-picker"><span>GA4</span><select id="gaPeriod"><option value="30">過去30日</option><option value="7">過去7日</option></select></label></div><p id="gaPeriodInfo" class="small-note"></p>
             <svg id="trafficChart" class="trend-chart" viewBox="0 0 760 250" role="img" aria-label="Cloudflare閲覧推移"></svg>
           </div>
         </section><section class="panel">
@@ -84,14 +84,14 @@
         </section><section class="panel span-3">
           <div class="panel-heading"><div><p class="eyebrow">TOP PAGES</p><h2>よく読まれているページ</h2><p>CloudflareとGA4の上位ページをまとめています。</p></div></div>
           <div class="split-tables">
-            <div><h3>Cloudflare / 7日</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>PV</th><th>訪問</th></tr></thead><tbody id="cfTopPages"></tbody></table></div></div>
+            <div><h3 id="cfPagesPeriod">Cloudflare / 過去7日</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>PV</th><th>訪問</th></tr></thead><tbody id="cfTopPages"></tbody></table></div></div>
             <div><h3>GA4 / 30日</h3><div class="table-scroll"><table><thead><tr><th>ページ</th><th>表示</th><th>ユーザー</th></tr></thead><tbody id="ga4TopPages"></tbody></table></div></div>
             <div><h3>GA4 流入元 / 30日</h3><div class="table-scroll"><table><thead><tr><th>チャネル</th><th>セッション</th><th>ユーザー</th></tr></thead><tbody id="ga4Sources"></tbody></table></div></div>
           </div>
         </section></div>
     </section>
     <section class="tab-panel" data-panel="articles" hidden>
-      <div class="content-stack"><section class="panel">
+      <div class="content-stack"><div class="content-switch"><button type="button" class="content-button is-active" data-content="list" aria-pressed="true">記事一覧</button><button type="button" class="content-button" data-content="evaluation" aria-pressed="false">ページ評価</button></div><div class="content-view" data-content-view="list"><section class="panel">
         <div class="panel-heading article-heading">
           <div><p class="eyebrow">CONTENT</p><h2>記事管理</h2><p>公開記事と観戦メモをまとめて確認します。</p></div>
           <div class="heading-actions"><a class="button button-primary" href="watch-note/">＋ 新しい観戦メモ</a><span id="filteredCount" class="result-count">0件</span></div>
@@ -100,27 +100,27 @@
         <div class="article-tools">
           <label class="search-field"><span class="sr-only">記事検索</span><input id="articleSearch" type="search" placeholder="タイトル・タグで検索"></label>
           <select id="articleGroupFilter" aria-label="記事の種類"><option value="all">すべての記事</option><option value="watch-note">観戦メモ</option><option value="article">ガイド・記事</option><option value="tool">ツール</option></select>
-          <select id="articleStatusFilter" aria-label="確認状態"><option value="all">すべての状態</option><option value="ok">公開済み</option><option value="warning">要確認</option></select>
+          <select id="articleStatusFilter" aria-label="確認状態"><option value="all">すべての状態</option><option value="ok">公開済み</option><option value="warning">要確認</option></select><select id="articleSort" aria-label="記事の並び順"><option value="new">新しい順</option><option value="old">古い順</option><option value="warning">要確認を優先</option><option value="title">タイトル順</option></select><button id="articleReset" class="button button-secondary" type="button">絞り込み解除</button>
         </div>
         <div class="table-scroll article-table-scroll"><table class="article-table"><thead><tr><th>タイトル</th><th>種類</th><th>公開日</th><th>状態</th><th></th></tr></thead><tbody id="articleTableBody"></tbody></table></div>
         <div class="pagination-row"><p id="paginationLabel">0件</p><div id="paginationButtons" class="pagination-buttons"></div></div>
-      </section><section class="panel">
+      </section></div><div class="content-view" data-content-view="evaluation" hidden><section class="panel">
         <div class="panel-heading article-heading">
           <div><p class="eyebrow">PAGE QUALITY</p><h2>ページ評価</h2><p>Cloudflare 7日・GA4 30日・Clarity 3日を同じページ単位で見比べます。</p></div>
           <div class="heading-actions">
             <label class="search-field"><span class="sr-only">ページ検索</span><input id="evaluationSearch" type="search" placeholder="ページ名・URLで検索"></label>
-            <select id="evaluationFilter" aria-label="評価で絞り込み"><option value="all">すべて</option><option value="improve">改善優先</option><option value="good">良好</option><option value="watch">様子見</option><option value="low-data">データ少</option></select>
+            <select id="evaluationFilter" aria-label="評価で絞り込み"><option value="all">すべて</option><option value="improve">改善優先</option><option value="good">良好</option><option value="watch">様子見</option><option value="low-data">データ少</option></select><select id="evaluationSort" aria-label="評価の並び順"><option value="priority">改善優先</option><option value="ga4">GA4表示回数順</option><option value="cf">Cloudflare PV順</option></select>
           </div>
         </div>
-        <div class="evaluation-summary" id="evaluationSummary"></div>
+        <div class="evaluation-summary" id="evaluationSummary"></div><div class="evaluation-actions"><span id="evaluationCount" class="small-note"></span><button id="evaluationDetail" class="button button-secondary" type="button" aria-pressed="false">詳細指標を表示</button></div>
         <div class="table-scroll wide-table-scroll">
-          <table class="evaluation-table">
+          <table id="evaluationTable" class="evaluation-table">
             <thead><tr><th>ページ</th><th>CF PV</th><th>GA4表示</th><th>ユーザー</th><th>平均Eng時間</th><th>表示/人</th><th>Scroll</th><th>Rage</th><th>Dead</th><th>評価</th></tr></thead>
             <tbody id="evaluationRows"></tbody>
           </table>
         </div>
         <p class="small-note">「改善優先」は、十分なGA4ユーザー数があり、直したときの効果が見込めるページだけを自動判定します。GA4ユーザー10人未満は「データ少」として判断を保留し、トップ・一覧・Player Lensなどの入口ページは平均Eng時間が短いだけでは改善扱いにしません。</p>
-      </section></div>
+      </section></div></div>
     </section>
     <section class="tab-panel" data-panel="player-lens" hidden><div class="dashboard-grid">
         <section class="panel span-2">
@@ -128,7 +128,7 @@
             <div><p class="eyebrow">PLAYER LENS DATA</p><h2>データ更新状況</h2><p>公開中の <code>/player-lens/data/</code> を直接確認します。管理元はPlayer LensのGitHubのままです。</p></div>
             <button id="reloadPlayerLensButton" class="button button-secondary" type="button">再確認</button>
           </div>
-          <div class="table-scroll"><table><thead><tr><th>データ</th><th>件数</th><th>最新日</th><th>状態</th></tr></thead><tbody id="playerLensDataRows"></tbody></table></div>
+          <div class="pl-filters"><span id="plCount" class="small-note">確認中</span><label><input id="plErrorsOnly" type="checkbox"> 要確認のみ</label></div><div class="table-scroll"><table><thead><tr><th>データ</th><th>件数</th><th>最新日</th><th>状態</th></tr></thead><tbody id="playerLensDataRows"></tbody></table></div>
         </section>
         <section class="panel">
           <div class="panel-heading compact"><div><p class="eyebrow">PUBLIC CHECK</p><h2>主要ページ</h2></div></div>
@@ -147,5 +147,5 @@
   </main>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20261118-pc1" defer></script>
+<script src="app.js?v=20261118-pc2" defer></script>
 </body></html>
