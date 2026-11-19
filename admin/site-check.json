@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-17T12:35:24.221Z",
+  "generatedAt": "2026-11-19T11:41:52.859Z",
   "status": "ok",
   "summary": {
-    "pages": 103,
-    "articles": 91,
-    "watchNotes": 45,
+    "pages": 104,
+    "articles": 92,
+    "watchNotes": 46,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "103ページの参照先を確認しました。",
+      "detail": "104ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "91件の記事データとHTMLを照合しました。",
+      "detail": "92件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,21 +41,21 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "101ページの基本メタ情報を確認しました。",
+      "detail": "102ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "45件の観戦メモを確認しました。",
+      "detail": "46件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "91件の記事URLを確認しました。",
+      "detail": "92件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },

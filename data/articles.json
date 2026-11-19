@@ -3454,6 +3454,50 @@
       "sitemap": true
     },
     {
+      "type": "watch-note",
+      "path": "/watch-notes/npb-spring-camp-2027-12teams-guide",
+      "source": "watch-notes/npb-spring-camp-2027-12teams-guide.html",
+      "contentSource": "content/watch-notes/npb-spring-camp-2027-12teams-guide.json",
+      "slug": "npb-spring-camp-2027-12teams-guide",
+      "title": "【2027年プロ野球】12球団の春季キャンプ開催地まとめ｜宮崎・沖縄の日程と1軍・2軍の違い",
+      "listTitle": "【2027年プロ野球】12球団の春季キャンプ開催地まとめ｜宮崎・沖縄の日程と1軍・2軍の違い",
+      "description": "2027年プロ野球12球団の春季キャンプ開催地・日程を一覧で紹介。巨人、ソフトバンク、楽天、ロッテの発表情報と未発表球団の2026年実績を区別し、宮崎・沖縄の特徴や1軍・2軍・3軍の違いを整理します。",
+      "listDescription": "2027年春季キャンプの開催地を12球団で整理。発表済みの日程と前年の実績、1軍・2軍・3軍の違いを紹介します。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-19",
+      "updated": "2026-11-19",
+      "keywords": [
+        "プロ野球 春季キャンプ 2027",
+        "12球団 キャンプ地 2027",
+        "巨人 春季キャンプ 2027",
+        "宮崎 沖縄 春季キャンプ",
+        "プロ野球 1軍 2軍 キャンプ 開催地"
+      ],
+      "tags": [
+        "other",
+        "season-preview"
+      ],
+      "badges": [
+        "2027年",
+        "春季キャンプ",
+        "12球団"
+      ],
+      "articleType": "チーム・起用・戦い方について感じたこと",
+      "nextPoints": [
+        "未発表球団の2027年キャンプ開催地と日程がどう発表されるか",
+        "1軍・ファームの会場や組分け、期間途中の移動にどんな違いがあるか",
+        "松井新監督の巨人や各球団の若手が春にどんな変化を見せるか"
+      ],
+      "nextPointLabels": [
+        "開催地・日程で見る点",
+        "1軍・ファームで見る点",
+        "選手・チームで注目する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
       "type": "recommendation",
       "path": "/articles/baseball-watching-useful-goods",
       "source": "articles/baseball-watching-useful-goods.html",
@@ -3579,50 +3623,6 @@
       "search": true,
       "sitemap": true,
       "order": 0
-    },
-    {
-      "type": "watch-note",
-      "path": "/watch-notes/npb-spring-camp-2027-12teams-guide",
-      "source": "watch-notes/npb-spring-camp-2027-12teams-guide.html",
-      "contentSource": "content/watch-notes/npb-spring-camp-2027-12teams-guide.json",
-      "slug": "npb-spring-camp-2027-12teams-guide",
-      "title": "【2027年プロ野球】12球団の春季キャンプ開催地まとめ｜宮崎・沖縄の日程と1軍・2軍の違い",
-      "listTitle": "【2027年プロ野球】12球団の春季キャンプ開催地まとめ｜宮崎・沖縄の日程と1軍・2軍の違い",
-      "description": "2027年プロ野球12球団の春季キャンプ開催地・日程を一覧で紹介。巨人、ソフトバンク、楽天、ロッテの発表情報と未発表球団の2026年実績を区別し、宮崎・沖縄の特徴や1軍・2軍・3軍の違いを整理します。",
-      "listDescription": "2027年春季キャンプの開催地を12球団で整理。発表済みの日程と前年の実績、1軍・2軍・3軍の違いを紹介します。",
-      "category": "観戦メモ",
-      "group": "watch-notes",
-      "published": "2026-11-19",
-      "updated": "2026-11-19",
-      "keywords": [
-        "プロ野球 春季キャンプ 2027",
-        "12球団 キャンプ地 2027",
-        "巨人 春季キャンプ 2027",
-        "宮崎 沖縄 春季キャンプ",
-        "プロ野球 1軍 2軍 キャンプ 開催地"
-      ],
-      "tags": [
-        "other",
-        "season-preview"
-      ],
-      "badges": [
-        "2027年",
-        "春季キャンプ",
-        "12球団"
-      ],
-      "articleType": "チーム・起用・戦い方について感じたこと",
-      "nextPoints": [
-        "未発表球団の2027年キャンプ開催地と日程がどう発表されるか",
-        "1軍・ファームの会場や組分け、期間途中の移動にどんな違いがあるか",
-        "松井新監督の巨人や各球団の若手が春にどんな変化を見せるか"
-      ],
-      "nextPointLabels": [
-        "開催地・日程で見る点",
-        "1軍・ファームで見る点",
-        "選手・チームで注目する点"
-      ],
-      "search": true,
-      "sitemap": true
     }
   ]
 }
