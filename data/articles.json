@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-19",
+  "updated": "2026-11-21",
   "articles": [
     {
       "type": "watch-note",
@@ -3623,6 +3623,40 @@
       "search": true,
       "sitemap": true,
       "order": 0
+    },
+    {
+      "type": "article",
+      "path": "/articles/bench-first-game-guide",
+      "source": "articles/bench-first-game-guide.html",
+      "slug": "bench-first-game-guide",
+      "title": "野球の監督になって采配を楽しもう！「ベンチからの一手」の遊び方とゲーム紹介",
+      "listTitle": "野球采配ゲーム「ベンチからの一手」とは？遊び方・楽しみ方を紹介",
+      "description": "無料の野球采配ゲーム「ベンチからの一手」を紹介。代打・継投・走塁などの楽しみ方、スマホ・PCでの遊び方、共通のお題や自由シナリオ、最近の更新内容をわかりやすく案内します。",
+      "listDescription": "代打か続投か？監督になって終盤の采配を選ぶ無料ブラウザゲーム。初めての遊び方、自由シナリオ、同条件での再挑戦を紹介します。",
+      "category": "ゲーム・特集",
+      "group": "watch-guide",
+      "published": "2026-11-21",
+      "updated": "2026-11-21",
+      "keywords": [
+        "ベンチからの一手",
+        "野球采配ゲーム",
+        "野球 ゲーム 無料",
+        "監督 野球 ゲーム",
+        "野球 ゲーム スマホ",
+        "代打 継投 采配",
+        "自由シナリオ",
+        "野球采配"
+      ],
+      "tags": [
+        "baseball-game",
+        "tactics"
+      ],
+      "badges": [
+        "野球采配ゲーム",
+        "遊び方"
+      ],
+      "search": true,
+      "sitemap": true
     }
   ]
 }
