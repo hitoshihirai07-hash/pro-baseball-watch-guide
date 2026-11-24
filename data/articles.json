@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-21",
+  "updated": "2026-11-24",
   "articles": [
     {
       "type": "watch-note",
@@ -3657,6 +3657,44 @@
       ],
       "search": true,
       "sitemap": true
+    },
+    {
+      "type": "article",
+      "path": "/articles/geneki-draft-2026",
+      "source": "articles/geneki-draft-2026.html",
+      "slug": "geneki-draft-2026",
+      "title": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
+      "listTitle": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
+      "description": "2026年のプロ野球現役ドラフトは12月9日開催。対象選手の条件、指名順、2巡目の仕組み、2026年のルール変更を解説。細川成也、大竹耕太郎、田中瑛斗ら歴代移籍選手の活躍も成績から紹介します。",
+      "listDescription": "12月9日開催の現役ドラフト2026。制度の仕組みや対象選手、今年のルール変更を解説し、過去の移籍選手の活躍をデータから振り返ります。",
+      "category": "制度解説",
+      "group": "game-view",
+      "published": "2026-11-24",
+      "updated": "2026-11-24",
+      "keywords": [
+        "プロ野球 現役ドラフト 2026",
+        "現役ドラフト とは",
+        "現役ドラフト 仕組み",
+        "現役ドラフト 条件",
+        "現役ドラフト いつ",
+        "現役ドラフト 対象選手",
+        "現役ドラフト 指名順",
+        "現役ドラフト ルール",
+        "現役ドラフト 中継",
+        "現役ドラフト 歴代",
+        "現役ドラフト 活躍"
+      ],
+      "tags": [
+        "active-draft"
+      ],
+      "badges": [
+        "2026年",
+        "現役ドラフト",
+        "制度解説"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 0
     }
   ]
 }
