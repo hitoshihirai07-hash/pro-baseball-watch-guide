@@ -1,7 +1,9 @@
+import {renderSiteHeader,SITE_HEADER_STYLE_ID,SITE_HEADER_STYLE} from '../../shared/site-header.js';
+
 const PLAYER_LENS_ORIGIN = "https://player-lens-pages.pages.dev";
 const PLAYER_LENS_PREFIX = "/player-lens";
 const CANONICAL_ORIGIN = "https://pro-baseball-watch-guide.com";
-const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20260913-imobile-clean";
+const BRIDGE_STYLESHEET = "/assets/css/player-lens-integrated.css?v=20261125-common";
 const WATCH_NOTE_BRIDGE_SCRIPT = "/assets/js/player-lens-watch-note-bridge.js?v=20260822-stage3-links";
 const GA4_MEASUREMENT_ID = "G-RKRFYZS2YV";
 
@@ -63,27 +65,7 @@ const REVALIDATE_CONTENT_TYPES = [
   "text/csv",
 ];
 
-const BRIDGE_HEADER = `
-<header class="pbwg-bridge-header" data-pbwg-bridge="true">
-  <div class="pbwg-bridge-inner">
-    <a class="pbwg-bridge-brand" href="/" aria-label="プロ野球観戦メモ トップへ">
-      <span class="pbwg-bridge-mark" aria-hidden="true">⚾</span>
-      <span class="pbwg-bridge-brand-copy">
-        <strong>プロ野球観戦メモ</strong>
-        <small>試合・選手・チームを見て、データでも楽しむ</small>
-      </span>
-    </a>
-    <nav class="pbwg-bridge-nav" aria-label="プロ野球観戦メモ 共通メニュー">
-      <a href="/">トップ</a>
-      <a href="/giants/">巨人の今</a>
-      <a href="/articles/">記事一覧</a>
-      <a href="/watch-notes/">観戦メモ</a>
-      <a class="is-current" href="/player-lens/" aria-current="page">Player Lens</a>
-      <a href="/about">このサイトについて</a>
-      <a href="/contact">お問い合わせ</a>
-    </nav>
-  </div>
-</header>`;
+const BRIDGE_HEADER = renderSiteHeader('/player-lens/', {bridge:true});
 
 function isTextResponse(contentType = "") {
   const normalized = contentType.toLowerCase();
@@ -195,6 +177,10 @@ function integrateHtml(html, device = "desktop", adsEnabled = true) {
       /<\/head>/i,
       `  <link rel="stylesheet" href="${BRIDGE_STYLESHEET}">\n</head>`,
     );
+  }
+
+  if (!integrated.includes(SITE_HEADER_STYLE_ID)) {
+    integrated = integrated.replace(/<\/head>/i, `${SITE_HEADER_STYLE}\n</head>`);
   }
 
   integrated = insertPlayerLensAd(integrated, device, adsEnabled);

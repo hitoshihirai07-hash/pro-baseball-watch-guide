@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import {renderSiteHeader,SITE_HEADER_CSS_LINK} from '../shared/site-header.js';
+import {renderSiteHeader,SITE_HEADER_STYLE} from '../shared/site-header.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -264,7 +264,7 @@ function pageHtml(note) {
 
   return applyTemplate(fs.readFileSync(TEMPLATE_PATH, 'utf8'), {
     SITE_HEADER: renderSiteHeader('/watch-notes/' + note.slug),
-    SITE_HEADER_CSS_LINK,
+    SITE_HEADER_STYLE,
     TITLE: escapeHtml(note.title),
     DESCRIPTION: escapeHtml(note.description),
     CANONICAL: canonical,
