@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T04:02:21.047Z",
+  "generatedAt": "2026-11-25T10:35:34.161Z",
   "status": "ok",
   "summary": {
-    "pages": 106,
-    "articles": 94,
-    "watchNotes": 46,
+    "pages": 107,
+    "articles": 95,
+    "watchNotes": 47,
     "errors": 0,
     "warnings": 0
   },
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "106ページの参照先を確認しました。",
+      "detail": "107ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "94件の記事データとHTMLを照合しました。",
+      "detail": "95件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,28 +41,28 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "104ページの基本メタ情報を確認しました。",
+      "detail": "105ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "観戦メモRSS",
       "status": "ok",
-      "detail": "46件の観戦メモを確認しました。",
+      "detail": "47件の観戦メモを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "94件の記事URLを確認しました。",
+      "detail": "95件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
     {
       "label": "「巨人の今」の最新記事",
       "status": "ok",
-      "detail": "/watch-notes/giants-autumn-camp-2026-matsui-reviewを表示しています。",
+      "detail": "/watch-notes/kazuyuki-takemaru-rookie-2026を表示しています。",
       "count": 0,
       "samples": []
     },
