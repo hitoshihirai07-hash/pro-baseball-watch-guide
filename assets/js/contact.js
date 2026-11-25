@@ -4,6 +4,15 @@
     if (!form || form.getAttribute('data-contact-ready') === 'true') return;
     form.setAttribute('data-contact-ready', 'true');
 
+    // Select the existing category only when arriving from Player Lens.
+    if (typeof URLSearchParams !== 'undefined' &&
+        new URLSearchParams(window.location.search).get('source') === 'player-lens') {
+      var category = form.querySelector('select[name="category"]');
+      var source = form.querySelector('input[name="source"]');
+      if (category && !category.value) category.value = 'Player Lensについて';
+      if (source) source.value = 'Player Lens / 共通問い合わせフォーム';
+    }
+
     if (!window.fetch || !window.FormData) return;
 
     var submitButton = form.querySelector('[data-contact-submit]');
@@ -63,6 +72,10 @@
         })
         .then(function () {
           form.reset();
+          if (typeof URLSearchParams !== 'undefined' && new URLSearchParams(window.location.search).get('source') === 'player-lens') {
+            if (category) category.value = 'Player Lensについて';
+            if (source) source.value = 'Player Lens / 共通問い合わせフォーム';
+          }
           showStatus('success', 'お問い合わせを送信しました。返信先が入力されている場合は、必要に応じてご連絡します。');
         })
         .catch(function (error) {
