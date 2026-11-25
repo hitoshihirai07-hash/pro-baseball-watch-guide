@@ -1,0 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {normalizeSiteHeader,isRedirectPage} from '../shared/site-header.js';
+export function publicHtmlFiles(root){const out=[];function visit(dir){for(const e of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const f=dir?dir+'/'+e.name:e.name;if(e.isDirectory()){if(!['.git','node_modules','admin','tools','functions','shared'].includes(e.name))visit(f);}else if(e.name.endsWith('.html'))out.push(f);}}visit('');return out.sort();}
+export function syncSiteHeaders(root){let count=0;for(const file of publicHtmlFiles(root)){const p=path.join(root,file),s=fs.readFileSync(p,'utf8'),u=normalizeSiteHeader(s,file);if(u!==s){fs.writeFileSync(p,u,'utf8');count++;}}console.log('共通ヘッダー同期: '+count+'ページ更新');}
+export function collectHeaderIssues(root){const issues=[];for(const f of publicHtmlFiles(root)){const s=fs.readFileSync(path.join(root,f),'utf8');if(isRedirectPage(s))continue;try{if(normalizeSiteHeader(s,f)!==s)issues.push(f+': 共通ヘッダー不一致');}catch(e){issues.push(e.message);}}const t=fs.readFileSync(path.join(root,'tools/templates/watch-note.html'),'utf8');if(!t.includes('{{SITE_HEADER}}')||!t.includes('{{SITE_HEADER_CSS_LINK}}'))issues.push('記事テンプレート: 共通ヘッダー未接続');return issues;}

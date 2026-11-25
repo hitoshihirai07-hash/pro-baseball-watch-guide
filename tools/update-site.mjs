@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {syncSiteHeaders} from './sync-site-header.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -324,4 +325,5 @@ generateWatchNotes(data);
 generateArticlesIndex(data);
 generateSitemap(data);
 generateFeed(data);
+syncSiteHeaders(ROOT);
 console.log(`記事データ ${data.articles.length}件からトップ・巨人ページ・一覧・RSS・サイトマップを更新しました。`);

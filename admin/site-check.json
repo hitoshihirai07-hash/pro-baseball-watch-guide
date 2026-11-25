@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-19T11:41:52.859Z",
+  "generatedAt": "2026-11-25T03:52:23.638Z",
   "status": "ok",
   "summary": {
-    "pages": 104,
-    "articles": 92,
+    "pages": 106,
+    "articles": 94,
     "watchNotes": 46,
     "errors": 0,
     "warnings": 0
@@ -13,7 +13,7 @@
     {
       "label": "内部リンク・画像・CSS・JavaScript",
       "status": "ok",
-      "detail": "104ページの参照先を確認しました。",
+      "detail": "106ページの参照先を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -27,7 +27,7 @@
     {
       "label": "記事データとHTML",
       "status": "ok",
-      "detail": "92件の記事データとHTMLを照合しました。",
+      "detail": "94件の記事データとHTMLを照合しました。",
       "count": 0,
       "samples": []
     },
@@ -41,7 +41,7 @@
     {
       "label": "title・description・canonical",
       "status": "ok",
-      "detail": "102ページの基本メタ情報を確認しました。",
+      "detail": "104ページの基本メタ情報を確認しました。",
       "count": 0,
       "samples": []
     },
@@ -55,7 +55,7 @@
     {
       "label": "サイトマップ",
       "status": "ok",
-      "detail": "92件の記事URLを確認しました。",
+      "detail": "94件の記事URLを確認しました。",
       "count": 0,
       "samples": []
     },
@@ -70,6 +70,13 @@
       "label": "管理画面の検索除外",
       "status": "ok",
       "detail": "2ページをnoindexで保護しています。",
+      "count": 0,
+      "samples": []
+    },
+    {
+      "label": "共通ヘッダー・ナビゲーション",
+      "status": "ok",
+      "detail": "公開ページと記事テンプレートを確認しました。",
       "count": 0,
       "samples": []
     }

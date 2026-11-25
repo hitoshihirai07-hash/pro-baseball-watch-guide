@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {collectHeaderIssues} from './sync-site-header.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -183,6 +184,8 @@ checks.push(check(
   adminNoindexIssues
 ));
 
+const headerIssues = collectHeaderIssues(ROOT);
+checks.push(check('共通ヘッダー・ナビゲーション',headerIssues.length?'error':'ok',headerIssues.length?`${headerIssues.length}件の不一致があります。`:'公開ページと記事テンプレートを確認しました。',headerIssues.length,headerIssues));
 const status = checks.some((item) => item.status === 'error')
   ? 'error'
   : checks.some((item) => item.status === 'warning') ? 'warning' : 'ok';
