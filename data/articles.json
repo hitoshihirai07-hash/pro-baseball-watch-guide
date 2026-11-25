@@ -3498,6 +3498,78 @@
       "sitemap": true
     },
     {
+      "type": "article",
+      "path": "/articles/bench-first-game-guide",
+      "source": "articles/bench-first-game-guide.html",
+      "slug": "bench-first-game-guide",
+      "title": "野球の監督になって采配を楽しもう！「ベンチからの一手」の遊び方とゲーム紹介",
+      "listTitle": "野球采配ゲーム「ベンチからの一手」とは？遊び方・楽しみ方を紹介",
+      "description": "無料の野球采配ゲーム「ベンチからの一手」を紹介。代打・継投・走塁などの楽しみ方、スマホ・PCでの遊び方、共通のお題や自由シナリオ、最近の更新内容をわかりやすく案内します。",
+      "listDescription": "代打か続投か？監督になって終盤の采配を選ぶ無料ブラウザゲーム。初めての遊び方、自由シナリオ、同条件での再挑戦を紹介します。",
+      "category": "ゲーム・特集",
+      "group": "watch-guide",
+      "published": "2026-11-21",
+      "updated": "2026-11-21",
+      "keywords": [
+        "ベンチからの一手",
+        "野球采配ゲーム",
+        "野球 ゲーム 無料",
+        "監督 野球 ゲーム",
+        "野球 ゲーム スマホ",
+        "代打 継投 采配",
+        "自由シナリオ",
+        "野球采配"
+      ],
+      "tags": [
+        "baseball-game",
+        "tactics"
+      ],
+      "badges": [
+        "野球采配ゲーム",
+        "遊び方"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "article",
+      "path": "/articles/geneki-draft-2026",
+      "source": "articles/geneki-draft-2026.html",
+      "slug": "geneki-draft-2026",
+      "title": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
+      "listTitle": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
+      "description": "2026年のプロ野球現役ドラフトは12月9日開催。対象選手の条件、指名順、2巡目の仕組み、2026年のルール変更を解説。細川成也、大竹耕太郎、田中瑛斗ら歴代移籍選手の活躍も成績から紹介します。",
+      "listDescription": "12月9日開催の現役ドラフト2026。制度の仕組みや対象選手、今年のルール変更を解説し、過去の移籍選手の活躍をデータから振り返ります。",
+      "category": "制度解説",
+      "group": "game-view",
+      "published": "2026-11-24",
+      "updated": "2026-11-24",
+      "keywords": [
+        "プロ野球 現役ドラフト 2026",
+        "現役ドラフト とは",
+        "現役ドラフト 仕組み",
+        "現役ドラフト 条件",
+        "現役ドラフト いつ",
+        "現役ドラフト 対象選手",
+        "現役ドラフト 指名順",
+        "現役ドラフト ルール",
+        "現役ドラフト 中継",
+        "現役ドラフト 歴代",
+        "現役ドラフト 活躍"
+      ],
+      "tags": [
+        "active-draft"
+      ],
+      "badges": [
+        "2026年",
+        "現役ドラフト",
+        "制度解説"
+      ],
+      "search": true,
+      "sitemap": true,
+      "order": 0
+    },
+    {
       "type": "recommendation",
       "path": "/articles/baseball-watching-useful-goods",
       "source": "articles/baseball-watching-useful-goods.html",
@@ -3619,78 +3691,6 @@
       "badges": [
         "観戦グッズ",
         "Amazon"
-      ],
-      "search": true,
-      "sitemap": true,
-      "order": 0
-    },
-    {
-      "type": "article",
-      "path": "/articles/bench-first-game-guide",
-      "source": "articles/bench-first-game-guide.html",
-      "slug": "bench-first-game-guide",
-      "title": "野球の監督になって采配を楽しもう！「ベンチからの一手」の遊び方とゲーム紹介",
-      "listTitle": "野球采配ゲーム「ベンチからの一手」とは？遊び方・楽しみ方を紹介",
-      "description": "無料の野球采配ゲーム「ベンチからの一手」を紹介。代打・継投・走塁などの楽しみ方、スマホ・PCでの遊び方、共通のお題や自由シナリオ、最近の更新内容をわかりやすく案内します。",
-      "listDescription": "代打か続投か？監督になって終盤の采配を選ぶ無料ブラウザゲーム。初めての遊び方、自由シナリオ、同条件での再挑戦を紹介します。",
-      "category": "ゲーム・特集",
-      "group": "watch-guide",
-      "published": "2026-11-21",
-      "updated": "2026-11-21",
-      "keywords": [
-        "ベンチからの一手",
-        "野球采配ゲーム",
-        "野球 ゲーム 無料",
-        "監督 野球 ゲーム",
-        "野球 ゲーム スマホ",
-        "代打 継投 采配",
-        "自由シナリオ",
-        "野球采配"
-      ],
-      "tags": [
-        "baseball-game",
-        "tactics"
-      ],
-      "badges": [
-        "野球采配ゲーム",
-        "遊び方"
-      ],
-      "search": true,
-      "sitemap": true
-    },
-    {
-      "type": "article",
-      "path": "/articles/geneki-draft-2026",
-      "source": "articles/geneki-draft-2026.html",
-      "slug": "geneki-draft-2026",
-      "title": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
-      "listTitle": "【2026年】プロ野球の現役ドラフトとは？開催日・仕組み・対象選手・ルール変更を解説",
-      "description": "2026年のプロ野球現役ドラフトは12月9日開催。対象選手の条件、指名順、2巡目の仕組み、2026年のルール変更を解説。細川成也、大竹耕太郎、田中瑛斗ら歴代移籍選手の活躍も成績から紹介します。",
-      "listDescription": "12月9日開催の現役ドラフト2026。制度の仕組みや対象選手、今年のルール変更を解説し、過去の移籍選手の活躍をデータから振り返ります。",
-      "category": "制度解説",
-      "group": "game-view",
-      "published": "2026-11-24",
-      "updated": "2026-11-24",
-      "keywords": [
-        "プロ野球 現役ドラフト 2026",
-        "現役ドラフト とは",
-        "現役ドラフト 仕組み",
-        "現役ドラフト 条件",
-        "現役ドラフト いつ",
-        "現役ドラフト 対象選手",
-        "現役ドラフト 指名順",
-        "現役ドラフト ルール",
-        "現役ドラフト 中継",
-        "現役ドラフト 歴代",
-        "現役ドラフト 活躍"
-      ],
-      "tags": [
-        "active-draft"
-      ],
-      "badges": [
-        "2026年",
-        "現役ドラフト",
-        "制度解説"
       ],
       "search": true,
       "sitemap": true,
