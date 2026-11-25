@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-24",
+  "updated": "2026-11-25",
   "articles": [
     {
       "type": "watch-note",
@@ -3568,6 +3568,51 @@
       "search": true,
       "sitemap": true,
       "order": 0
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/kazuyuki-takemaru-rookie-2026",
+      "source": "watch-notes/kazuyuki-takemaru-rookie-2026.html",
+      "contentSource": "content/watch-notes/kazuyuki-takemaru-rookie-2026.json",
+      "slug": "kazuyuki-takemaru-rookie-2026",
+      "title": "【選手フォーカス】竹丸和幸｜開幕投手から11勝、2026年新人王に輝いた巨人の背番号21",
+      "listTitle": "【選手フォーカス】竹丸和幸｜開幕投手から11勝、2026年新人王に輝いた巨人の背番号21",
+      "description": "2026年セ・リーグ新人王に輝いた巨人・竹丸和幸。ドラフト1位指名、球団史上初の新人開幕戦勝利、阪神との大一番、チーム最多11勝、侍ジャパン選出まで、背番号21のプロ1年目を振り返ります。",
+      "listDescription": "開幕投手からチーム最多11勝、新人王へ。登録抹消からの復活と優勝争いの大一番を中心に、竹丸和幸のプロ1年目を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-25",
+      "updated": "2026-11-25",
+      "keywords": [
+        "竹丸和幸",
+        "新人王",
+        "巨人",
+        "開幕投手",
+        "2026年",
+        "11勝",
+        "選手フォーカス"
+      ],
+      "tags": [
+        "giants",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "選手・起用"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "規定投球回到達と奪三振能力の維持",
+        "中6日での先発ローテーション定着",
+        "年間を通したコンディション維持"
+      ],
+      "nextPointLabels": [
+        "投球内容で注目する点",
+        "起用で注目する点",
+        "次のシーズンに期待する点"
+      ],
+      "search": true,
+      "sitemap": true
     },
     {
       "type": "recommendation",
