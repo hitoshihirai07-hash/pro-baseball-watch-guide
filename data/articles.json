@@ -1,7 +1,7 @@
 {
   "site": "プロ野球観戦メモ",
   "baseUrl": "https://pro-baseball-watch-guide.com",
-  "updated": "2026-11-25",
+  "updated": "2026-11-27",
   "articles": [
     {
       "type": "watch-note",
@@ -3609,6 +3609,51 @@
       "nextPointLabels": [
         "投球内容で注目する点",
         "起用で注目する点",
+        "次のシーズンに期待する点"
+      ],
+      "search": true,
+      "sitemap": true
+    },
+    {
+      "type": "watch-note",
+      "path": "/watch-notes/shunsuke-urata-rookie-special-2026",
+      "source": "watch-notes/shunsuke-urata-rookie-special-2026.html",
+      "contentSource": "content/watch-notes/shunsuke-urata-rookie-special-2026.json",
+      "slug": "shunsuke-urata-rookie-special-2026",
+      "title": "【選手フォーカス】浦田俊輔｜36盗塁と堅守で飛躍、2026年新人特別賞に輝いた巨人の背番号32",
+      "listTitle": "【選手フォーカス】浦田俊輔｜36盗塁と堅守で飛躍、2026年新人特別賞に輝いた巨人の背番号32",
+      "description": "2026年セ・リーグ新人特別賞を受賞した巨人・浦田俊輔。ドラフト2位入団、1年目の土台作り、プロ2年目での規定打席到達と36盗塁、二塁を中心とした堅守、右肘の負傷離脱と2027年への期待まで、背番号32の飛躍を振り返ります。",
+      "listDescription": "規定打席到達と球団18年ぶりの36盗塁、二塁を中心とした堅守で新人特別賞を受賞。右肘の負傷離脱も含め、浦田俊輔の2026年の飛躍を振り返ります。",
+      "category": "観戦メモ",
+      "group": "watch-notes",
+      "published": "2026-11-27",
+      "updated": "2026-11-27",
+      "keywords": [
+        "浦田俊輔",
+        "新人特別賞",
+        "巨人",
+        "36盗塁",
+        "2026年",
+        "二塁手",
+        "選手フォーカス"
+      ],
+      "tags": [
+        "giants",
+        "player-usage"
+      ],
+      "badges": [
+        "巨人戦",
+        "選手・起用"
+      ],
+      "articleType": "選手について感じたこと",
+      "nextPoints": [
+        "出塁率の向上と1番打者としての定着",
+        "盗塁王への挑戦と内野ポジション争い",
+        "右肘の回復と年間を通した完走"
+      ],
+      "nextPointLabels": [
+        "打撃で注目する点",
+        "走塁・守備で注目する点",
         "次のシーズンに期待する点"
       ],
       "search": true,
